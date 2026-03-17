@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@400;600;700&display=swap');
+
+.todays-menu-section {
+  padding: 60px 20px;
+  background-color: #f4fbef; 
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu-heading {
+  font-family: 'Lobster', cursive;
+  font-size: 3.5rem;
+  color: #1a1a1a;
+  margin-bottom: 40px;
+}
+
+.tm-grid {
+  display: flex;
+  gap: 20px; /* Thoda gap Special menu jaisa match karne ke liye */
+  max-width: 1100px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+/* --- The Card (Matched to Special Menu Width) --- */
+.tm-card {
+  width: 250px; /* Exactly special menu ke barabar */
+  height: 320px; /* Full height design */
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+
+/* --- Full Height Image --- */
+.tm-bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* --- Gradient Overlay (Apke source CSS se) --- */
+.tm-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 60%);
+  opacity: 0;
+  z-index: 2;
+  transition: opacity 0.5s ease;
+}
+
+/* --- Top Seller Tag --- */
+.tm-tag {
+  position: absolute;
+  top: -40px; /* Hidden initially */
+  left: 0;
+  background: #fdbf2d;
+  color: #fff;
+  border-radius: 0 0 10px 0;
+  padding: 5px 12px;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  z-index: 4;
+  transition: top 0.5s ease;
+}
+
+/* --- Hover Content Wrapper (Name, Price & Button) --- */
+.tm-hover-content {
+  position: absolute;
+  bottom: -90px; /* Aapke CSS ke hisaab se initially hidden */
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between; /* Name left me, Cart right me */
+  align-items: flex-end; /* Text bottom align rahega */
+  z-index: 3;
+  transition: bottom 0.5s ease;
+}
+
+/* --- Name & Price (Left Side) --- */
+.tm-info-left {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.tm-title {
+  color: #fff;
+  font-size: 22px;
+  margin: 0 0 4px 0;
+  font-weight: 700;
+}
+
+.tm-price {
+  color: #fdbf2d;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* --- Cart Icon (Right Side) --- */
+.tm-cart-btn {
+  background: #fff;
+  color: #222;
+  border: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.tm-cart-btn:hover {
+  background: #7cb342;
+  color: #fff;
+}
+
+/* =========================================
+   ACTIVE / HOVER STATES (Controlled by React)
+   ========================================= */
+
+.tm-card.active .tm-overlay {
+  opacity: 1;
+}
+
+.tm-card.active .tm-tag {
+  top: 0;
+}
+
+.tm-card.active .tm-hover-content {
+  bottom: 0; /* -90px se upar aakar set ho jayega */
+}
+
+/* --- See All Button --- */
+.see-all-btn {
+  background-color: #7cb342;
+  color: #ffffff;
+  border: none;
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.see-all-btn:hover {
+  background-color: #689f38;
+}
+
+/* Make sure the main section is relative to hold the absolute image */
+.todays-menu-section {
+  position: relative; 
+  /* agar image body ke bahar jaye toh 'overflow: hidden;' lagana pad sakta hai, par aapke source code ke hisaab se abhi open rakhte hain */
+  z-index: 1; 
+}
+
+/* Taki text aur cards image ke upar rahein */
+.menu-heading, .tm-grid, .see-all-btn {
+  position: relative;
+  z-index: 10;
+}
+
+/* =========================================
+   BACKGROUND DECORATION (Aapki CSS Logic)
+   ========================================= */
+
+.tm-bg2 {
+    position: absolute;
+    top: 100px;
+    right: 40px;
+    z-index: 0; /* Keep behind cards */
+    /* Agar image ki thodi floating animation chahiye (jaise pichli baar), toh yahan laga sakte hain */
+}
+
+/* Responsive Logic Exactly as you provided */
+@media only screen and (max-width: 1680px) {
+    .tm-bg2 {
+        top: 90px;
+        right: 15px;
+    }
+}
+
+@media only screen and (max-width: 1480px) {
+    .tm-bg2 {
+        top: 28px;
+        right: 0;
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+    .tm-bg2 {
+        display: none;
+    }
+}

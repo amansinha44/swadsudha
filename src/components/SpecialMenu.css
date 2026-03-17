@@ -1,0 +1,269 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@400;600;700&display=swap');
+
+.special-menu-section {
+  padding: 80px 20px;
+  background-color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  /* Ye 2 line bohot zaroori hain background images ke liye */
+  position: relative; 
+  overflow: hidden; 
+}
+
+/* --- Decorative Background Images --- */
+.decor-img {
+  position: absolute;
+  z-index: 0; /* Cards ke piche rakhne ke liye */
+  opacity: 0.8; /* Halka sa transparent taaki text disturb na ho */
+}
+
+.decor-left {
+  width: 350px;
+  left: -120px; /* Adha screen ke bahar */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.decor-right {
+  width: 180px;
+  right: -20px;
+  top: 15%;
+  transform: rotate(-15deg); /* Halka sa tedha (tilt) */
+}
+
+/* --- Ensure Content Stays Above Background --- */
+.section-title, .menu-container {
+  position: relative;
+  z-index: 10; /* Text aur Cards ko piche wali images se upar rakhne ke liye */
+}
+
+.section-title {
+  font-family: 'Lobster', cursive;
+  font-size: 3.5rem;
+  color: #222;
+  margin-bottom: 50px;
+}
+
+.menu-container {
+  display: flex;
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* --- Card Base --- */
+.menu-card {
+  width: 250px;
+  background: #ffffff;
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  position: relative;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-card:hover {
+  background: #fafafa;
+  box-shadow: 0 10px 25px rgba(124, 179, 66, 0.2);
+  border: 1px solid #7cb342;
+}
+
+/* --- Deep "U" Curve --- */
+.card-top-curve {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 160px;
+  background-color: #f2f5f7;
+  clip-path: ellipse(75% 90% at 50% 0%); 
+  transition: background-color 0.4s ease;
+  z-index: 1;
+}
+
+.menu-card:hover .card-top-curve {
+  background-color: #7cb342; 
+}
+
+/* --- Image & Infinite Rotation --- */
+.image-wrapper {
+  position: relative;
+  width: 130px; 
+  height: 130px;
+  margin: 45px auto 0;
+  z-index: 2;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.food-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 6px solid #fff;
+  position: relative;
+  z-index: 3;
+}
+
+.menu-card:hover .food-image {
+  animation: continuousSpin 8s linear infinite; 
+}
+
+@keyframes continuousSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* --- SVG Ring --- */
+.ring-container {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  width: 146px; 
+  height: 146px;
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.rotating-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.track-circle {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 2;
+}
+
+.progress-circle {
+  fill: none;
+  stroke: #7cb342;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: 0 301;
+  transition: stroke-dasharray 0.5s ease;
+}
+
+.yellow-dot {
+  fill: #fdbf2d;
+  stroke: #fff;
+  stroke-width: 1px;
+}
+
+.menu-card:hover .ring-container {
+  opacity: 1;
+  visibility: visible;
+  animation: spinSvg 3s linear infinite;
+}
+
+.menu-card:hover .progress-circle {
+  stroke-dasharray: 180 301;
+}
+
+@keyframes spinSvg {
+  100% { transform: rotate(270deg); }
+}
+
+/* --- Content Styling --- */
+.card-content {
+  padding: 15px 20px 20px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.food-name {
+  font-size: 20px;
+  color: #1a202c; 
+  margin: 10px 0 5px;
+  font-weight: 700;
+}
+
+.food-desc {
+  font-size: 13px;
+  color: #718096;
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+.food-price {
+  font-size: 18px;
+  color: #7cb342;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+/* --- Button Text Slide Animation --- */
+.add-cart-btn {
+  background-color: #7cb342;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 0;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative; 
+  overflow: hidden; 
+  transition: background-color 0.3s ease;
+}
+
+.add-cart-btn:hover {
+  background-color: #689f38;
+}
+
+.btn-text-main {
+  display: block;
+  width: 100%;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-text-hover {
+  position: absolute;
+  top: 50%;
+  left: 100%; 
+  transform: translateY(-50%);
+  width: 100%;
+  transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.add-cart-btn:hover .btn-text-main {
+  transform: translateX(-100%); 
+}
+
+.add-cart-btn:hover .btn-text-hover {
+  left: 0; 
+}
+
+/* --- Left Image Update --- */
+.decor-left {
+  width: 350px;
+  left: -120px;
+  top: 50%;
+  /* transform: translateY(-50%); <-- Isko hata kar niche wali line lagani hai */
+  animation: floatUpDown 5s ease-in-out infinite; /* 5 seconds ka smooth loop */
+}
+
+/* --- Add this at the bottom of your CSS file --- */
+@keyframes floatUpDown {
+  0% {
+    transform: translateY(-50%);
+  }
+  50% {
+    /* Base position se 20px upar jayega smooth transition ke sath */
+    transform: translateY(calc(-50% - 20px)); 
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}

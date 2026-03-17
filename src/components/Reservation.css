@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@300;400;500;600&display=swap');
+
+.reservation-section {
+  position: relative;
+  padding: 50px 20px;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Creates the Parallax Effect mentioned in your HTML */
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Dark Overlay to make white text readable over the image */
+.res-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Thoda transparency adjust ki hai blur ke hisaab se */
+  
+  /* Yahi magic lines hain jo piche ki image ko blur karengi */
+  backdrop-filter: blur(5px); 
+  -webkit-backdrop-filter: blur(5px); /* Safari browser ke support ke liye */
+  
+  z-index: 1;
+}
+
+.relative-z {
+  position: relative;
+  z-index: 2;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-head {
+  margin-bottom: 50px;
+}
+
+.section-head .title {
+  font-family: 'Lobster', cursive;
+  font-size: 3.5rem;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+/* --- Form Layout --- */
+.res-form {
+  width: 100%;
+}
+
+.res-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px; /* Compensate for col padding */
+}
+
+.res-col {
+  width: 33.3333%; /* 3 columns per row on desktop */
+  padding: 0 15px;
+  margin-bottom: 40px;
+}
+
+/* --- Input Line Styling (The Core Design from Image) --- */
+.input-line {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Thin slightly transparent white line */
+  padding-bottom: 10px;
+  transition: border-color 0.3s ease;
+}
+
+/* Change border color on hover/focus */
+.input-line:hover,
+.input-line:focus-within {
+  border-bottom-color: #7cb342; /* Primary Green */
+}
+
+.input-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.7); /* Slightly dim white icon */
+  margin-right: 15px;
+  width: 25px;
+  transition: color 0.3s ease;
+}
+
+.input-line:focus-within .input-icon {
+  color: #7cb342; /* Icon turns green on focus */
+}
+
+.form-control {
+  background: transparent;
+  border: none;
+  width: 100%;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Custom Select styling to make it look like a normal input */
+select.form-control.custom-select {
+  appearance: none; /* Removes default OS dropdown arrow */
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.6); /* Match placeholder color initially */
+}
+
+/* Change text color to full white when an option is selected */
+select.form-control.custom-select:valid {
+  color: #ffffff;
+}
+
+/* Styling the dropdown options (browser native usually handles this, but forcing dark bg is safe) */
+select.form-control option {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  padding: 10px;
+}
+
+/* Changing native date/time picker icon colors to white (Webkit browsers) */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
+/* --- Submit Button Section --- */
+.res-submit-col {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.btn-book-table {
+  background-color: #ffffff; /* White background as requested in HTML btn-white */
+  color: #1a1a1a; /* Dark text */
+  border: none;
+  padding: 15px 40px;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.btn-book-table:hover {
+  background-color: #7cb342; /* Turns green on hover */
+  color: #ffffff;
+  box-shadow: 0 10px 20px rgba(124, 179, 66, 0.3);
+}
+
+/* --- Responsive Adjustments --- */
+@media only screen and (max-width: 991px) {
+  .res-col {
+    width: 50%; /* 2 columns on tablets */
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .res-col {
+    width: 100%; /* 1 column on mobile */
+  }
+}

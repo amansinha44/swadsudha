@@ -1,0 +1,337 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary: #7cb342; 
+    --title: #ffffff;
+}
+
+/* =========================================
+   MAP SECTION
+   ========================================= */
+.footer-map-section {
+    width: 100%;
+    line-height: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.footer-map-section iframe {
+    width: 100%;
+    height: 400px;
+    filter: grayscale(15%);
+}
+
+/* =========================================
+   FOOTER BASE & LAYOUT
+   ========================================= */
+.site-footer {
+    background-color: #1a1a1a;
+    position: relative;
+    font-family: 'Poppins', sans-serif;
+    color: #cccccc;
+    z-index: 2;
+    /* 🔴 OVERFLOW HIDDEN HATA DIYA HAI TAAKI FORM MAP PAR JAA SAKE */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.relative-z {
+    position: relative;
+    z-index: 10;
+}
+
+.footer-top {
+    padding-top: 85px;
+    padding-bottom: 40px;
+    position: relative;
+    z-index: 2;
+}
+
+.footer-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+}
+
+.footer-col {
+    padding: 0 15px;
+    margin-bottom: 30px;
+    box-sizing: border-box;
+}
+
+/* Custom Grid Widths */
+.col-form-card { width: 41.666%; }
+.col-contact-info { width: 25%; }
+.col-links { width: 16.666%; }
+
+/* =========================================
+   COLUMN 1: GREEN FORM CARD (.dz-form-card)
+   ========================================= */
+.dz-form-card {
+    background-color: var(--primary);
+    padding: 40px;
+    border-radius: 10px;
+    color: #ffffff;
+    box-shadow: 0 15px 40px rgba(124, 179, 66, 0.4);
+    position: relative;
+    z-index: 10;
+    /* 🔴 THE MAGIC TRICK: Pulls the card up over the map */
+    margin-top: -350px; 
+}
+
+.dz-form-card .section-head {
+    margin-bottom: 30px;
+}
+
+.dz-form-card .title {
+    font-family: 'Lobster', cursive;
+    font-size: 32px;
+    color: #ffffff;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+
+.dz-form-card p {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.dz-form-card .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+}
+
+.dz-form-card .col-12 {
+    width: 100%;
+    padding: 0 10px;
+    margin-bottom: 20px;
+}
+
+.input-line .form-control {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    color: #ffffff;
+    padding: 10px 0;
+    font-size: 15px;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+    transition: border-color 0.3s ease;
+}
+
+.input-line .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.input-line .form-control:focus {
+    border-bottom-color: #ffffff;
+}
+
+.input-line textarea.form-control {
+    resize: none;
+    height: 80px;
+}
+
+.btn-white {
+    background-color: #ffffff;
+    color: var(--primary);
+    border: none;
+    padding: 14px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.btn-white:hover {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+/* =========================================
+   COLUMN 2: CONTACT INFO (.widget_getintuch)
+   ========================================= */
+.footer-title {
+    margin: 0 0 30px 0 !important;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.1;
+    letter-spacing: .01em;
+    text-transform: uppercase;
+    color: #ffffff;
+}
+
+.widget_getintuch ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.widget_getintuch ul li {
+    display: flex;
+    margin-bottom: 25px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #aaaaaa;
+}
+
+.widget_getintuch ul li i {
+    color: var(--primary);
+    font-size: 20px;
+    margin-right: 15px;
+    margin-top: 5px;
+}
+
+.widget_getintuch ul li p {
+    margin: 0;
+}
+
+/* =========================================
+   COLUMNS 3 & 4: LINKS (.widget_services)
+   ========================================= */
+.widget_services ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.widget_services ul li {
+    padding: 0 0 15px;
+    transition: all .5s;
+}
+
+.widget_services ul li a {
+    color: #cccccc;
+    font-weight: 400;
+    text-decoration: none;
+    font-size: 15px;
+    display: block;
+    transition: all .5s;
+}
+
+.widget_services ul li a:hover {
+    color: var(--primary);
+    padding-left: 5px; 
+}
+
+/* =========================================
+   FOOTER BOTTOM
+   ========================================= */
+.footer-bottom {
+    padding: 20px 0;
+    border-top: 1px solid rgba(255,255,255,.1);
+    position: relative;
+    z-index: 1;
+}
+
+.footer-bottom-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.footer-bottom p {
+    font-weight: 400;
+    font-size: 15px;
+    color: #999;
+    margin: 0;
+}
+
+.copyright-text {
+    color: #999;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.copyright-text a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.text-danger {
+    color: #e74c3c;
+}
+
+/* =========================================
+   BACKGROUND DECORATION IMAGES
+   ========================================= */
+.site-footer .bg1, .site-footer .bg2 {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.site-footer .bg1 {
+    left: 0;
+    bottom: 10px;
+}
+
+.site-footer .bg2 {
+    right: 10px;
+    top: 15px;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN
+   ========================================= */
+@media only screen and (max-width: 1480px) {
+    .site-footer .bg1, .site-footer .bg2 {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+    .footer-top {
+        padding-top: 80px;
+        padding-bottom: 40px;
+    }
+    .footer-title {
+        font-size: 20px;
+        margin-bottom: 20px !important;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .footer-top {
+        padding-bottom: 20px;
+    }
+    .col-form-card, .col-contact-info {
+        width: 100%;
+        margin-bottom: 40px;
+    }
+    /* Mobile par overlap thoda kam kar diya taaki space bache */
+    .dz-form-card {
+        margin-top: -80px; 
+    }
+    .col-links {
+        width: 50%;
+    }
+    .footer-bottom-row {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .footer-top {
+        padding-top: 60px;
+    }
+    .col-links {
+        width: 100%;
+    }
+    .dz-form-card {
+        padding: 30px 20px;
+    }
+}
+

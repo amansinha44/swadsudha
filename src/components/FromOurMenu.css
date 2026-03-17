@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@400;600;700&display=swap');
+
+/* Section ko compact banaya (padding kam ki) */
+.from-our-menu-section {
+  padding: 40px 30px; 
+  background-color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1150px; /* Purane sections ke hisab se width lock ki */
+  margin: 0 auto;
+}
+
+.section-head {
+  margin-bottom: 40px; 
+}
+
+.section-head .title {
+  font-family: 'Lobster', cursive;
+  font-size: 3.5rem; 
+  color: #1a1a1a;
+  margin: 0;
+}
+
+/* --- Wrapper for Slider & Buttons --- */
+.fom-slider-wrapper {
+  position: relative;
+  padding: 0 50px; /* Space for buttons on left and right */
+}
+
+/* --- Strictly 250px Width Cards --- */
+/* Swiper.js overrides inline styles often, so we use !important */
+.fom-slide {
+  width: 250px !important; 
+  height: 320px !important; /* Fixed height match karne ke liye */
+}
+
+.fom-card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+
+/* --- Image & Overlay --- */
+.fom-bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.fom-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 60%);
+  opacity: 0;
+  z-index: 2;
+  transition: opacity 0.5s ease;
+}
+
+/* --- Tags & Hover Content --- */
+.fom-tag {
+  position: absolute;
+  top: -40px; 
+  left: 0;
+  background: #fdbf2d;
+  color: #fff;
+  border-radius: 0 0 10px 0;
+  padding: 5px 12px;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  z-index: 4;
+  transition: top 0.5s ease;
+}
+
+.fom-hover-content {
+  position: absolute;
+  bottom: -90px;
+  left: 0;
+  width: 100%;
+  padding: 15px 20px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  z-index: 3;
+  transition: bottom 0.5s ease;
+}
+
+.fom-info { text-align: left; }
+.fom-title { color: #fff; font-size: 20px; margin: 0 0 4px 0; font-weight: 700; }
+.fom-price { color: #fdbf2d; font-size: 16px; font-weight: 700; }
+
+.fom-cart-btn {
+  background: #fff;
+  color: #222;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.fom-cart-btn:hover { background: #7cb342; color: #fff; }
+
+/* HOVER EFFECTS */
+.fom-card:hover .fom-overlay { opacity: 1; }
+.fom-card:hover .fom-tag { top: 0; }
+.fom-card:hover .fom-hover-content { bottom: 0; }
+
+/* =========================================
+   SIDE NAVIGATION ARROWS (Fancier Design)
+   ========================================= */
+
+.btn-prev-long, .btn-next-long {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 45px;
+  height: 45px;
+  background-color: #fff;
+  border-radius: 8px; /* Slightly square-ish look instead of full circle */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15); /* More prominent shadow */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.btn-prev-long { left: 0; } 
+.btn-next-long { right: 0; }
+
+.btn-prev-long.swiper-button-disabled, 
+.btn-next-long.swiper-button-disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn-prev-long:hover:not(.swiper-button-disabled), 
+.btn-next-long:hover:not(.swiper-button-disabled) {
+  background-color: #7cb342; /* Primary Theme Green */
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(124, 179, 66, 0.4); /* Glowing green shadow */
+  transform: translateY(-50%) scale(1.1); /* Slight pop out effect on hover */
+}
