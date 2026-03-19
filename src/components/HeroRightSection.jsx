@@ -25,7 +25,7 @@ const HeroRightSection = () => {
       </div>
 
       {/* SPRINKLE ANIMATION */}
-      <div className="absolute bottom-[60%] lg:bottom-[55%] right-[38%] lg:right-[42%] w-[50px] h-[150px] z-20 pointer-events-none">
+     <div className="absolute bottom-[50%] lg:bottom-[55%] right-[45%] lg:right-[42%] w-[50px] h-[150px] z-20 pointer-events-none">
         <div className="dust-particle w-2.5 h-2.5 left-[10%] top-[0%]" style={{animationDelay: '0s'}}></div>
         <div className="dust-particle w-2 h-2 left-[40%] top-[10%]" style={{animationDelay: '0.3s'}}></div>
         <div className="dust-particle w-3 h-3 left-[20%] top-[30%]" style={{animationDelay: '0.6s'}}></div>
@@ -33,7 +33,6 @@ const HeroRightSection = () => {
         <div className="dust-particle w-2.5 h-2.5 left-[30%] top-[70%]" style={{animationDelay: '1.2s'}}></div>
         <div className="absolute top-[50%] left-[10%] text-xl drop-shadow-md z-40 animate-[magic-dust_4s_linear_infinite]">🌿</div>
       </div>
-
       {/* TABLE BACKGROUND */}
       <div className="absolute bottom-0 inset-x-0 h-[160px] lg:h-[260px] z-20 pointer-events-none overflow-hidden">
         <img src="/table.png" alt="Wooden Table" className="w-full h-full object-cover object-bottom drop-shadow-2xl" />

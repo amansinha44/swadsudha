@@ -280,65 +280,71 @@
 
   /* 1. Title in ONE line */
   .section-title {
-    font-size: 2.0rem; /* Font size chhota kiya taaki ek line me aa jaye */
+    font-size: 2.5rem;
     margin-bottom: 30px;
-    white-space: nowrap; /* Text ko break hone se rokega */
+    white-space: nowrap; 
     overflow: hidden; 
-    text-overflow: ellipsis; /* Agar screen bohot choti hui toh ... dikhayega */
+    text-overflow: ellipsis; 
   }
 
   /* 2. Menu Container to hold 2 cards per row */
   .menu-container {
-    gap: 10px; /* Cards ke beech ka gap kam kiya */
-    justify-content: space-between; /* Space evenly distribute karega */
+    gap: 10px; 
+    justify-content: space-between; 
   }
 
   /* 3. Compact Card Styling (2 in a row) */
   .menu-card {
-    /* 10px gap hai, isliye minus 5px kiya. Agar gap zyada rakhna ho toh isko adjust kar lena */
     width: calc(50% - 5px); 
+    /* Cards ki height equal rakhne ke liye flex use kiya */
+    display: flex;
+    flex-direction: column;
   }
 
-  /* Card Curve adjust */
+  /* Card Curve adjust - Pehle se thoda bada kiya (100px se 110px) */
   .card-top-curve {
-    height: 100px; /* Curve ki height kam ki */
+    height: 110px; 
   }
 
-  /* Image Container Chota kiya */
+  /* Image Container - Thoda aur open space diya margin me (+10px) */
   .image-wrapper {
     width: 80px; 
     height: 80px;
-    margin: 25px auto 0; /* Margin top kam kiya */
+    margin: 35px auto 0; /* 25px se 35px kar diya */
   }
   
   .food-image {
-    border-width: 3px; /* Border patla kiya */
+    border-width: 3px; 
   }
 
-  /* Card Content Padding */
+  /* Card Content Padding - Andar ka space thoda badha diya taaki simta na lage */
   .card-content {
-    padding: 10px 10px 15px;
+    padding: 15px 10px 20px; /* Top aur bottom dono taraf space add ki */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Ye andar ka space bhar dega agar text kam hua toh */
   }
 
   /* Text Adjustments */
   .food-name {
-    font-size: 14px; /* Title chhota kiya */
-    margin: 5px 0;
+    font-size: 14px; 
+    margin: 5px 0 8px; /* Thoda gap add kiya */
   }
 
   .food-desc {
-    display: none; /* Description hata diya taaki card lamba na ho. Agar rakhna ho toh is line ko hata dena aur font-size 10px kar dena */
+    display: none; 
   }
 
   .food-price {
     font-size: 14px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    margin-top: auto; /* Price aur button ko hamesha bottom me push karega */
   }
 
-  /* Button Adjustments */
+  /* Button Adjustments - Thoda height bada kiya taaki tap karne me aasan ho */
   .add-cart-btn {
-    padding: 8px 0;
-    font-size: 12px;
+    padding: 10px 0; /* 8px se 10px kar diya */
+    font-size: 13px;
   }
 
   /* SVG Ring Hidden in Mobile to save space/performance */
@@ -348,7 +354,7 @@
 
   /* Background Images ko chhupaya ya chhota kiya taaki clutter na ho */
   .decor-left, .decor-right {
-      opacity: 0.3; /* Bohot halka kar diya */
+      opacity: 0.3; 
   }
   .decor-left {
       width: 150px;
