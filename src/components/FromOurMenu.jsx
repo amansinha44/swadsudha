@@ -7,12 +7,12 @@ import './FromOurMenu.css';
 
 const FromOurMenu = () => {
   const menuData = [
-    { id: 1, name: 'Tandoor', price: '$15.00', img: './pic_21.jpg' },
-    { id: 2, name: 'Dal Fry', price: '$65.00', img: './pic_22.jpg' },
-    { id: 3, name: 'Burger', price: '$20.00', img: './pic_23.jpg' },
-    { id: 4, name: 'Pasta', price: '$10.00', img: './pic_21.jpg' },
-    { id: 5, name: 'Pizza', price: '$35.00', img: './pic_22.jpg' },
-    { id: 6, name: 'Shake', price: '$12.00', img: './pic_23.jpg' },
+    { id: 1, name: 'Bread Pakauda', price: '₹50.00', img: './117.jpg' },
+    { id: 2, name: 'Dal Fry', price: '₹50.00', img: './pic_11.jpg' },
+    { id: 3, name: 'Matar Mashrom', price: '₹50.00', img: './102.jpg' },
+    { id: 4, name: 'Besan Chilla', price: '₹50.00', img: './109.jpg' },
+    { id: 5, name: 'Aalu Paratha', price: '₹50.00', img: './113.jpg' },
+    { id: 6, name: 'Dal Makhani', price: '₹50.00', img: './122.jpg' },
   ];
 
   return (

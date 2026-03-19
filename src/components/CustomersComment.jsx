@@ -13,19 +13,63 @@ import './CustomersComment.css';
 const CustomersComment = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
+  // 🔴 MAINE AUTHENTIC INDIAN PHOTOS KE LINKS UPDATE KAR DIYE HAIN (2F, 4M)
   const testimonials = [
-    { id: 1, name: 'John Doe', position: 'Food Expert', text: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.", img: './per_1.jpg' },
-    { id: 2, name: 'Jolly Roy', position: 'Food Tester', text: "If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks.", img: './per_2.jpg' },
-    { id: 3, name: 'Thomas Hed', position: 'Food Critic', text: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.", img: './per_3.jpg' },
-    { id: 4, name: 'Kally Mint', position: 'Chef', text: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC. Richard McClintock, a Latin professor.", img: './per_4.jpg' },
-    { id: 5, name: 'Michael Scott', position: 'Food Expert', text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.", img: './per_5.jpg' },
-    { id: 6, name: 'Pam Beesly', position: 'Food Expert', text: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.", img: './per_6.jpg' }
+    { 
+      id: 1, 
+      name: 'Neha Sharma', 
+      position: 'IT Professional', 
+      text: "Bahar ka khana kha ke health kharab ho rahi thi. Inki tiffin service is a lifesaver! Ekdum ghar jaisa taste, kam tel aur hygiene dono perfect hain. Highly recommended!", 
+      // Authentic Indian Female Portrait 1
+      img: 'https://images.unsplash.com/photo-1639148332149-16a7538d3886?q=80&w=600&auto=format&fit=crop' 
+    },
+    { 
+      id: 2, 
+      name: 'Rahul Verma', 
+      position: 'Bank Manager', 
+      text: "Swad Sudha ki sabse achhi baat unki consistency hai. Roz garm aur fresh khana exact time pe milta hai. Inki Dal Tadka is just wow, bilkul maa ke hath jaisi!", 
+      // Authentic Indian Male Portrait 1
+      img: 'https://images.unsplash.com/photo-1634152962476-4b8a00e1915c?q=80&w=600&auto=format&fit=crop' 
+    },
+    { 
+      id: 3, 
+      name: 'Vikram Singh', 
+      position: 'Student', 
+      text: "Hostel ke khane se pareshan tha, phir doston ne ye tiffin try karne ko bola. Portion size is great for the price, aur packaging bahut hi neat hoti hai.", 
+      // Authentic Indian Male Portrait 2
+      img: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=600&auto=format&fit=crop' 
+    },
+    { 
+      id: 4, 
+      name: 'Priya Desai', 
+      position: 'Teacher', 
+      text: "I love how they maintain the quality daily. Ekdum healthy, less spice aur super tasty. Unka weekend special paneer is something my whole family waits for.", 
+      // Authentic Indian Female Portrait 2
+      img: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?q=80&w=600&auto=format&fit=crop' 
+    },
+    { 
+      id: 5, 
+      name: 'Amit Patel', 
+      position: ' Businessman', 
+      text: "Office mein roz bahar ka lunch order karna mehnga aur unhealthy tha. Since I started this tiffin, my digestion has improved. Authentic taste, amazing quality.", 
+      // Authentic Indian Male Portrait 3
+      img: 'https://images.unsplash.com/photo-1628157588553-5eeea00af15c?q=80&w=600&auto=format&fit=crop' 
+    },
+    { 
+      id: 6, 
+      name: 'Rohan Gupta', 
+      position: 'Graphic Designer', 
+      text: "Late night shifts ke baad agle din healthy aur garma-garam khana mil jana is a blessing. Rotiyan hamesha soft rehti hain aur sabzi me oil bilkul limit me hota hai.", 
+      // Authentic Indian Male Portrait 4
+      img: 'https://images.unsplash.com/photo-1632765854612-9b02b6ec2b15?q=80&w=600&auto=format&fit=crop' 
+    }
   ];
 
   return (
     <section className="customers-comment-section">
-      <img className="cc-tamatar-bg" src="./tamatar.png" alt="Tomato Decor" />
-<div className="cc-container">
+      {/* 🔴 decorative timaatar image -- make sure it's in your public/assets/ folder */}
+      <img className="cc-tamatar-bg" src="./assets/tamatar.png" alt="Tomato Decor" />
+      <div className="cc-container">
         <div className="section-head text-center">
           <h2 className="title">Customer's Comment</h2>
         </div>
@@ -44,7 +88,7 @@ const CustomersComment = () => {
             >
               {testimonials.map((item) => (
                 <SwiperSlide key={item.id} className="thumb-slide">
-                  <img src={item.img || `https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&auto=format&fit=crop&q=60&random=${item.id}`} alt={item.name} />
+                  <img src={item.img} alt={item.name} />
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -64,7 +108,7 @@ const CustomersComment = () => {
                   <div className="testimonial-box">
                     
                     <div className="testimonial-text">
-                      <p>{item.text}</p>
+                      <p>"{item.text}"</p>
                     </div>
                     
                     <div className="testimonial-info">

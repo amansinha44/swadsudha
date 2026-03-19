@@ -133,7 +133,7 @@ const Footer = () => {
               </div>
               <div className="footer-bottom-right text-md-end">
                 <span className="copyright-text">
-                  Crafted With <span className="heart text-danger">❤️</span> by <a href="https://dexignzone.com/" target="_blank" rel="noreferrer">DexignZone</a>
+                  Crafted With <span className="heart text-danger">❤️</span> by <a href="#" target="_blank" rel="noreferrer">Made In Lucknow</a>
                 </span>
               </div>
             </div>

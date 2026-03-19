@@ -37,7 +37,7 @@ const Reservation = () => {
       
       <div className="container relative-z">
         <div className="section-head text-center">
-          <h2 className="title text-white">Reservation</h2>
+          <h2 className="title" style={{ color: '#ffffff' }}>Order a Meal</h2>
         </div>
 
         <form className="res-form" onSubmit={handleSubmit}>
@@ -164,7 +164,7 @@ const Reservation = () => {
             {/* Submit Button */}
             <div className="res-submit-col">
               <button type="submit" className="btn-book-table">
-                <span>Book a Table</span>
+                <span>Order Meal</span>
               </button>
             </div>
 

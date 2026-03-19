@@ -7,36 +7,39 @@ const QualityServices = () => {
   const services = [
     {
       id: 1,
-      title: 'Restaurant',
-      desc: 'Lorem ipsum dolor sit amet, dipiscing elit, sed',
-      bgImg: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500&auto=format&fit=crop&q=60',
+      title: 'Free Delivery',
+      desc: 'Taste comes free of cost to you',
+      bgImg: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500&auto=format&fit=crop&q=100',
       icon: (
+        // Delivery Truck Icon
         <svg width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
-          <path d="M7 2v20"></path>
-          <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path>
+          <rect x="1" y="3" width="15" height="13"></rect>
+          <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+          <circle cx="5.5" cy="18.5" r="2.5"></circle>
+          <circle cx="18.5" cy="18.5" r="2.5"></circle>
         </svg>
       )
     },
     {
       id: 2,
-      title: 'Bar',
-      desc: 'Lorem ipsum dolor sit amet, dipiscing elit, sed',
-      bgImg: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=500&auto=format&fit=crop&q=60',
+      title: 'Hygiene',
+      desc: 'We maintain 100% Hygiene. Purity is our gold standard.',
+      bgImg: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=500&auto=format&fit=crop&q=100',
       icon: (
+        // Shield with Checkmark Icon (Represents Safety & Hygiene)
         <svg width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M8 22h8"></path>
-          <path d="M12 11v11"></path>
-          <path d="m19 3-7 8-7-8Z"></path>
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          <path d="m9 12 2 2 4-4"></path>
         </svg>
       )
     },
     {
       id: 3,
       title: 'Cafe',
-      desc: 'Lorem ipsum dolor sit amet, dipiscing elit, sed',
-      bgImg: 'https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=500&auto=format&fit=crop&q=60',
+      desc: 'Occasionally we provide you home made drinks',
+      bgImg: 'https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=500&auto=format&fit=crop&q=100',
       icon: (
+        // Hot Coffee Cup Icon
         <svg width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M17 8h1a4 4 0 1 1 0 8h-1"></path>
           <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"></path>
@@ -49,19 +52,14 @@ const QualityServices = () => {
     {
       id: 4,
       title: 'Dessert',
-      desc: 'Lorem ipsum dolor sit amet, dipiscing elit, sed',
-      bgImg: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=500&auto=format&fit=crop&q=60',
+      desc: 'You will get Mouth Watering Sweet Dish',
+      bgImg: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=500&auto=format&fit=crop&q=100',
       icon: (
+        // Cupcake Icon
         <svg width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"></path>
-          <path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4-2 2 1 2 1"></path>
-          <path d="M2 21h20"></path>
-          <path d="M7 8v3"></path>
-          <path d="M12 8v3"></path>
-          <path d="M17 8v3"></path>
-          <path d="M7 4h.01"></path>
-          <path d="M12 4h.01"></path>
-          <path d="M17 4h.01"></path>
+          <path d="M4.5 12h15l-1.5 9h-12Z"></path>
+          <path d="M4.5 12a7.5 7.5 0 0 1 15 0"></path>
+          <circle cx="12" cy="3" r="1.5"></circle>
         </svg>
       )
     }
@@ -70,10 +68,10 @@ const QualityServices = () => {
   return (
     <section className="quality-services-section">
       
-      {/* 🔴 Background Split (Half tak aayega) */}
+      {/* Background Split (Half tak aayega) */}
       <div className="qs-half-bg"></div>
 
-      {/* 🔴 Left Side Decorative Image */}
+      {/* Left Side Decorative Image */}
       <img 
         src="./seed.png" 
         alt="Left Decor" 
@@ -85,7 +83,7 @@ const QualityServices = () => {
           <h2 className="section-title">Quality Services</h2>
         </div>
 
-        {/* Naya Grid Structure for exactly 250px cards */}
+        {/* Grid Structure */}
         <div className="qs-grid">
           {services.map((item) => (
             <div 

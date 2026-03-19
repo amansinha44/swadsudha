@@ -5,31 +5,31 @@ const SpecialMenu = () => {
   const menuItems = [
     {
       id: 1,
-      name: 'Pizza',
-      desc: 'Lorem ipsum dolor sit amet consectetur adipiscing.',
-      price: '$55.00',
-      img: './pic_16.jpg'
+      name: 'Mushroom Matar',
+      desc: 'Tender Mushrooms and Matar cooked with spicy, tangy tomato-onion gravy.',
+      price: '₹50.00',
+      img: './s50_1.png'
     },
     {
       id: 2,
-      name: 'Rice',
-      desc: 'Lorem ipsum dolor sit amet consectetur adipiscing.',
-      price: '$50.00',
-      img: './pic_17.jpg'
+      name: 'Rajma Masala',
+      desc: 'Swadist masalon aur makkhan ke saath bilkul lajawab banaya gya hai.',
+      price: '₹50.00',
+      img: './s50_2.png'
     },
     {
       id: 3,
-      name: 'Green Salad',
-      desc: 'Lorem ipsum dolor sit amet consectetur adipiscing.',
-      price: '$45.00',
-      img: './pic_18.jpg'
+      name: 'Special Chole',
+      desc: 'Onion-tomato masala aur special spices mein paka huye Special Chole.',
+      price: '₹50.00',
+      img: './s50_3.png'
     },
     {
       id: 4,
-      name: 'Pasta',
-      desc: 'Lorem ipsum dolor sit amet consectetur adipiscing.',
-      price: '$35.00',
-      img: './pic_19.jpg'
+      name: 'Matar Paneer',
+      desc: 'Taza matar aur soft paneer ko rich onion-tomato gravy mein aromatic spices ke saath bna',
+      price: '₹50.00',
+      img: './s50_4.png'
     }
   ];
 
@@ -48,7 +48,7 @@ const SpecialMenu = () => {
         className="decor-img decor-right" 
       />
 
-      <h2 className="section-title">Special Menu</h2>
+      <h2 className="section-title">The ₹ 50: Super Lunch</h2>
       
       <div className="menu-container">
         {menuItems.map((item) => (
