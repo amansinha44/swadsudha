@@ -267,3 +267,98 @@
     transform: translateY(-50%);
   }
 }
+
+
+/* =========================================
+   MOBILE VIEW OPTIMIZATIONS (Max Width: 768px)
+   ========================================= */
+@media screen and (max-width: 768px) {
+  /* Section Padding Reduce */
+  .special-menu-section {
+    padding: 40px 10px;
+  }
+
+  /* 1. Title in ONE line */
+  .section-title {
+    font-size: 2.0rem; /* Font size chhota kiya taaki ek line me aa jaye */
+    margin-bottom: 30px;
+    white-space: nowrap; /* Text ko break hone se rokega */
+    overflow: hidden; 
+    text-overflow: ellipsis; /* Agar screen bohot choti hui toh ... dikhayega */
+  }
+
+  /* 2. Menu Container to hold 2 cards per row */
+  .menu-container {
+    gap: 10px; /* Cards ke beech ka gap kam kiya */
+    justify-content: space-between; /* Space evenly distribute karega */
+  }
+
+  /* 3. Compact Card Styling (2 in a row) */
+  .menu-card {
+    /* 10px gap hai, isliye minus 5px kiya. Agar gap zyada rakhna ho toh isko adjust kar lena */
+    width: calc(50% - 5px); 
+  }
+
+  /* Card Curve adjust */
+  .card-top-curve {
+    height: 100px; /* Curve ki height kam ki */
+  }
+
+  /* Image Container Chota kiya */
+  .image-wrapper {
+    width: 80px; 
+    height: 80px;
+    margin: 25px auto 0; /* Margin top kam kiya */
+  }
+  
+  .food-image {
+    border-width: 3px; /* Border patla kiya */
+  }
+
+  /* Card Content Padding */
+  .card-content {
+    padding: 10px 10px 15px;
+  }
+
+  /* Text Adjustments */
+  .food-name {
+    font-size: 14px; /* Title chhota kiya */
+    margin: 5px 0;
+  }
+
+  .food-desc {
+    display: none; /* Description hata diya taaki card lamba na ho. Agar rakhna ho toh is line ko hata dena aur font-size 10px kar dena */
+  }
+
+  .food-price {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  /* Button Adjustments */
+  .add-cart-btn {
+    padding: 8px 0;
+    font-size: 12px;
+  }
+
+  /* SVG Ring Hidden in Mobile to save space/performance */
+  .ring-container {
+      display: none;
+  }
+
+  /* Background Images ko chhupaya ya chhota kiya taaki clutter na ho */
+  .decor-left, .decor-right {
+      opacity: 0.3; /* Bohot halka kar diya */
+  }
+  .decor-left {
+      width: 150px;
+      left: -80px;
+  }
+}
+
+/* Aur chhote screens ke liye (Extra Small Mobile) */
+@media screen and (max-width: 380px) {
+    .section-title {
+        font-size: 1.5rem;
+    }
+}
