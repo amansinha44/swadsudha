@@ -386,12 +386,12 @@
     .col-links {
         width: 48%; 
         margin-bottom: 20px;
-        text-align: left; /* Pehla column (Help Center) by default left rahega */
+        text-align: right; /* Pehla column (Help Center) by default left rahega */
     }
 
     /* 🔴 NAYA CHANGE: Jo dusra `.col-links` (Our Links) hai, ye sirf usko right karega */
     .col-links ~ .col-links {
-        text-align: right;
+        text-align: left;
     }
 
     .footer-title {
