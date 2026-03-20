@@ -173,3 +173,61 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     width: 100%; /* 1 column on mobile */
   }
 }
+
+
+/* =========================================
+   MOBILE VIEW OPTIMIZATIONS (Max Width: 575px)
+   ========================================= */
+@media only screen and (max-width: 575px) {
+  .reservation-section {
+    padding: 40px 15px; /* Thodi jagah bachane ke liye padding kam ki */
+  }
+
+  /* 1. Title in ONE line */
+  .section-head .title {
+    font-size: 2.25rem; /* Font size chhota kiya taaki ek line mein aaye */
+    white-space: nowrap; /* Text break rokne ke liye */
+  }
+
+  .res-col {
+    width: 100%; 
+    margin-bottom: 25px; /* Columns ke beech ka gap thoda kam kiya */
+  }
+
+  /* 2. Fix Double Line & Make it Prominent */
+  .input-line {
+    /* Main bottom border ko thoda mota (2px) aur zyada visible banaya */
+    border-bottom: 2px solid rgba(255, 255, 255, 0.6); 
+    padding-bottom: 8px; /* Thoda tight kiya */
+  }
+
+  /* Input/Select ke default border ko zabardasti hide kiya taaki double line na bane */
+  .form-control {
+    border: none !important;
+    border-bottom: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  
+  /* Select box sometimes has an outline/border specifically on Android/iOS browsers */
+  select.form-control.custom-select {
+    border: none !important;
+    outline: none !important;
+  }
+
+  /* Icons ko thoda chhota aur align kiya */
+  .input-icon {
+    margin-right: 10px;
+    width: 20px;
+  }
+  .input-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Button full width mobile par achha lagta hai */
+  .btn-book-table {
+    width: 100%;
+    padding: 12px 20px;
+  }
+}

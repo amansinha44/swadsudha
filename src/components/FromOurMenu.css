@@ -164,3 +164,92 @@
   box-shadow: 0 8px 20px rgba(124, 179, 66, 0.4); /* Glowing green shadow */
   transform: translateY(-50%) scale(1.1); /* Slight pop out effect on hover */
 }
+
+
+
+/* =========================================
+   MOBILE VIEW OPTIMIZATIONS (Max Width: 575px) - Premium App Look! 📱
+   ========================================= */
+@media only screen and (max-width: 575px) {
+  .from-our-menu-section {
+    padding: 40px 15px; /* Side padding kam ki taaki slider ko poori jagah mile */
+  }
+
+  .section-head {
+    margin-bottom: 30px; 
+  }
+
+  .section-head .title {
+    font-size: 2.25rem; /* Title ka size ekdum perfect set kiya */
+    text-align: center;
+  }
+
+  /* 1. Wrapper Padding Hata Di - Taaki screen space waste na ho */
+  .fom-slider-wrapper {
+    padding: 0; 
+  }
+
+  /* 2. Arrows Hide Kar Diye - Mobile pe log Swipe karna pasand karte hain */
+  .btn-prev-long, 
+  .btn-next-long {
+    display: none !important; 
+  }
+
+  /* 3. Cards Size Adjust - Thode chhote aur sleek kiye */
+  /* Isse ek screen pe 1 pura aur agla thoda sa dikhega (peek effect) */
+  .fom-slide {
+    width: 200px !important; 
+    height: 270px !important; 
+  }
+
+  /* 4. HOVER FIX FOR MOBILE (Kyunki touch screen pe hover nahi hota) */
+  .fom-overlay {
+    opacity: 1; /* Hamesha halka dark gradient rahega neeche */
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 55%);
+  }
+
+  .fom-tag {
+    top: 0; /* Tag hamesha apni jagah par dikhega */
+    font-size: 10px;
+    padding: 4px 10px;
+  }
+
+  .fom-hover-content {
+    bottom: 0; /* Title, price, button hamesha card ke andar fix rahenge */
+    padding: 12px 15px;
+  }
+
+  /* 5. Typography & Button Adjustments */
+  .fom-title {
+    font-size: 16px;
+    margin-bottom: 2px;
+  }
+
+  .fom-price {
+    font-size: 14px;
+  }
+
+  .fom-cart-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 6px; /* Thoda soft square look */
+  }
+  
+  .fom-cart-btn svg, 
+  .fom-cart-btn i {
+    width: 16px; /* Agar SVG icon hai toh usko bhi chhota kiya */
+    height: 16px;
+    font-size: 14px;
+  }
+}
+
+/* Extra choti screens ke liye thoda aur shrink */
+@media only screen and (max-width: 380px) {
+  .fom-slide {
+    width: 180px !important; 
+    height: 250px !important; 
+  }
+  .fom-title {
+    font-size: 14px;
+  }
+}

@@ -36,17 +36,10 @@
     display: flex;
     flex-wrap: wrap;
     align-items: stretch;
-    /* 🔴 Space Between hata diya taaki columns chipak jayein */
 }
 
-/* 🔴 ZERO GAP: Exact 40% and 60% without minus calculations */
-.cc-col-left {
-    width: 50%; 
-}
-
-.cc-col-right {
-    width: 50%; 
-}
+.cc-col-left { width: 50%; }
+.cc-col-right { width: 50%; }
 
 /* ==============================================================
    LEFT: THUMBS SLIDER 
@@ -73,6 +66,7 @@
     transition: all 0.3s ease;
 }
 
+/* Yahi wo line hai jo mobile pe problem kar rahi thi */
 .testimonial-thumb-slider .swiper-slide:nth-child(n+4) {
     margin-top: 20px !important; 
 }
@@ -104,7 +98,6 @@
     position: relative;
     padding: 40px 50px; 
     height: 100%;
-    /* 🔴 Flat on the Left Side to merge seamlessly with images */
     border-radius: 0 10px 10px 0; 
     display: flex;
     flex-direction: column;
@@ -175,35 +168,137 @@
     z-index: 1;
 }
 
-/* --- Responsive Adjustments --- */
+.cc-tamatar-bg {
+    position: absolute;
+    bottom: -20px; 
+    right: 0;
+    width: 250px; 
+    z-index: 0; 
+    opacity: 0.85; 
+    pointer-events: none; 
+    transform: rotate(-15deg); 
+}
+
+/* ==============================================================
+   RESPONSIVE (Tablet)
+   ============================================================== */
 @media only screen and (max-width: 991px) {
     .cc-col-left, .cc-col-right {
         width: 100%;
     }
     .cc-col-left {
-        margin-bottom: 20px; /* Thoda gap mobile pe jaroori hai */
+        margin-bottom: 20px; 
     }
     .testimonial-box {
-        border-radius: 10px; /* Mobile pe wapas rounded corners */
+        border-radius: 10px; 
     }
-}
-
-/* 🔴 Nayi Tamatar Background Image ki CSS */
-.cc-tamatar-bg {
-    position: absolute;
-    bottom: -20px; /* Thoda sa neeche rakha hai taaki naturally cut lage */
-    right: 0;
-    width: 250px; /* Aap ise apne hisaab se bada ya chota kar sakte hain */
-    z-index: 0; /* Background pattern se upar par content se neeche */
-    opacity: 0.85; /* Thoda blend karne ke liye, agar dark chahiye to 1 kar dein */
-    pointer-events: none; /* Taaki image pe click na ho aur text box select karne mein issue na aaye */
-    transform: rotate(-15deg); /* Thoda sa tilt (ghuma diya) natural look ke liye */
-}
-
-/* Mobile screen ke liye tamatar ko thoda chota kar diya */
-@media only screen and (max-width: 991px) {
     .cc-tamatar-bg {
         width: 150px;
         bottom: -10px;
+    }
+}
+
+/* ==============================================================
+   MOBILE VIEW (Asli Magic Yahan Hai!) ❤️
+   ============================================================== */
+@media only screen and (max-width: 575px) {
+    .customers-comment-section {
+        padding: 40px 15px; 
+    }
+
+    .section-head { margin-bottom: 30px; }
+    .section-head .title {
+        font-size: 2.25rem; 
+        text-align: center; 
+    }
+
+    /* 1. THUMB SLIDER PERFECT ALIGNMENT */
+    .testimonial-thumb-slider {
+        height: auto !important; 
+    }
+
+    .testimonial-thumb-slider .swiper-wrapper {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 15px !important; /* Uniform horizontal aur vertical gap */
+        margin: 0 !important;
+    }
+
+    .testimonial-thumb-slider .swiper-slide {
+        width: calc(50% - 7.5px) !important; /* 15px gap ko properly divide kiya */
+        height: 120px !important; 
+        margin: 0 !important; /* 🔴 SABSE BADI FIX: Purane saare margins uda diye */
+        border-radius: 8px; 
+        box-sizing: border-box !important;
+    }
+
+    /* 🔴 Jo line desktop pe 4th image ko neeche dhakka de rahi thi, usko yahan rok diya */
+    .testimonial-thumb-slider .swiper-slide:nth-child(n+4) {
+        margin-top: 0 !important; 
+    }
+
+    .testimonial-thumb-slider .thumb-slide.swiper-slide-thumb-active {
+        padding: 4px !important;
+        border: 2px solid #7cb342 !important;
+    }
+
+    /* 2. TEXT BOX ADJUSTMENTS */
+    .cc-col-left {
+        margin-bottom: 15px; 
+    }
+
+    .testimonial-text-slider {
+        height: auto !important; 
+    }
+
+    .testimonial-box {
+        padding: 30px 20px; 
+        border-radius: 12px; 
+        text-align: center; 
+    }
+
+    .testimonial-text p {
+        font-size: 14px; 
+        line-height: 1.6;
+    }
+
+    .testimonial-info {
+        padding-left: 0;
+        padding-top: 15px;
+        margin-top: 15px;
+        border-top: 1px dashed rgba(255, 255, 255, 0.4); 
+    }
+
+    .testimonial-info:after {
+        top: -3px;
+        left: 50%;
+        transform: translateX(-50%); 
+        width: 30px;
+        height: 3px;
+        border-radius: 2px;
+    }
+
+    .testimonial-name {
+        font-size: 18px;
+        margin-top: 10px;
+    }
+
+    .testimonial-position {
+        font-size: 12px;
+    }
+
+    .cc-quote-svg {
+        width: 50px;
+        height: 50px;
+        right: 15px;
+        bottom: 15px;
+        opacity: 0.15;
+    }
+
+    .cc-tamatar-bg {
+        width: 100px; 
+        bottom: -5px;
+        right: -10px; 
+        opacity: 0.6; 
     }
 }

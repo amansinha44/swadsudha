@@ -335,3 +335,98 @@
     }
 }
 
+
+/* =========================================
+   MOBILE VIEW OPTIMIZATIONS (Max Width: 767px) - Pyara Footer!
+   ========================================= */
+@media only screen and (max-width: 767px) {
+    .footer-top {
+        padding-top: 50px;
+    }
+    
+    /* 1. Map Height for Mobile */
+    .footer-map-section iframe {
+        height: 300px; /* Map thoda chhota kiya taaki screen zyada cover na kare */
+    }
+
+    /* 2. Form Card Adjustments */
+    .dz-form-card {
+        padding: 30px 20px;
+        margin-top: -120px; /* Form ko map par perfect overlap kiya */
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3); /* Shadow thodi sharp ki */
+    }
+
+    .dz-form-card .title {
+        font-size: 26px; /* Title size chhota kiya */
+        text-align: center;
+    }
+
+    .dz-form-card p {
+        text-align: center; /* Description bhi center me */
+        margin-bottom: 25px;
+    }
+
+    /* 3. Contact Info Adjustments */
+    .col-contact-info {
+        width: 100%;
+        margin-bottom: 30px;
+        text-align: center; /* Mobile par contact info centered achi lagti hai */
+    }
+
+    .widget_getintuch ul li {
+        justify-content: center; /* Icons aur text ko center align kiya */
+    }
+
+    /* 4. MAGIC: Links aur Help Center ko 2 Columns me kiya */
+    /* Pehle `.col-links` block ko hata kar ye naya likh rahe hain */
+    .footer-row {
+        justify-content: space-between; /* 2 columns ke beech gap ke liye */
+    }
+
+    .col-links {
+        width: 48%; /* 50% ki jagah 48% taaki beech me thoda space (gap) bache */
+        margin-bottom: 20px;
+    }
+
+    .footer-title {
+        font-size: 18px !important;
+        margin-bottom: 15px !important;
+        border-bottom: 2px solid var(--primary); /* Title ke neeche ek pyari si green line */
+        padding-bottom: 8px;
+        display: inline-block;
+    }
+
+    .widget_services ul li {
+        padding: 0 0 10px; /* Links ke beech gap thoda kam kiya */
+    }
+
+    .widget_services ul li a {
+        font-size: 14px;
+    }
+
+    /* 5. Footer Bottom */
+    .footer-bottom {
+        padding: 15px 0;
+    }
+
+    .footer-bottom-row {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+
+    .copyright-text, .footer-bottom p {
+        font-size: 13px; /* Bottom text ko thoda subtle (chhota) kiya */
+    }
+}
+
+/* Extra small screens (380px tak) ke liye */
+@media only screen and (max-width: 380px) {
+    .col-links {
+        width: 100%; /* Agar screen bohot hi choti hai toh single line kar dega */
+        text-align: center;
+    }
+    .footer-title {
+        border-bottom: none; /* Centered layout me line hata di */
+    }
+}
