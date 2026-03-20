@@ -80,6 +80,7 @@ const CustomersComment = () => {
           <div className="cc-col-left">
             <Swiper
               onSwiper={setThumbsSwiper}
+              spaceBetween={0}
               slidesPerView={3}
               grid={{ rows: 2, fill: 'row' }} 
               watchSlidesProgress={true}
