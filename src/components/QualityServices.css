@@ -163,3 +163,82 @@
   90% { transform: translate(1px, 2px) rotate(0deg); }
   100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
+
+
+
+
+/* =========================================
+   MOBILE VIEW (Max Width: 768px) - 2 Columns & Ratio Wise
+   ========================================= */
+@media screen and (max-width: 768px) {
+  .quality-services-section {
+    padding: 40px 15px 40px; /* Mobile ke liye padding adjust ki */
+  }
+
+  .section-head {
+    margin-bottom: 30px;
+  }
+
+  .section-head .title {
+    font-size: 2.5rem; /* Heading ko chhota aur center kiya */
+    text-align: center;
+  }
+
+  .qs-grid {
+    width: 100%; /* Grid ko poora space lene ko bola */
+    gap: 10px; /* Cards ke beech 10px ka perfect gap */
+    justify-content: center;
+  }
+
+  /* --- 2 Cards per row with proportional height --- */
+  .icon-bx-wraper.style-1 {
+    flex: 0 0 calc(50% - 5px); /* Card ko chhota hone (dot banne) se rokega */
+    width: calc(50% - 5px); /* Exact aadhi width (gap hata kar) */
+    height: auto; /* Fixed 300px height hatayi */
+    aspect-ratio: 25 / 30; /* Original 250x300 ka ratio set kiya */
+    padding: 15px 10px; /* Andar ka space kam kiya taaki sab fit aaye */
+  }
+
+  /* --- Andar ke Icon, Title aur Text ka size chhota kiya --- */
+  .icon-bx {
+    margin-bottom: 10px; /* Icon ke neeche ka gap kam kiya */
+  }
+
+  /* Agar aap SVG icons use kar rahe hain toh wo shrink ho jayenge */
+  .icon-cell svg, .icon-cell img {
+    width: 35px; 
+    height: 35px;
+  }
+
+  .dz-title {
+    font-size: 14px; /* Title ka size adjust kiya */
+    margin-bottom: 5px;
+    line-height: 1.2;
+  }
+
+  .icon-content p {
+    font-size: 11px; /* Description ko thoda chhota aur compact banaya */
+    line-height: 1.3;
+  }
+
+  /* Piche ki background image ko thoda halka kiya taaki distraction na ho */
+  .qs-left-decor {
+    width: 150px;
+    left: -50px;
+    opacity: 0.3; 
+  }
+}
+
+/* Extra small mobile screens (jaise purane iPhones) ke liye thoda aur fine-tune */
+@media screen and (max-width: 380px) {
+  .dz-title {
+    font-size: 13px;
+  }
+  .icon-content p {
+    font-size: 10px;
+  }
+  .icon-cell svg, .icon-cell img {
+    width: 30px; 
+    height: 30px;
+  }
+}

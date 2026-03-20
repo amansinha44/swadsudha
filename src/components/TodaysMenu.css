@@ -209,3 +209,73 @@
         display: none;
     }
 }
+
+
+
+/* =========================================
+   MOBILE VIEW (Max Width: 768px) - 2 Columns & Ratio Wise
+   ========================================= */
+@media screen and (max-width: 768px) {
+  .todays-menu-section {
+    padding: 40px 15px; /* Thodi side padding badha di */
+  }
+
+  .menu-heading {
+    font-size: 2.4rem; 
+    margin-bottom: 25px;
+  }
+
+  .tm-grid {
+    width: 100%; /* 🔴 MAGIC FIX: Grid ko full width lene ke liye force kiya */
+    gap: 10px; 
+    justify-content: center;
+  }
+
+  /* --- 2 Cards per row with proportional height --- */
+  .tm-card {
+    flex: 0 0 calc(50% - 5px); /* 🔴 FIX: Card ko chhota hone se rokega */
+    width: calc(50% - 5px); 
+    height: auto; 
+    aspect-ratio: 25 / 32; 
+  }
+
+  /* --- Card ke andar ke text ko thoda chhota kiya taaki fit ho jaye --- */
+  .tm-hover-content {
+    padding: 10px 12px;
+    bottom: -80px; 
+  }
+
+  .tm-title {
+    font-size: 15px; 
+    margin-bottom: 2px;
+  }
+
+  .tm-price {
+    font-size: 14px;
+  }
+
+  .tm-cart-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+  }
+
+  .tm-cart-btn svg {
+    width: 16px; 
+    height: 16px;
+  }
+
+  .tm-tag {
+    font-size: 9px;
+    padding: 4px 8px;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .tm-title {
+    font-size: 13px;
+  }
+  .tm-price {
+    font-size: 12px;
+  }
+}
