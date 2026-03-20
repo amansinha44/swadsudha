@@ -346,23 +346,23 @@
     
     /* 1. Map Height for Mobile */
     .footer-map-section iframe {
-        height: 300px; /* Map thoda chhota kiya taaki screen zyada cover na kare */
+        height: 300px;
     }
 
     /* 2. Form Card Adjustments */
     .dz-form-card {
         padding: 30px 20px;
-        margin-top: -120px; /* Form ko map par perfect overlap kiya */
-        box-shadow: 0 10px 25px rgba(0,0,0,0.3); /* Shadow thodi sharp ki */
+        margin-top: -120px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     }
 
     .dz-form-card .title {
-        font-size: 26px; /* Title size chhota kiya */
+        font-size: 26px;
         text-align: center;
     }
 
     .dz-form-card p {
-        text-align: center; /* Description bhi center me */
+        text-align: center;
         margin-bottom: 25px;
     }
 
@@ -370,34 +370,40 @@
     .col-contact-info {
         width: 100%;
         margin-bottom: 30px;
-        text-align: center; /* Mobile par contact info centered achi lagti hai */
+        text-align: center;
     }
 
     .widget_getintuch ul li {
-        justify-content: center; /* Icons aur text ko center align kiya */
+        justify-content: center;
     }
 
-    /* 4. MAGIC: Links aur Help Center ko 2 Columns me kiya */
-    /* Pehle `.col-links` block ko hata kar ye naya likh rahe hain */
+   
+    /* 4. MAGIC: Help Center (Left) & Our Links (Right) */
     .footer-row {
-        justify-content: space-between; /* 2 columns ke beech gap ke liye */
+        justify-content: space-between;
     }
 
     .col-links {
-        width: 48%; /* 50% ki jagah 48% taaki beech me thoda space (gap) bache */
+        width: 48%; 
         margin-bottom: 20px;
+        text-align: left; /* Pehla column (Help Center) by default left rahega */
+    }
+
+    /* 🔴 NAYA CHANGE: Jo dusra `.col-links` (Our Links) hai, ye sirf usko right karega */
+    .col-links ~ .col-links {
+        text-align: right;
     }
 
     .footer-title {
         font-size: 18px !important;
         margin-bottom: 15px !important;
-        border-bottom: 2px solid var(--primary); /* Title ke neeche ek pyari si green line */
+        border-bottom: 2px solid var(--primary); /* Title ke neeche pyari line */
         padding-bottom: 8px;
         display: inline-block;
     }
 
     .widget_services ul li {
-        padding: 0 0 10px; /* Links ke beech gap thoda kam kiya */
+        padding: 0 0 10px;
     }
 
     .widget_services ul li a {
@@ -416,17 +422,17 @@
     }
 
     .copyright-text, .footer-bottom p {
-        font-size: 13px; /* Bottom text ko thoda subtle (chhota) kiya */
+        font-size: 13px;
     }
 }
 
 /* Extra small screens (380px tak) ke liye */
 @media only screen and (max-width: 380px) {
     .col-links {
-        width: 100%; /* Agar screen bohot hi choti hai toh single line kar dega */
-        text-align: center;
+        width: 100%; 
+        text-align: center !important; /* Chhoti screen pe wapas sab center ho jayega */
     }
     .footer-title {
-        border-bottom: none; /* Centered layout me line hata di */
+        border-bottom: none;
     }
 }
