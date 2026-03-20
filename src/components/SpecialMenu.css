@@ -280,7 +280,7 @@
 
   /* 1. Title in ONE line */
   .section-title {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
     margin-bottom: 30px;
     white-space: nowrap; 
     overflow: hidden; 
