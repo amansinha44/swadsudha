@@ -17,7 +17,7 @@ const AboutUs = () => {
           <div className="relative z-10">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl bg-white/20 backdrop-blur-sm border border-white/30 mb-6 w-fit text-white">
               <Gift size={18} className="text-yellow-300" />
-              <span className="text-xs font-bold tracking-widest uppercase text-white">Happiness Creations</span>
+              <span className="text-xs font-bold tracking-widest uppercase text-white">100% Pure Veg| Hygiene</span>
             </div>
             
             {/* 🔴 NAYA CHANGE: 'font-hindi' ko hata kar 'font-heading' (Lobster) laga diya hai */}

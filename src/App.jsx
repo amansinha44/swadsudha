@@ -62,7 +62,11 @@ const AboutPage = () => (
     {/* Dark Green -> Mid Green -> Fades into Cream */}
     
     
-<div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] bg-gradient-to-tr from-[#F8FBEF] to-[#EAB308] z-0 pointer-events-none">
+
+<div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] bg-[url('./green-gold-bg.jpg')] bg-cover bg-center bg-no-repeat z-0 pointer-events-none">
+ 
+  {/* Optional: Text ko clear dikhane ke liye ek bohot halka white overlay */}
+  <div className="absolute inset-0 bg-white/20 mix-blend-overlay"></div>
          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: `url("${kitchenPatternURL}")`, backgroundSize: '150px' }}></div>
     </div>
 
