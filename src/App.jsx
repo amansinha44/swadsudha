@@ -51,7 +51,7 @@ const AboutPage = () => (
     
 <div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] z-0 pointer-events-none overflow-hidden">
   <div 
-    className="absolute inset-0 bg-[url('./greenpattern.jpg')] bg-repeat-x bg-top"
+    className="absolute inset-0 bg-[url('/greenpattern.jpg')] bg-repeat-x bg-top"
     style={{ backgroundSize: '25% auto' }} // Ye width ko full rakhega aur height ko repeat karega
   />
 
@@ -91,7 +91,7 @@ const MenuPage = () => (
  <div className="relative w-full flex flex-col min-h-screen">
 <div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] z-0 pointer-events-none overflow-hidden">
   <div 
-    className="absolute inset-0 bg-[url('./greenpattern.jpg')] bg-repeat-x bg-top"
+    className="absolute inset-0 bg-[url('/greenpattern.jpg')] bg-repeat-x bg-top"
     style={{ backgroundSize: '25% auto' }} // Ye width ko full rakhega aur height ko repeat karega
   />
 
@@ -132,7 +132,7 @@ const ContactPage = () => (
     {/* Dark Green -> Mid Green -> Fades into Cream */}
 <div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] z-0 pointer-events-none overflow-hidden">
   <div 
-    className="absolute inset-0 bg-[url('./greenpattern.jpg')] bg-repeat-x bg-top"
+    className="absolute inset-0 bg-[url('/greenpattern.jpg')] bg-repeat-x bg-top"
     style={{ backgroundSize: '25% auto' }} // Ye width ko full rakhega aur height ko repeat karega
   />
 
@@ -175,7 +175,7 @@ const SubscriptionPage = () => (
     {/* Dark Green -> Mid Green -> Fades into Cream */}
 <div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] z-0 pointer-events-none overflow-hidden">
   <div 
-    className="absolute inset-0 bg-[url('./greenpattern.jpg')] bg-repeat-x bg-top"
+    className="absolute inset-0 bg-[url('/greenpattern.jpg')] bg-repeat-x bg-top"
     style={{ backgroundSize: '25% auto' }} // Ye width ko full rakhega aur height ko repeat karega
   />
 
