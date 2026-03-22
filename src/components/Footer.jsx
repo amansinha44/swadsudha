@@ -11,7 +11,7 @@ const Footer = () => {
       <div className="footer-map-section">
         <iframe 
           title="Swad Sudha Location"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.877283914118!2d80.9461592150434!3d26.8467088831552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bfd991f32b16b%3A0x93ccba8909978be7!2sLucknow%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1650000000000!5m2!1sen!2sin" 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.483081137701!2d81.0015083752223!3d26.856388876680843!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399be3472576e827%3A0x1a105384a8fc8b9e!2sSwad%20Sudha!5e0!3m2!1sen!2sin!4v1774193225456!5m2!1sen!2sin" 
           width="100%" 
           height="400" 
           style={{ border: 0 }} 
