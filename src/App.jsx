@@ -52,10 +52,10 @@ const AboutPage = () => (
 <div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] z-0 pointer-events-none overflow-hidden">
   <div 
     className="absolute inset-0 bg-[url('/greenpattern.jpg')] bg-repeat-x bg-top"
-    style={{ backgroundSize: '25% auto' }} // Ye width ko full rakhega aur height ko repeat karega
+    style={{ backgroundSize: '35% auto' }} 
   />
 
-  {/* 🔴 Dark Green Overlay: Pattern ko blend karne ke liye */}
+  {/* 🔴 Dark Green Overlay */}
   <div className="absolute inset-0 bg-[#0f2405]/70 mix-blend-multiply"></div>
 
   {/* Kitchen Pattern Texture */}
@@ -67,8 +67,10 @@ const AboutPage = () => (
     }}
   ></div>
 
-  {/* Bottom Smooth Fade */}
-  <div className="absolute inset-0 bg-gradient-to-t from-[#f8fbef] via-transparent to-transparent"></div>
+  {/* 🟢 FIXED: Bottom Smooth Fade */}
+  {/* inset-0 hata kar 'bottom-0 left-0 w-full h-32' kiya hai taaki fade sirf bottom me solid rahe.
+      Aur 'to-transparent' ki jagah 'to-[#f8fbef]/0' use kiya hai Safari bug fix karne ke liye. */}
+  <div className="absolute bottom-0 left-0 w-full h-32 md:h-48 bg-gradient-to-t from-[#f8fbef] to-[#f8fbef]/0"></div>
 </div>
 
     {/* Navbar on top */}
@@ -92,7 +94,7 @@ const MenuPage = () => (
 <div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] z-0 pointer-events-none overflow-hidden">
   <div 
     className="absolute inset-0 bg-[url('/greenpattern.jpg')] bg-repeat-x bg-top"
-    style={{ backgroundSize: '25% auto' }} // Ye width ko full rakhega aur height ko repeat karega
+    style={{ backgroundSize: '35% auto' }} // Ye width ko full rakhega aur height ko repeat karega
   />
 
   {/* 🔴 Dark Green Overlay: Pattern ko blend karne ke liye */}
@@ -133,7 +135,7 @@ const ContactPage = () => (
 <div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] z-0 pointer-events-none overflow-hidden">
   <div 
     className="absolute inset-0 bg-[url('/greenpattern.jpg')] bg-repeat-x bg-top"
-    style={{ backgroundSize: '25% auto' }} // Ye width ko full rakhega aur height ko repeat karega
+    style={{ backgroundSize: '35% auto' }} // Ye width ko full rakhega aur height ko repeat karega
   />
 
   {/* 🔴 Dark Green Overlay: Pattern ko blend karne ke liye */}
@@ -176,7 +178,7 @@ const SubscriptionPage = () => (
 <div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] z-0 pointer-events-none overflow-hidden">
   <div 
     className="absolute inset-0 bg-[url('/greenpattern.jpg')] bg-repeat-x bg-top"
-    style={{ backgroundSize: '25% auto' }} // Ye width ko full rakhega aur height ko repeat karega
+    style={{ backgroundSize: '35% auto' }} // Ye width ko full rakhega aur height ko repeat karega
   />
 
   {/* 🔴 Dark Green Overlay: Pattern ko blend karne ke liye */}
