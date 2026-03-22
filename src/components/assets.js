@@ -1,0 +1,1 @@
+export const kitchenPatternURL = "https://www.transparenttextures.com/patterns/kitchen-utensils.png";

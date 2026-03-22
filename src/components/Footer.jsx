@@ -1,4 +1,5 @@
 import React from 'react';
+import { MapPin, Phone, Mail } from 'lucide-react';
 import './Footer.css';
 
 const Footer = () => {
@@ -76,17 +77,29 @@ const Footer = () => {
                 <div className="widget widget_getintuch">
                   <h5 className="footer-title">Contact</h5>
                   <ul>
-                    <li>
-                      <i className="fas fa-map-marker-alt"></i>
-                      <p>1/881, Vinay Khand, Gomti Nagar, Lucknow, Uttar Pradesh</p>
+                    {/* Location */}
+                    <li className="flex items-start gap-4 mb-6">
+                      <MapPin size={28} strokeWidth={1.5} className="text-[#7cb342] shrink-0 mt-1" />
+                      <p className="m-0 leading-relaxed text-[#cccccc]">
+                        1/881, Vinay Khand, Gomti Nagar, Lucknow, Uttar Pradesh
+                      </p>
                     </li>
-                    <li>
-                      <i className="fas fa-phone-alt"></i>
-                      <p>+91 7007-948-170</p>
+                    
+                    {/* Phone */}
+                    <li className="flex items-start gap-4 mb-6">
+                      <Phone size={28} strokeWidth={1.5} className="text-[#7cb342] shrink-0 mt-1" />
+                      <p className="m-0 leading-relaxed text-[#cccccc]">
+                        +91 7007-948-170
+                      </p>
                     </li>
-                    <li>
-                      <i className="fas fa-envelope"></i>
-                      <p>query@swadsudha.in<br />info@swadsudha.in</p>
+                    
+                    {/* Email */}
+                    <li className="flex items-start gap-4 mb-6">
+                      <Mail size={28} strokeWidth={1.5} className="text-[#7cb342] shrink-0 mt-1" />
+                      <p className="m-0 leading-relaxed text-[#cccccc]">
+                        query@swadsudha.in<br />
+                        info@swadsudha.in
+                      </p>
                     </li>
                   </ul>
                 </div>
@@ -133,7 +146,7 @@ const Footer = () => {
               </div>
               <div className="footer-bottom-right text-md-end">
                 <span className="copyright-text">
-                  Crafted With <span className="heart text-danger"></span> by <a href="#" target="_blank" rel="noreferrer">Made In Lucknow</a>
+                  Crafted With <span className="heart text-danger"></span> Love <a href="#" target="_blank" rel="noreferrer">Made In Lucknow</a>
                 </span>
               </div>
             </div>

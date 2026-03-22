@@ -19,18 +19,70 @@
     width: 100%;
     height: 400px;
     filter: grayscale(15%);
+    border: none;
 }
 
 /* =========================================
    FOOTER BASE & LAYOUT
    ========================================= */
 .site-footer {
-    background-color: #1a1a1a;
+    background-color: #1a1a1a; /* Dark premium background */
     position: relative;
     font-family: 'Poppins', sans-serif;
     color: #cccccc;
     z-index: 2;
-    /* 🔴 OVERFLOW HIDDEN HATA DIYA HAI TAAKI FORM MAP PAR JAA SAKE */
+    /* OVERFLOW HIDDEN HATA DIYA HAI TAAKI FORM MAP PAR JAA SAKE */
+}
+
+/* 🟢 BOTTOM LEFT IMAGE (pic5.png) 🟢 */
+.site-footer::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 200px; /* Normal size without zoom */
+    height: 200px;
+    background-image: url('/pic5.png'); 
+    background-position: bottom left;
+    background-repeat: no-repeat;
+    background-size: contain; 
+    pointer-events: none; 
+    z-index: 0;
+    opacity: 0.8; /* 80% Opacity */
+    animation: floatLeftRight 5s ease-in-out infinite; /* Left-Right movement */
+}
+
+/* 🟢 KEYFRAMES (Left to Right) for pic5.png 🟢 */
+@keyframes floatLeftRight {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(20px); } 
+    100% { transform: translateX(0); }
+}
+
+/* 🟢 🟡 TOP RIGHT IMAGE (seed.png) 🟡 🟢 */
+/* Maine iske liye naya pseudo-element ::after banaya hai */
+.site-footer::after {
+    content: "";
+    position: absolute;
+    right: 20px; /* Right se thodi jagah */
+    top: 20px; /* Top se thodi jagah */
+    width: 150px; /* Seed ka size thoda chhota rakha hai */
+    height: 150px;
+    background-image: url('/seed.png'); /* Seed path */
+    background-position: top right;
+    background-repeat: no-repeat;
+    background-size: contain;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 100%; /* Iski bhi 80% opacity */
+    animation: floatTopRight 6s ease-in-out infinite; /* thoda slow animation for seed */
+}
+
+/* 🟢 🟡 KEYFRAMES (Left to Right) for seed.png 🟡 🟢 */
+@keyframes floatTopRight {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(-15px); } /* Yeh left ki taraf move karega */
+    100% { transform: translateX(0); }
 }
 
 .container {
@@ -79,13 +131,11 @@
     box-shadow: 0 15px 40px rgba(124, 179, 66, 0.4);
     position: relative;
     z-index: 10;
-    /* 🔴 THE MAGIC TRICK: Pulls the card up over the map */
+    /* PULLS THE CARD UP OVER THE MAP */
     margin-top: -350px; 
 }
 
-.dz-form-card .section-head {
-    margin-bottom: 30px;
-}
+.dz-form-card .section-head { margin-bottom: 30px; }
 
 .dz-form-card .title {
     font-family: 'Lobster', cursive;
@@ -191,9 +241,7 @@
     margin-top: 5px;
 }
 
-.widget_getintuch ul li p {
-    margin: 0;
-}
+.widget_getintuch ul li p { margin: 0; }
 
 /* =========================================
    COLUMNS 3 & 4: LINKS (.widget_services)
@@ -240,17 +288,11 @@
     flex-wrap: wrap;
 }
 
-.footer-bottom p {
+.footer-bottom p, .copyright-text {
     font-weight: 400;
     font-size: 15px;
     color: #999;
     margin: 0;
-}
-
-.copyright-text {
-    color: #999;
-    font-size: 15px;
-    font-weight: 400;
 }
 
 .copyright-text a {
@@ -258,38 +300,11 @@
     text-decoration: none;
 }
 
-.text-danger {
-    color: #e74c3c;
-}
-
 /* =========================================
-   BACKGROUND DECORATION IMAGES
+   RESPONSIVE DESIGN (SCROLL PREVENTION ADDED)
    ========================================= */
-.site-footer .bg1, .site-footer .bg2 {
-    position: absolute;
-    pointer-events: none;
-    opacity: 0.6;
-}
 
-.site-footer .bg1 {
-    left: 0;
-    bottom: 10px;
-}
-
-.site-footer .bg2 {
-    right: 10px;
-    top: 15px;
-}
-
-/* =========================================
-   RESPONSIVE DESIGN
-   ========================================= */
-@media only screen and (max-width: 1480px) {
-    .site-footer .bg1, .site-footer .bg2 {
-        display: none;
-    }
-}
-
+/* Desktop & Tablets */
 @media only screen and (max-width: 1280px) {
     .footer-top {
         padding-top: 80px;
@@ -309,13 +324,11 @@
         width: 100%;
         margin-bottom: 40px;
     }
-    /* Mobile par overlap thoda kam kar diya taaki space bache */
     .dz-form-card {
-        margin-top: -80px; 
+        margin-top: -80px; /* Reduced overlap for tablets/mobile */
     }
-    .col-links {
-        width: 50%;
-    }
+    .col-links { width: 50%; }
+    
     .footer-bottom-row {
         flex-direction: column;
         text-align: center;
@@ -323,33 +336,12 @@
     }
 }
 
+/* Mobile Devices (Max Width: 767px) */
 @media only screen and (max-width: 767px) {
-    .footer-top {
-        padding-top: 60px;
-    }
-    .col-links {
-        width: 100%;
-    }
-    .dz-form-card {
-        padding: 30px 20px;
-    }
-}
-
-
-/* =========================================
-   MOBILE VIEW OPTIMIZATIONS (Max Width: 767px) - Pyara Footer!
-   ========================================= */
-@media only screen and (max-width: 767px) {
-    .footer-top {
-        padding-top: 50px;
-    }
+    .footer-top { padding-top: 50px; }
     
-    /* 1. Map Height for Mobile */
-    .footer-map-section iframe {
-        height: 300px;
-    }
+    .footer-map-section iframe { height: 300px; }
 
-    /* 2. Form Card Adjustments */
     .dz-form-card {
         padding: 30px 20px;
         margin-top: -120px;
@@ -366,7 +358,6 @@
         margin-bottom: 25px;
     }
 
-    /* 3. Contact Info Adjustments */
     .col-contact-info {
         width: 100%;
         margin-bottom: 30px;
@@ -377,62 +368,52 @@
         justify-content: center;
     }
 
-   
-    /* 4. MAGIC: Help Center (Left) & Our Links (Right) */
-    .footer-row {
-        justify-content: space-between;
-    }
+    .footer-row { justify-content: space-between; }
 
     .col-links {
         width: 48%; 
         margin-bottom: 20px;
-        text-align: right; /* Pehla column (Help Center) by default left rahega */
+        text-align: right; 
     }
 
-    /* 🔴 NAYA CHANGE: Jo dusra `.col-links` (Our Links) hai, ye sirf usko right karega */
-    .col-links ~ .col-links {
-        text-align: left;
-    }
+    .col-links ~ .col-links { text-align: left; }
 
     .footer-title {
         font-size: 18px !important;
         margin-bottom: 15px !important;
-        border-bottom: 2px solid var(--primary); /* Title ke neeche pyari line */
+        border-bottom: 2px solid var(--primary);
         padding-bottom: 8px;
         display: inline-block;
     }
 
-    .widget_services ul li {
-        padding: 0 0 10px;
+    .widget_services ul li { padding: 0 0 10px; }
+    .widget_services ul li a { font-size: 14px; }
+
+    .footer-bottom { padding: 15px 0; }
+    .copyright-text, .footer-bottom p { font-size: 13px; }
+    
+    /* Image adjustment for mobile */
+    .site-footer::before {
+        width: 120px;
+        height: 120px;
+        opacity: 0.6; /* Lighter on mobile */
     }
 
-    .widget_services ul li a {
-        font-size: 14px;
-    }
-
-    /* 5. Footer Bottom */
-    .footer-bottom {
-        padding: 15px 0;
-    }
-
-    .footer-bottom-row {
-        flex-direction: column;
-        text-align: center;
-        gap: 8px;
-    }
-
-    .copyright-text, .footer-bottom p {
-        font-size: 13px;
+    /* Seed adjustment for mobile */
+    .site-footer::after {
+        width: 60px;
+        height: 60px;
+        right: 10px;
+        top: 10px;
+        opacity: 0.6;
     }
 }
 
-/* Extra small screens (380px tak) ke liye */
+/* Extra small screens */
 @media only screen and (max-width: 380px) {
     .col-links {
         width: 100%; 
-        text-align: center !important; /* Chhoti screen pe wapas sab center ho jayega */
+        text-align: center !important; 
     }
-    .footer-title {
-        border-bottom: none;
-    }
+    .footer-title { border-bottom: none; }
 }

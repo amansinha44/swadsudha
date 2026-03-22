@@ -14,23 +14,10 @@ import SubscriptionPlans from './components/SubscriptionPlans';
 import WeeklyMenu from './components/WeeklyMenu';
 import AboutUs from './components/AboutUs';
 import ContactUs from './components/ContactUs';
+import ScrollToTop from './components/ScrollToTop';
 
-// ==========================================
-// INNER PAGE HEADER (About, Menu, Contact ke liye)
-// ==========================================
-const InnerPageHeader = ({ title }) => (
-  <div className="w-full max-w-[1440px] mx-auto relative flex flex-col bg-gradient-to-b from-[#0f2405] via-[#244710] to-[#467b2d] pb-6 shadow-xl lg:rounded-b-[2rem] rounded-b-3xl mb-10 overflow-hidden">
-    <div className="absolute inset-0 opacity-10" style={{ backgroundImage: `url("${kitchenPatternURL}")`, backgroundSize: '150px' }}></div>
-    <div className="relative z-10">
-      <NavBar />
-      {title && (
-        <h1 className="text-white text-center text-4xl md:text-5xl font-heading mt-6 mb-2 drop-shadow-lg tracking-wide">
-          {title}
-        </h1>
-      )}
-    </div>
-  </div>
-);
+
+
 
 // ==========================================
 // INDIVIDUAL PAGES
@@ -56,22 +43,36 @@ const HomePage = () => (
   </>
 );
 
+
 const AboutPage = () => (
 
 <div className="relative w-full flex flex-col min-h-screen">
     {/* Dark Green -> Mid Green -> Fades into Cream */}
     
-    
+<div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] z-0 pointer-events-none overflow-hidden">
+  <div 
+    className="absolute inset-0 bg-[url('./greenpattern.jpg')] bg-repeat-x bg-top"
+    style={{ backgroundSize: '25% auto' }} // Ye width ko full rakhega aur height ko repeat karega
+  />
 
-<div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] bg-[url('./green-gold-bg.jpg')] bg-cover bg-center bg-no-repeat z-0 pointer-events-none">
- 
-  {/* Optional: Text ko clear dikhane ke liye ek bohot halka white overlay */}
-  <div className="absolute inset-0 bg-white/20 mix-blend-overlay"></div>
-         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: `url("${kitchenPatternURL}")`, backgroundSize: '150px' }}></div>
-    </div>
+  {/* 🔴 Dark Green Overlay: Pattern ko blend karne ke liye */}
+  <div className="absolute inset-0 bg-[#0f2405]/70 mix-blend-multiply"></div>
+
+  {/* Kitchen Pattern Texture */}
+  <div 
+    className="absolute inset-0 opacity-10" 
+    style={{ 
+      backgroundImage: `url("${kitchenPatternURL}")`, 
+      backgroundSize: '150px' 
+    }}
+  ></div>
+
+  {/* Bottom Smooth Fade */}
+  <div className="absolute inset-0 bg-gradient-to-t from-[#f8fbef] via-transparent to-transparent"></div>
+</div>
 
     {/* Navbar on top */}
-    <div className="w-full max-w-[1440px] mx-auto relative z-10 flex flex-col">
+    <div className="w-full max-w-[1440px] mx-auto relative z-50 flex flex-col pt-1">
       <NavBar />
     </div>
 
@@ -88,14 +89,30 @@ const AboutPage = () => (
 
 const MenuPage = () => (
  <div className="relative w-full flex flex-col min-h-screen">
-    {/* Dark Green -> Mid Green -> Fades into Cream */}
-    <div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] bg-gradient-to-b from-[#0a1703] via-[#467b2d] via-60% to-[#f8fbef] z-0 pointer-events-none">
-       {/* Halka sa background texture */}
-       <div className="absolute inset-0 opacity-10" style={{ backgroundImage: `url("${kitchenPatternURL}")`, backgroundSize: '150px' }}></div>
-    </div>
+<div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] z-0 pointer-events-none overflow-hidden">
+  <div 
+    className="absolute inset-0 bg-[url('./greenpattern.jpg')] bg-repeat-x bg-top"
+    style={{ backgroundSize: '25% auto' }} // Ye width ko full rakhega aur height ko repeat karega
+  />
+
+  {/* 🔴 Dark Green Overlay: Pattern ko blend karne ke liye */}
+  <div className="absolute inset-0 bg-[#0f2405]/70 mix-blend-multiply"></div>
+
+  {/* Kitchen Pattern Texture */}
+  <div 
+    className="absolute inset-0 opacity-10" 
+    style={{ 
+      backgroundImage: `url("${kitchenPatternURL}")`, 
+      backgroundSize: '150px' 
+    }}
+  ></div>
+
+  {/* Bottom Smooth Fade */}
+  <div className="absolute inset-0 bg-gradient-to-t from-[#f8fbef] via-transparent to-transparent"></div>
+</div>
 
     {/* Navbar on top */}
-    <div className="w-full max-w-[1440px] mx-auto relative z-10 flex flex-col">
+    <div className="w-full max-w-[1440px] mx-auto relative z-50 flex flex-col">
       <NavBar />
     </div>
 
@@ -113,13 +130,30 @@ const MenuPage = () => (
 const ContactPage = () => (
   <div className="relative w-full flex flex-col min-h-screen">
     {/* Dark Green -> Mid Green -> Fades into Cream */}
-    <div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] bg-gradient-to-b from-[#0a1703] via-[#467b2d] via-60% to-[#f8fbef] z-0 pointer-events-none">
-       {/* Halka sa background texture */}
-       <div className="absolute inset-0 opacity-10" style={{ backgroundImage: `url("${kitchenPatternURL}")`, backgroundSize: '150px' }}></div>
-    </div>
+<div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] z-0 pointer-events-none overflow-hidden">
+  <div 
+    className="absolute inset-0 bg-[url('./greenpattern.jpg')] bg-repeat-x bg-top"
+    style={{ backgroundSize: '25% auto' }} // Ye width ko full rakhega aur height ko repeat karega
+  />
+
+  {/* 🔴 Dark Green Overlay: Pattern ko blend karne ke liye */}
+  <div className="absolute inset-0 bg-[#0f2405]/70 mix-blend-multiply"></div>
+
+  {/* Kitchen Pattern Texture */}
+  <div 
+    className="absolute inset-0 opacity-10" 
+    style={{ 
+      backgroundImage: `url("${kitchenPatternURL}")`, 
+      backgroundSize: '150px' 
+    }}
+  ></div>
+
+  {/* Bottom Smooth Fade */}
+  <div className="absolute inset-0 bg-gradient-to-t from-[#f8fbef] via-transparent to-transparent"></div>
+</div>
 
     {/* Navbar on top */}
-    <div className="w-full max-w-[1440px] mx-auto relative z-10 flex flex-col">
+    <div className="w-full max-w-[1440px] mx-auto relative z-50 flex flex-col">
       <NavBar />
     </div>
 
@@ -139,13 +173,30 @@ const ContactPage = () => (
 const SubscriptionPage = () => (
   <div className="relative w-full flex flex-col min-h-screen">
     {/* Dark Green -> Mid Green -> Fades into Cream */}
-    <div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] bg-gradient-to-b from-[#0a1703] via-[#467b2d] via-60% to-[#f8fbef] z-0 pointer-events-none">
-       {/* Halka sa background texture */}
-       <div className="absolute inset-0 opacity-10" style={{ backgroundImage: `url("${kitchenPatternURL}")`, backgroundSize: '150px' }}></div>
-    </div>
+<div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] z-0 pointer-events-none overflow-hidden">
+  <div 
+    className="absolute inset-0 bg-[url('./greenpattern.jpg')] bg-repeat-x bg-top"
+    style={{ backgroundSize: '25% auto' }} // Ye width ko full rakhega aur height ko repeat karega
+  />
+
+  {/* 🔴 Dark Green Overlay: Pattern ko blend karne ke liye */}
+  <div className="absolute inset-0 bg-[#0f2405]/70 mix-blend-multiply"></div>
+
+  {/* Kitchen Pattern Texture */}
+  <div 
+    className="absolute inset-0 opacity-10" 
+    style={{ 
+      backgroundImage: `url("${kitchenPatternURL}")`, 
+      backgroundSize: '150px' 
+    }}
+  ></div>
+
+  {/* Bottom Smooth Fade */}
+  <div className="absolute inset-0 bg-gradient-to-t from-[#f8fbef] via-transparent to-transparent"></div>
+</div>
 
     {/* Navbar on top */}
-    <div className="w-full max-w-[1440px] mx-auto relative z-10 flex flex-col">
+    <div className="w-full max-w-[1440px] mx-auto relative z-50 flex flex-col">
       <NavBar />
     </div>
 
@@ -204,6 +255,7 @@ export default function App() {
         </Routes>
 
         <Footer />
+        <ScrollToTop />
       </div>
     </Router>
   );
