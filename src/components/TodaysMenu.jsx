@@ -1,117 +1,159 @@
 import React, { useState, useEffect } from 'react';
-import './TodaysMenu.css';
+import { Sunrise, Sun, Moon, CalendarDays } from 'lucide-react';
 
 const TodaysMenu = () => {
-  // Pehla card default active rahega
-  const [activeCard, setActiveCard] = useState(1);
-  const [menuData, setMenuData] = useState([]);
+  const [activeDay, setActiveDay] = useState('Monday');
 
-  // Master Data: Poore hafte ka menu yahan define karenge
+  // Master Data: Wahi pura original descriptions
   const weeklyMenu = {
-    Monday: [
-      { id: 1, name: 'Poha', price: '₹50.00', img: './101.jpg' },
-      { id: 2, name: 'Mushroom Matar', price: '₹50.00', img: './102.jpg' },
-      { id: 3, name: 'One Gravy Veg', price: '₹50.00', img: './103.jpg' },
-      { id: 4, name: 'One Dry Veg', price: '₹50.00', img: './104.jpg' }
-    ],
-    Tuesday: [
-      { id: 1, name: 'Sandwich', price: '₹50.00', img: './105.jpg' },
-      { id: 2, name: 'Arhar Dal Fry', price: '₹50.00', img: './106.jpg' },
-      { id: 3, name: 'Dry Sabzi', price: '₹50.00', img: './107.jpg' },
-      { id: 4, name: 'Lauki Kofta', price: '₹50.00', img: './108.jpg' }
-    ],
-    Wednesday: [
-      { id: 1, name: 'Suji/Besan Chilla', price: '₹50.00', img: './109.jpg' },
-      { id: 2, name: 'Special Rajma', price: '₹50.00', img: './110.jpg' },
-      { id: 3, name: ' Steamed Rice', price: '₹50.00', img: './111.jpg' },
-      { id: 4, name: 'Dum Aloo', price: '₹50.00', img: './112.jpg' }
-    ],
-    Thursday: [
-      { id: 1, name: 'Aloo Paratha', price: '₹50.00', img: '/113.jpg' },
-      { id: 2, name: 'Kadhi Tadka', price: '₹50.00', img: '/114.jpg' },
-      { id: 3, name: 'Dry Veg', price: '₹50.00', img: '/115.jpg' },
-      { id: 4, name: 'Chana Dal', price: '₹50.00', img: '/116.jpg' }
-    ],
-    Friday: [
-      { id: 1, name: 'Bread Pakora', price: '₹50.00', img: './117.jpg' },
-      { id: 2, name: 'Chole Bhatur', price: '₹50.00', img: './118.jpg' },
-      { id: 3, name: 'Shahi Pulao', price: '₹50.00', img: './119.jpg' },
-      { id: 4, name: 'Mix Paratha', price: '₹50.00', img: './120.jpg' }
-],
-    Saturday: [
-      { id: 1, name: 'Puri + Special Sabzi', price: '₹50.00', img: './121.jpg' },
-      { id: 2, name: 'Dal Makhni', price: '₹50.00', img: './122.jpg' },
-      { id: 3, name: 'Dry Veg', price: '₹50.00', img: './123.jpg' },
-      { id: 4, name: 'Soyabean Gravy Veg', price: '₹50.00', img: './124.jpg' }
-],
-    Sunday: [ 
-      { id: 1, name: 'Paneer Paratha', price: '₹50.00', img: './125.jpg' },
-      { id: 2, name: 'Khoya/Matar Paneer', price: '₹50.00', img: './126.jpg' },
-      { id: 3, name: 'Aloo Matar', price: '₹50.00', img: './127.jpg' },
-      { id: 4, name: 'Gravy Veg', price: '₹50.00', img: './128.jpg' }
- ]
+    Monday: {
+      theme: 'The Energizer',
+      meals: [
+        { id: 1, type: 'Breakfast', icon: <Sunrise size={12}/>, desc: 'Indori Poha (Light & Fresh)', img: '/mon_breakfast.png' },
+        { id: 2, type: 'Lunch', icon: <Sun size={12}/>, desc: 'Mushroom Matar + Steamed Rice + Roti + Salad + Achaar', img: '/mon_lunch.png' },
+        { id: 3, type: 'Dinner', icon: <Moon size={12}/>, desc: 'One Dry Veg + One Gravy Veg + Paratha + Salad + Achaar', img: '/mon_dinner.png' }
+      ]
+    },
+    Tuesday: {
+      theme: 'Hearty Comfort',
+      meals: [
+        { id: 1, type: 'Breakfast', icon: <Sunrise size={12}/>, desc: 'Veg Aloo Fry Bread Sandwich (4 Pcs) with Tomato Sauce', img: '/tue_breakfast.png' },
+        { id: 2, type: 'Lunch', icon: <Sun size={12}/>, desc: 'Arhar Dal Fry + Dry Sabzi + Steamed Rice + Roti + Salad + Achaar', img: '/tue_lunch.png' },
+        { id: 3, type: 'Dinner', icon: <Moon size={12}/>, desc: 'Lauki Kofta + Steamed Rice + Roti + Salad + Achaar', img: '/tue_dinner.png' }
+      ]
+    },
+    Wednesday: {
+      theme: 'Mid-Week Zest',
+      meals: [
+        { id: 1, type: 'Breakfast', icon: <Sunrise size={12}/>, desc: '2 Full-size Suji/Besan Chilla with Chatni & Sauce', img: '/wed_breakfast.png' },
+        { id: 2, type: 'Lunch', icon: <Sun size={12}/>, desc: 'Special Rajma + Steamed Rice + Roti + Salad + Achaar', img: '/wed_lunch.png' },
+        { id: 3, type: 'Dinner', icon: <Moon size={12}/>, desc: 'Dum Aloo + Steamed Rice + Roti + Salad + Achaar', img: '/wed_dinner.png' }
+      ]
+    },
+    Thursday: {
+      theme: 'Traditional Tastes',
+      meals: [
+        { id: 1, type: 'Breakfast', icon: <Sunrise size={12}/>, desc: '2 Full-size Aloo Paratha + Boondi Raita + Achaar', img: '/thu_breakfast.png' },
+        { id: 2, type: 'Lunch', icon: <Sun size={12}/>, desc: 'Kadhi Tadka + Dry Veg + Steamed Rice + Roti + Salad + Achaar', img: '/thu_lunch.png' },
+        { id: 3, type: 'Dinner', icon: <Moon size={12}/>, desc: 'Chana Dal Tadka + Steamed Rice + Roti + Salad + Achaar', img: '/thu_dinner.png' }
+      ]
+    },
+    Friday: {
+      theme: 'The Feast',
+      meals: [
+        { id: 1, type: 'Breakfast', icon: <Sunrise size={12}/>, desc: 'Bread Pakora (4 Pcs) with Dhaniya-Tamatar Chatni', img: '/fri_breakfast.png' },
+        { id: 2, type: 'Lunch', icon: <Sun size={12}/>, desc: 'Chole Bhature + Shahi Pulao + Salad + Achaar', img: '/fri_lunch.png' },
+        { id: 3, type: 'Dinner', icon: <Moon size={12}/>, desc: 'Mix Paratha (Aloo/Gobhi/Pyaj) + Boondi Raita + Chatni + Achaar', img: '/fri_dinner.png' }
+      ]
+    },
+    Saturday: {
+      theme: 'Weekend Vibes',
+      meals: [
+        { id: 1, type: 'Breakfast', icon: <Sunrise size={12}/>, desc: 'Puri + Special Sabzi + Raita + Achaar', img: '/sat_breakfast.png' },
+        { id: 2, type: 'Lunch', icon: <Sun size={12}/>, desc: 'Dal Makhni + Dry Veg + Steamed Rice + Roti + Salad + Achaar', img: '/sat_lunch.png' },
+        { id: 3, type: 'Dinner', icon: <Moon size={12}/>, desc: 'Soyabean Gravy Veg + Steamed Rice + Roti + Salad + Achaar', img: '/sat_dinner.png' }
+      ]
+    },
+    Sunday: {
+      theme: 'The Royal Celebration',
+      meals: [
+        { id: 1, type: 'Breakfast', icon: <Sunrise size={12}/>, desc: '2 Full-size Paneer Paratha + Fresh Dahi + Chatni + Achaar', img: '/sun_breakfast.png' },
+        { id: 2, type: 'Lunch', icon: <Sun size={12}/>, desc: 'Khoya/Matar Paneer + Veg Pulao + Roti + Salad + Achaar + Sweet Dish', img: '/sun_lunch.png' },
+        { id: 3, type: 'Dinner', icon: <Moon size={12}/>, desc: 'Aloo Matar / Dal Kachauri + Gravy Veg + Dahi Wada + Achaar + Salad', img: '/sun_dinner.png' }
+      ]
+    }
   };
 
-  useEffect(() => {
-    // Ye function aaj ka din pata karega
-    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const today = new Date();
-    const currentDayName = daysOfWeek[today.getDay()]; // getDay() returns 0 for Sunday, 1 for Monday etc.
+  const daysOfWeek = Object.keys(weeklyMenu);
 
-    // Aaj ke din ke hisaab se data set karega
-    // Agar kisi din ka data missing hai toh default Monday ka dikha dega
-    setMenuData(weeklyMenu[currentDayName] || weeklyMenu['Monday']);
+  useEffect(() => {
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const today = new Date();
+    setActiveDay(days[today.getDay()]);
   }, []);
 
   return (
-    <section className="todays-menu-section">
-      {/* 🔴 NAYI IMAGE YAHAN ADD HUI HAI */}
-      <img src="/pic4.png" alt="Decoration" className="tm-bg2" />
-      <h2 className="menu-heading">Today's Menu</h2>
+    <section className="relative py-8 px-2 md:px-4 w-full bg-white font-body overflow-hidden">
+      <div className="w-full max-w-[1150px] mx-auto">
+        
+        {/* Responsive Header */}
+        <div className="text-center mb-6">
+          <h2 className="text-3xl md:text-[3.5rem] font-heading text-gray-900 leading-tight">
+            Our <span className="text-[#7CB342]">Weekly Menu</span>
+          </h2>
+        </div>
 
-      <div 
-        className="tm-grid"
-        onMouseLeave={() => setActiveCard(1)} // Container chhodne par wapas Card 1 active
-      >
-        {menuData.map((item) => (
-          <div 
-            key={item.id} 
-            className={`tm-card ${activeCard === item.id ? 'active' : ''}`}
-            onMouseEnter={() => setActiveCard(item.id)}
-          >
-            {/* Full Height Background Image */}
-            <img src={item.img} alt={item.name} className="tm-bg-img" />
-
-            {/* Dark Gradient Overlay (Hover par aayega) */}
-            <div className="tm-overlay"></div>
-
-            {/* Top Seller Tag (Hover par top se aayega) */}
-            <span className="tm-tag">TOP SELLER</span>
-
-            {/* Hover Content (Bottom se slide up hoga) */}
-            <div className="tm-hover-content">
-              
-              {/* Left Side: Name & Price */}
-              <div className="tm-info-left">
-                <h5 className="tm-title">{item.name}</h5>
-                <span className="tm-price">{item.price}</span>
-              </div>
-
-              {/* Right Side: Cart Button */}
-              <button className="tm-cart-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="9" cy="21" r="1"></circle>
-                  <circle cx="20" cy="21" r="1"></circle>
-                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
-              </button>
-
+        <div className="flex flex-col md:flex-row gap-4 items-start">
+          
+          {/* Days List: Mobile par horizontal, Desktop par vertical */}
+          <div className="w-full md:w-1/4 lg:w-[20%] shrink-0">
+            <div className="flex flex-row md:flex-col gap-1.5 overflow-x-auto md:overflow-visible pb-2 md:pb-0 no-scrollbar">
+              {daysOfWeek.map((day) => (
+                <button
+                  key={day}
+                  onClick={() => setActiveDay(day)}
+                  className={`shrink-0 flex items-center justify-between px-3 py-2.5 rounded-sm font-bold transition-all border text-[13px] md:text-base ${
+                    activeDay === day 
+                      ? 'bg-[#7CB342] text-white border-[#7CB342] shadow-sm' 
+                      : 'bg-white text-gray-500 border-gray-100 hover:bg-gray-50'
+                  }`}
+                >
+                  <span>{day}</span>
+                  <CalendarDays size={14} className={`hidden md:block ${activeDay === day ? 'opacity-100' : 'opacity-0'}`} />
+                </button>
+              ))}
             </div>
           </div>
-        ))}
+
+          {/* RIGHT SIDE Content Area */}
+          <div className="w-full md:w-3/4 lg:w-[80%] flex flex-col">
+            
+            <div className="mb-4 p-3 border-l-4 border-[#7CB342] bg-gray-50 flex items-center justify-between">
+              <h3 className="text-[15px] md:text-2xl font-extrabold text-gray-800">
+                {activeDay} <span className="text-[#7CB342] ml-2 font-heading font-normal">{weeklyMenu[activeDay].theme}</span>
+              </h3>
+            </div>
+
+            {/* 🔴 FIXED: 3 Columns on ALL screens, No cropping */}
+            <div className="grid grid-cols-3 gap-1.5 md:gap-5">
+              {weeklyMenu[activeDay].meals.map((meal) => (
+                <div 
+                  key={meal.id} 
+                  className="bg-white rounded-md overflow-hidden border border-gray-100 shadow-sm flex flex-col h-full group"
+                >
+                  {/* Aspect ratio set to 4/3 to match your 380x320 images perfectly */}
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100 shrink-0">
+                    <img 
+                      src={meal.img} 
+                      alt={meal.type} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                    
+                    {/* Tiny Badge for Mobile */}
+                    <div className="absolute bottom-1.5 left-1.5 flex items-center gap-1 text-white font-bold text-[8px] md:text-xs">
+                      {meal.icon} <span className="uppercase tracking-tighter md:tracking-normal">{meal.type}</span>
+                    </div>
+                  </div>
+
+                  {/* Descriptions: line-clamp ensures cards stay same height */}
+                  <div className="p-1.5 md:p-4 flex-grow bg-white">
+                    <p className="text-gray-700 text-[10px] md:text-[14px] font-semibold leading-tight md:leading-snug line-clamp-3 md:line-clamp-none">
+                      {meal.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </div>
       </div>
 
-      <button className="see-all-btn">See All Dishes</button>
+      <style jsx>{`
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      `}</style>
     </section>
   );
 };

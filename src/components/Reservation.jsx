@@ -2,17 +2,16 @@ import React, { useState } from 'react';
 import './Reservation.css';
 
 const Reservation = () => {
-  // Form State
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     email: '',
+    mealType: '', 
     people: '',
     date: '',
     time: ''
   });
 
-  // Handle Input Changes
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -20,24 +19,41 @@ const Reservation = () => {
     });
   };
 
-  // Handle Form Submission (Add your logic here later)
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Reservation Request:", formData);
-    alert("Thank you! Your request has been received.");
-    // Clear form after submit if needed
+
+    // Indian Time Validation Logic (IST)
+    const now = new Date();
+    const currentHour = now.getHours();
+    const { mealType } = formData;
+
+    if (mealType === 'Breakfast' && currentHour >= 8) {
+      alert("Maaf kijiye! Breakfast ka order subah 8:00 AM se pehle hi liya jata hai.");
+      return;
+    }
+    if (mealType === 'Lunch' && currentHour >= 14) {
+      alert("Maaf kijiye! Lunch ka order dopahar 2:00 PM se pehle hi liya jata hai.");
+      return;
+    }
+    if (mealType === 'Dinner' && currentHour >= 20) {
+      alert("Maaf kijiye! Dinner ka order raat 8:00 PM se pehle hi liya jata hai.");
+      return;
+    }
+
+    console.log("Order Details:", formData);
+    alert(`Shukriya! Aapka ${mealType} order mil gaya hai.`);
   };
 
   return (
-    <section 
-      className="reservation-section" 
-      style={{ backgroundImage: `url('./bk_8.png')` }}
-    >
-      <div className="res-overlay"></div> {/* Dark overlay for text readability */}
+    <section className="reservation-section" style={{ backgroundImage: `url('./bk_8.png')` }}>
+      <div className="res-overlay"></div>
       
       <div className="container relative-z">
         <div className="section-head text-center">
           <h2 className="title" style={{ color: '#ffffff' }}>Order a Meal</h2>
+          <p style={{ color: '#ddd', marginBottom: '20px' }}>
+            Breakfast (Before 8 AM) | Lunch (Before 2 PM) | Dinner (Before 8 PM)
+          </p>
         </div>
 
         <form className="res-form" onSubmit={handleSubmit}>
@@ -45,10 +61,7 @@ const Reservation = () => {
             
             {/* 1. Name */}
             <div className="res-col">
-              <div className="input-line">
-                <div className="input-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                </div>
+              <div className="input-line single-border">
                 <input 
                   type="text" 
                   name="name" 
@@ -63,10 +76,7 @@ const Reservation = () => {
 
             {/* 2. Phone */}
             <div className="res-col">
-              <div className="input-line">
-                <div className="input-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                </div>
+              <div className="input-line single-border">
                 <input 
                   type="tel" 
                   name="phone" 
@@ -79,30 +89,27 @@ const Reservation = () => {
               </div>
             </div>
 
-            {/* 3. Email */}
+            {/* 3. Meal Type (New Field) */}
             <div className="res-col">
-              <div className="input-line">
-                <div className="input-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                </div>
-                <input 
-                  type="email" 
-                  name="email" 
+              <div className="input-line single-border">
+                <select 
+                  name="mealType" 
                   required 
-                  className="form-control" 
-                  placeholder="Your Email"
-                  value={formData.email}
+                  className="form-control custom-select"
+                  value={formData.mealType}
                   onChange={handleChange}
-                />
+                >
+                  <option value="" disabled hidden>Select Meal Type</option>
+                  <option value="Breakfast">Breakfast (Before 8AM)</option>
+                  <option value="Lunch">Lunch (Before 2PM)</option>
+                  <option value="Dinner">Dinner (Before 8PM)</option>
+                </select>
               </div>
             </div>
 
-            {/* 4. Number of People (Using a standard select for simplicity & stability) */}
+            {/* 4. Number of People */}
             <div className="res-col">
-              <div className="input-line">
-                <div className="input-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                </div>
+              <div className="input-line single-border">
                 <select 
                   name="people" 
                   required 
@@ -122,11 +129,7 @@ const Reservation = () => {
 
             {/* 5. Date */}
             <div className="res-col">
-              <div className="input-line">
-                <div className="input-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                </div>
-                {/* HTML5 Date input works very well natively */}
+              <div className="input-line single-border">
                 <input 
                   type="text" 
                   name="date" 
@@ -143,10 +146,7 @@ const Reservation = () => {
 
             {/* 6. Time */}
             <div className="res-col">
-              <div className="input-line">
-                <div className="input-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                </div>
+              <div className="input-line single-border">
                 <input 
                   type="text" 
                   name="time" 

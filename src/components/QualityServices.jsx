@@ -8,7 +8,7 @@ const QualityServices = () => {
     {
       id: 1,
       title: 'Free Delivery',
-      desc: 'Taste comes free of cost to you',
+      desc: 'Taste comes free of cost to you in Gomti Nagar Area Only',
       bgImg: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500&auto=format&fit=crop&q=100',
       icon: (
         // Delivery Truck Icon
@@ -51,7 +51,7 @@ const QualityServices = () => {
     },
     {
       id: 4,
-      title: 'Dessert',
+      title: 'Sweet Dish',
       desc: 'You will get Mouth Watering Sweet Dish',
       bgImg: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=500&auto=format&fit=crop&q=100',
       icon: (

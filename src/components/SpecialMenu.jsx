@@ -38,14 +38,14 @@ const SpecialMenu = () => {
       name: 'Arhar Dal Fry',
       desc: 'Dal tadka is cooked lentils which are tempered with desi ghee, fried spices & herbs.',
       price: '₹50.00',
-      img: './106.jpg'
+      img: './s50_7.png'
     },
     {
       id: 6,
       name: 'Dal Makhani',
       desc: 'Makkhan aur cream ke saath raat bhar dheemi aanch par pakai gayi kaali dal.',
       price: '₹50.00',
-      img: './122.jpg'
+      img: './s50_6.png'
     },
     {
       id: 7,
