@@ -15,7 +15,7 @@ import WeeklyMenu from './components/WeeklyMenu';
 import AboutUs from './components/AboutUs';
 import ContactUs from './components/ContactUs';
 import ScrollToTop from './components/ScrollToTop';
-
+import WhatsAppButton from './components/WhatsAppButton';
 
 
 
@@ -63,7 +63,7 @@ const AboutPage = () => (
     className="absolute inset-0 opacity-10" 
     style={{ 
       backgroundImage: `url("${kitchenPatternURL}")`, 
-      backgroundSize: '150px' 
+      backgroundSize: '150px'
     }}
   ></div>
 
@@ -258,6 +258,7 @@ export default function App() {
 
         <Footer />
         <ScrollToTop />
+        <WhatsAppButton/>
       </div>
     </Router>
   );

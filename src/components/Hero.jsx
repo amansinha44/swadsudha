@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // 🔴 NAYA CHANGE: Link import kiya
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-// 1. Define your carousel data outside the component
 const carouselItems = [
   {
     id: 1,
@@ -15,14 +15,16 @@ const carouselItems = [
     desc: 'Zero-oil, high protein macro counted meals.',
     img: '/bowl_6.png',
   },
-  
 ];
 
 const Hero = () => {
-  // 2. Add state to track the current index
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // 3. Create functions to handle next/prev clicks
+  // WhatsApp configuration
+  const phoneNumber = "917007948170";
+  const message = "Hello Swad Sudha! I want to reach out to you.";
+  const waLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
   const nextSlide = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % carouselItems.length);
   };
@@ -33,7 +35,6 @@ const Hero = () => {
     );
   };
 
-  // Calculate the index for the second visible card (for desktop)
   const nextItemIndex = (currentIndex + 1) % carouselItems.length;
 
   return (
@@ -47,12 +48,24 @@ const Hero = () => {
       </p>
       
       <div className="flex flex-wrap items-center gap-3 mb-10 relative z-20">
-        <button className="bg-[#568a35] text-white px-7 py-3 rounded-lg font-bold text-[15px] hover:bg-[#4a7a2b] shadow-lg transition-all">
+        
+        {/* Reach Us - WhatsApp Link */}
+        <a 
+          href={waLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-[#568a35] text-white px-7 py-3 rounded-lg font-bold text-[15px] hover:bg-[#4a7a2b] shadow-lg transition-all inline-block text-center"
+        >
           Reach Us
-        </button>
-        <button className="bg-transparent border-2 border-[#568a35] text-[#568a35] px-7 py-3 rounded-lg font-bold text-[15px] hover:bg-[#eef5e5] transition-colors">
+        </a>
+
+        {/* 🔴 NAYA CHANGE: View More ko Link se replace kiya */}
+        <Link 
+          to="/menu" 
+          className="bg-transparent border-2 border-[#568a35] text-[#568a35] px-7 py-3 rounded-lg font-bold text-[15px] hover:bg-[#eef5e5] transition-colors inline-block text-center"
+        >
           View More
-        </button>
+        </Link>
       </div>
 
       {/* ----- WIDER CAROUSEL CARD DESIGN ----- */}
