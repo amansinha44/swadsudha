@@ -13,7 +13,6 @@ const NavBar = () => {
   };
 
   return (
-    // 🔴 CHANGE: z-[999999] (Sabse maximum possible z-index)
     <nav className={`relative z-[999999] pt-6 pb-2 px-4 sm:px-6 lg:px-12 font-body flex justify-between items-center ${isHomePage ? 'w-full' : 'w-full max-w-[1150px] mx-auto'}`}>
       
       {/* 1. LOGO SECTION */}
@@ -30,26 +29,23 @@ const NavBar = () => {
       {/* 2. MENU & BUTTON SECTION */}
       <div className="flex items-center gap-4 lg:gap-6 relative z-[999999]">
         
-{/* 🔴 Desktop Menu Links */}
-<div className="hidden md:flex items-center gap-8 font-bold text-[14px] text-gray-700 lg:text-white lg:bg-white/10 lg:backdrop-blur-md lg:border lg:border-white/20 px-8 py-2.5  shadow-[0_4px_30px_rgba(0,0,0,0.1)] transition-all">
-
+        {/* Desktop Menu Links */}
+        <div className="hidden md:flex items-center gap-8 font-bold text-[14px] text-gray-700 lg:text-white lg:bg-white/10 lg:backdrop-blur-md lg:border lg:border-white/20 px-8 py-2.5 shadow-[0_4px_30px_rgba(0,0,0,0.1)] transition-all">
           <Link to="/" className="hover:text-[#7cb342] lg:hover:text-[#a4e363] transition-colors drop-shadow-sm">Home</Link>
-
           <Link to="/about" className="hover:text-[#7cb342] lg:hover:text-[#a4e363] transition-colors drop-shadow-sm">About</Link>
-
           <Link to="/menu" className="hover:text-[#7cb342] lg:hover:text-[#a4e363] transition-colors drop-shadow-sm">Our Menu</Link>
-
           <Link to="/subscription" className="hover:text-[#7cb342] lg:hover:text-[#a4e363] transition-colors drop-shadow-sm">Subscription</Link>
-
           <Link to="/contact" className="hover:text-[#7cb342] lg:hover:text-[#a4e363] transition-colors drop-shadow-sm">Contact</Link>
-
         </div>
         
-        {/* Desktop Order Button */}
+        {/* 🔴 Desktop Order Button (Changed to Link) */}
         <div className="hidden sm:flex items-center">
-          <button className="bg-gradient-to-r from-[#7cb342] to-[#568a35] text-white px-6 py-2.5  font-bold text-sm shadow-[0_5px_15px_rgba(124,179,66,0.3)] hover:shadow-[0_8px_20px_rgba(124,179,66,0.4)] transition-all flex items-center gap-2 hover:-translate-y-0.5 border border-[#7cb342]/50">
-            <ShoppingBag size={16} /> Order Now
-          </button>
+          <Link 
+            to="/checkout" 
+            className="bg-gradient-to-r from-[#7cb342] to-[#568a35] text-white px-6 py-2.5 font-bold text-sm shadow-[0_5px_15px_rgba(124,179,66,0.3)] hover:shadow-[0_8px_20px_rgba(124,179,66,0.4)] transition-all flex items-center gap-2 hover:-translate-y-0.5 border border-[#7cb342]/50 rounded-md"
+          >
+            <ShoppingBag size={16} /> CheckOut
+          </Link>
         </div>
 
         {/* MOBILE MENU BUTTON (Hamburger) */}
@@ -71,7 +67,6 @@ const NavBar = () => {
       )}
 
       {isMobileMenuOpen && (
-        // 🔴 CHANGE: absolute ki jagah fixed kar diya aur z-index ko extreme high rakha hai
         <div className="fixed top-[100px] right-4 w-[280px] bg-white/95 backdrop-blur-2xl rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.3)] border border-white/80 flex flex-col overflow-hidden md:hidden z-[999999] animate-in slide-in-from-top-4 fade-in duration-300">
           
           <div className="flex flex-col py-3 px-2 gap-1">
@@ -112,12 +107,14 @@ const NavBar = () => {
           </div>
           
           <div className="px-4 py-4 bg-gradient-to-br from-gray-50/50 to-gray-100/50 border-t border-gray-100 sm:hidden backdrop-blur-md">
-            <button 
+            {/* 🔴 Mobile Order Button (Changed to Link) */}
+            <Link 
+              to="/checkout"
               onClick={handleLinkClick}
               className="w-full bg-gradient-to-r from-[#7cb342] to-[#568a35] text-white px-4 py-3.5 rounded-xl font-bold text-[15px] shadow-[0_5px_15px_rgba(124,179,66,0.3)] hover:shadow-[0_8px_20px_rgba(124,179,66,0.4)] transition-all flex items-center justify-center gap-2 active:scale-95"
             >
-              <ShoppingBag size={18} /> Order Now
-            </button>
+              <ShoppingBag size={18} /> CheckOut
+            </Link>
           </div>
           
         </div>

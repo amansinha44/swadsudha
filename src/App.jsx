@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar'; 
 import Hero from './components/Hero';
@@ -16,17 +16,24 @@ import AboutUs from './components/AboutUs';
 import ContactUs from './components/ContactUs';
 import ScrollToTop from './components/ScrollToTop';
 import WhatsAppButton from './components/WhatsAppButton';
-
-
+import CheckoutPage from './components/CheckoutPage'; 
 
 // ==========================================
 // INDIVIDUAL PAGES
 // ==========================================
+
 const HomePage = () => (
   <>
+    {/* 🔴 SEO META TAGS FOR HOME */}
+    <title>Swad Sudha | Best Pure Veg Tiffin & Home Style Food in Lucknow</title>
+    <meta name="description" content="Order fresh, hygienic, and pure veg home-style meals from Swad Sudha in Gomti Nagar, Lucknow. Delicious daily menu starting at just ₹50." />
+    
     <div className="w-full max-w-[1440px] mx-auto relative flex flex-col flex-grow">
       <div className="hidden lg:block absolute top-0 right-0 bottom-0 w-[50%] bg-[#467b2d] z-0">
-        <div className="absolute inset-0" style={{ backgroundImage: `url("${kitchenPatternURL}")`, backgroundSize: '150px' }}></div>
+        <div 
+          className="absolute inset-0" 
+          style={{ backgroundImage: `url("${kitchenPatternURL}")`, backgroundSize: '150px' }}
+        ></div>
       </div>
       <NavBar />
       <div className="flex flex-col-reverse lg:flex-row w-full relative z-10 items-stretch flex-grow mt-2 lg:mt-6">
@@ -37,41 +44,40 @@ const HomePage = () => (
     <SpecialMenu />
     <TodaysMenu />
     <QualityServices />
-    <FromOurMenu />
     <Reservation />
+    <FromOurMenu />    
     <CustomersComment />
   </>
 );
 
-
 const AboutPage = () => (
+  <div className="relative w-full flex flex-col min-h-screen">
+    {/* 🔴 SEO META TAGS FOR ABOUT US */}
+    <title>About Us | Swad Sudha - Our Journey & Values</title>
+    <meta name="description" content="Learn about Swad Sudha's mission to provide the best home-cooked, pure vegetarian food in Lucknow. Discover our hygiene standards and quality ingredients." />
 
-<div className="relative w-full flex flex-col min-h-screen">
     {/* Dark Green -> Mid Green -> Fades into Cream */}
-    
-<div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] z-0 pointer-events-none overflow-hidden">
-  <div 
-    className="absolute inset-0 bg-[url('/greenpattern.jpg')] bg-repeat-x bg-top"
-    style={{ backgroundSize: '35% auto' }} 
-  />
+    <div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] z-0 pointer-events-none overflow-hidden">
+      <div 
+        className="absolute inset-0 bg-[url('/greenpattern.jpg')] bg-repeat-x bg-top"
+        style={{ backgroundSize: '35% auto' }} 
+      />
 
-  {/* 🔴 Dark Green Overlay */}
-  <div className="absolute inset-0 bg-[#0f2405]/70 mix-blend-multiply"></div>
+      {/* 🔴 Dark Green Overlay */}
+      <div className="absolute inset-0 bg-[#0f2405]/70 mix-blend-multiply"></div>
 
-  {/* Kitchen Pattern Texture */}
-  <div 
-    className="absolute inset-0 opacity-10" 
-    style={{ 
-      backgroundImage: `url("${kitchenPatternURL}")`, 
-      backgroundSize: '150px'
-    }}
-  ></div>
+      {/* Kitchen Pattern Texture */}
+      <div 
+        className="absolute inset-0 opacity-10" 
+        style={{ 
+          backgroundImage: `url("${kitchenPatternURL}")`, 
+          backgroundSize: '150px'
+        }}
+      ></div>
 
-  {/* 🟢 FIXED: Bottom Smooth Fade */}
-  {/* inset-0 hata kar 'bottom-0 left-0 w-full h-32' kiya hai taaki fade sirf bottom me solid rahe.
-      Aur 'to-transparent' ki jagah 'to-[#f8fbef]/0' use kiya hai Safari bug fix karne ke liye. */}
-  <div className="absolute bottom-0 left-0 w-full h-32 md:h-48 bg-gradient-to-t from-[#f8fbef] to-[#f8fbef]/0"></div>
-</div>
+      {/* 🟢 FIXED: Bottom Smooth Fade */}
+      <div className="absolute bottom-0 left-0 w-full h-32 md:h-48 bg-gradient-to-t from-[#f8fbef] to-[#f8fbef]/0"></div>
+    </div>
 
     {/* Navbar on top */}
     <div className="w-full max-w-[1440px] mx-auto relative z-50 flex flex-col pt-1">
@@ -80,38 +86,42 @@ const AboutPage = () => (
 
     {/* Content sitting ON TOP of the background */}
     <div className="relative z-10 w-full flex-grow">
-    <AboutUs />
+      <AboutUs />
     </div>
-   
-  <QualityServices />
+    
+    <QualityServices />
     <CustomersComment />
   </div>
-   
 );
 
-const MenuPage = () => (
- <div className="relative w-full flex flex-col min-h-screen">
-<div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] z-0 pointer-events-none overflow-hidden">
-  <div 
-    className="absolute inset-0 bg-[url('/greenpattern.jpg')] bg-repeat-x bg-top"
-    style={{ backgroundSize: '35% auto' }} // Ye width ko full rakhega aur height ko repeat karega
-  />
+// 🔴 MENU PAGE: Yahan cart aur setCart props receive kiye hain
+const MenuPage = ({ cart, setCart }) => (
+  <div className="relative w-full flex flex-col min-h-screen">
+    {/* 🔴 SEO META TAGS FOR MENU */}
+    <title>Weekly Menu | Order Breakfast, Lunch & Dinner - Swad Sudha</title>
+    <meta name="description" content="Explore Swad Sudha's 7-day weekly menu. Grab our ₹50 Super Combo Lunch, special Desi Ghee meals, and healthy dinner options in Lucknow." />
 
-  {/* 🔴 Dark Green Overlay: Pattern ko blend karne ke liye */}
-  <div className="absolute inset-0 bg-[#0f2405]/70 mix-blend-multiply"></div>
+    <div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] z-0 pointer-events-none overflow-hidden">
+      <div 
+        className="absolute inset-0 bg-[url('/greenpattern.jpg')] bg-repeat-x bg-top"
+        style={{ backgroundSize: '35% auto' }} // Ye width ko full rakhega aur height ko repeat karega
+      />
 
-  {/* Kitchen Pattern Texture */}
-  <div 
-    className="absolute inset-0 opacity-10" 
-    style={{ 
-      backgroundImage: `url("${kitchenPatternURL}")`, 
-      backgroundSize: '150px' 
-    }}
-  ></div>
+      {/* 🔴 Dark Green Overlay: Pattern ko blend karne ke liye */}
+      <div className="absolute inset-0 bg-[#0f2405]/70 mix-blend-multiply"></div>
 
-  {/* Bottom Smooth Fade */}
-  <div className="absolute inset-0 bg-gradient-to-t from-[#f8fbef] via-transparent to-transparent"></div>
-</div>
+      {/* Kitchen Pattern Texture */}
+      <div 
+        className="absolute inset-0 opacity-10" 
+        style={{ 
+          backgroundImage: `url("${kitchenPatternURL}")`, 
+          backgroundSize: '150px' 
+        }}
+      ></div>
+
+      {/* Bottom Smooth Fade */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#f8fbef] via-transparent to-transparent"></div>
+    </div>
 
     {/* Navbar on top */}
     <div className="w-full max-w-[1440px] mx-auto relative z-50 flex flex-col">
@@ -120,39 +130,43 @@ const MenuPage = () => (
 
     {/* Content sitting ON TOP of the background */}
     <div className="relative z-10 w-full flex-grow">
-     <WeeklyMenu />
+      {/* 🔴 WeeklyMenu ko cart state pass ki hai taaki add to order kaam kare */}
+      <WeeklyMenu cart={cart} setCart={setCart} />
     </div>
-   
-    { <SpecialMenu /> }
-      { <TodaysMenu /> }
+    
+    <SpecialMenu />
+    <TodaysMenu />
   </div>
-
 );
 
 const ContactPage = () => (
   <div className="relative w-full flex flex-col min-h-screen">
+    {/* 🔴 SEO META TAGS FOR CONTACT */}
+    <title>Contact Us | Reach Out to Swad Sudha Lucknow</title>
+    <meta name="description" content="Have a question or want to place a bulk order? Contact Swad Sudha in Gomti Nagar, Lucknow. Call us at +91 7007-948-170 or send a message." />
+
     {/* Dark Green -> Mid Green -> Fades into Cream */}
-<div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] z-0 pointer-events-none overflow-hidden">
-  <div 
-    className="absolute inset-0 bg-[url('/greenpattern.jpg')] bg-repeat-x bg-top"
-    style={{ backgroundSize: '35% auto' }} // Ye width ko full rakhega aur height ko repeat karega
-  />
+    <div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] z-0 pointer-events-none overflow-hidden">
+      <div 
+        className="absolute inset-0 bg-[url('/greenpattern.jpg')] bg-repeat-x bg-top"
+        style={{ backgroundSize: '35% auto' }} 
+      />
 
-  {/* 🔴 Dark Green Overlay: Pattern ko blend karne ke liye */}
-  <div className="absolute inset-0 bg-[#0f2405]/70 mix-blend-multiply"></div>
+      {/* 🔴 Dark Green Overlay */}
+      <div className="absolute inset-0 bg-[#0f2405]/70 mix-blend-multiply"></div>
 
-  {/* Kitchen Pattern Texture */}
-  <div 
-    className="absolute inset-0 opacity-10" 
-    style={{ 
-      backgroundImage: `url("${kitchenPatternURL}")`, 
-      backgroundSize: '150px' 
-    }}
-  ></div>
+      {/* Kitchen Pattern Texture */}
+      <div 
+        className="absolute inset-0 opacity-10" 
+        style={{ 
+          backgroundImage: `url("${kitchenPatternURL}")`, 
+          backgroundSize: '150px' 
+        }}
+      ></div>
 
-  {/* Bottom Smooth Fade */}
-  <div className="absolute inset-0 bg-gradient-to-t from-[#f8fbef] via-transparent to-transparent"></div>
-</div>
+      {/* Bottom Smooth Fade */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#f8fbef] via-transparent to-transparent"></div>
+    </div>
 
     {/* Navbar on top */}
     <div className="w-full max-w-[1440px] mx-auto relative z-50 flex flex-col">
@@ -161,64 +175,96 @@ const ContactPage = () => (
 
     {/* Content sitting ON TOP of the background */}
     <div className="relative z-10 w-full flex-grow">
-   <ContactUs />
+      <ContactUs />
     </div>
-   
-  
+    
     <CustomersComment />
   </div>
 );
 
 // ==========================================
-// 🔴 MAGIC SUBSCRIPTION PAGE (WITH YOUR subbg.jpg)
+// 🔴 MAGIC SUBSCRIPTION PAGE
 // ==========================================
 const SubscriptionPage = () => (
   <div className="relative w-full flex flex-col min-h-screen">
-    {/* Dark Green -> Mid Green -> Fades into Cream */}
-<div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] z-0 pointer-events-none overflow-hidden">
-  <div 
-    className="absolute inset-0 bg-[url('/greenpattern.jpg')] bg-repeat-x bg-top"
-    style={{ backgroundSize: '35% auto' }} // Ye width ko full rakhega aur height ko repeat karega
-  />
+    {/* 🔴 SEO META TAGS FOR SUBSCRIPTION */}
+    <title>Monthly Meal Subscriptions | Best Tiffin Service - Swad Sudha</title>
+    <meta name="description" content="Subscribe to Swad Sudha's monthly meal plans. Get hassle-free, pure veg, and hygienic home-style food delivered daily at the best prices in Lucknow." />
 
-  {/* 🔴 Dark Green Overlay: Pattern ko blend karne ke liye */}
-  <div className="absolute inset-0 bg-[#0f2405]/70 mix-blend-multiply"></div>
+    <div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] z-0 pointer-events-none overflow-hidden">
+      <div 
+        className="absolute inset-0 bg-[url('/greenpattern.jpg')] bg-repeat-x bg-top"
+        style={{ backgroundSize: '35% auto' }} 
+      />
 
-  {/* Kitchen Pattern Texture */}
-  <div 
-    className="absolute inset-0 opacity-10" 
-    style={{ 
-      backgroundImage: `url("${kitchenPatternURL}")`, 
-      backgroundSize: '150px' 
-    }}
-  ></div>
+      <div className="absolute inset-0 bg-[#0f2405]/70 mix-blend-multiply"></div>
 
-  {/* Bottom Smooth Fade */}
-  <div className="absolute inset-0 bg-gradient-to-t from-[#f8fbef] via-transparent to-transparent"></div>
-</div>
+      <div 
+        className="absolute inset-0 opacity-10" 
+        style={{ 
+          backgroundImage: `url("${kitchenPatternURL}")`, 
+          backgroundSize: '150px' 
+        }}
+      ></div>
 
-    {/* Navbar on top */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#f8fbef] via-transparent to-transparent"></div>
+    </div>
+
     <div className="w-full max-w-[1440px] mx-auto relative z-50 flex flex-col">
       <NavBar />
     </div>
 
-    {/* Content sitting ON TOP of the background */}
     <div className="relative z-10 w-full flex-grow">
       <SubscriptionPlans />
     </div>
-     { <TodaysMenu /> }
+    <TodaysMenu />
   </div>
 );
+
+
+// ==========================================
+// 🔴 NEW CHECKOUT PAGE ROUTE
+// ==========================================
+const CheckoutPageRoute = ({ cart, setCart }) => (
+  <div className="relative w-full flex flex-col min-h-screen">
+    {/* 🔴 SEO META TAGS FOR CHECKOUT */}
+    <title>Checkout | Complete Your Order - Swad Sudha</title>
+    <meta name="robots" content="noindex, nofollow" />
+
+    {/* Header Background */}
+    <div className="absolute top-0 left-0 w-full h-[250px] z-0 pointer-events-none overflow-hidden">
+      <div 
+        className="absolute inset-0 bg-[url('/greenpattern.jpg')] bg-repeat-x bg-top"
+        style={{ backgroundSize: '35% auto' }} 
+      />
+      <div className="absolute inset-0 bg-[#0f2405]/70 mix-blend-multiply"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-[#f8fbef] via-transparent to-transparent"></div>
+    </div>
+
+    <div className="w-full max-w-[1440px] mx-auto relative z-50 flex flex-col">
+      <NavBar />
+    </div>
+
+    <div className="relative z-10 w-full flex-grow mt-10">
+      <CheckoutPage cart={cart} setCart={setCart} />
+    </div>
+  </div>
+);
+
 
 // ==========================================
 // MAIN APP COMPONENT
 // ==========================================
 export default function App() {
+  
+  // 🔴 MAGIC: Ye state poore app me cart items ko hold karegi
+  const [cart, setCart] = useState([]);
+
   return (
     <Router>
       <div className="min-h-screen bg-[#f8fbef] font-sans text-gray-800 overflow-x-hidden selection:bg-[#6e9b34] selection:text-white flex flex-col relative z-0">
         
-        {/* 🔴 Global Styles (Saare animations wapas aa gaye!) */}
+        {/* 🔴 Global Styles */}
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@600;700;800&family=Lobster&family=Poppins:wght@400;500;600;700&display=swap');
           @import url('https://fonts.googleapis.com/css2?family=Yatra+One&display=swap');
@@ -251,9 +297,10 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
-          <Route path="/menu" element={<MenuPage />} />
+          <Route path="/menu" element={<MenuPage cart={cart} setCart={setCart} />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/subscription" element={<SubscriptionPage />} />
+          <Route path="/checkout" element={<CheckoutPageRoute cart={cart} setCart={setCart} />} />
         </Routes>
 
         <Footer />

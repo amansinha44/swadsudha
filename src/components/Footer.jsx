@@ -82,7 +82,7 @@ const Footer = () => {
                         </div>
                         <div className="col-12">
                           <div className="input-group input-line">
-                            <input name="dzOther[Subject]" required type="text" className="form-control" placeholder="Subject" />
+                            <input name="dzMobile" required type="text" className="form-control" placeholder="Mobile No" />
                           </div>
                         </div>
                         <div className="col-12">
