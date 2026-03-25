@@ -68,7 +68,7 @@ const CustomersComment = () => {
   return (
     <section className="customers-comment-section">
       {/* 🔴 decorative timaatar image -- make sure it's in your public/assets/ folder */}
-      <img className="cc-tamatar-bg" src="./assets/tamatar.png" alt="Tomato Decor" />
+      <img className="cc-tamatar-bg" src="/tamatar.png" alt="Tomato Decor" />
       <div className="cc-container">
         <div className="section-head text-center">
           <h2 className="title">Customer's Comment</h2>
