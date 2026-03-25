@@ -67,7 +67,7 @@ const WeeklyMenu = () => {
       >
         
         {/* 🟢 CHANGE: White overlay taaki text clearly visible rahe (90% opacity white) */}
-        <div className="absolute inset-0 bg-white/90 backdrop-blur-[2px] z-0"></div>
+        <div className="absolute inset-0 bg-white/95 backdrop-blur-[2px] z-0"></div>
 
         {/* 🟢 CHANGE: Original content ko is relative z-10 wrapper me daal diya taaki wo image ke upar rahe */}
         <div className="relative z-10 p-6 md:p-12 lg:p-16">

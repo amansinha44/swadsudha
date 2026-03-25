@@ -1,8 +1,11 @@
-import React from 'react';
-import { MapPin, Phone, Mail } from 'lucide-react';
+import React, { useState } from 'react'; // useState को इम्पोर्ट किया
+import { MapPin, Phone, Mail, X } from 'lucide-react'; // X आइकॉन इम्पोर्ट किया
 import './Footer.css';
 
 const Footer = () => {
+  // फॉर्म की दृश्यता को कंट्रोल करने के लिए स्टेट
+  const [isFormVisible, setIsFormVisible] = useState(true);
+
   return (
     <>
       {/* =========================================
@@ -26,74 +29,95 @@ const Footer = () => {
           ========================================= */}
       <footer className="site-footer style-1 bg-dark" id="footer">
         
-        {/* Background Decorative Images */}
-       {/* <img className="cc-tamatar-bg-left dz-move" src="/tamatar.png" alt="Tomato Decor" />*/}
-
         <div className="footer-top">
           <div className="container relative-z">
             <div className="footer-row">
               
-              {/* --- Column 1: Contact Form Card (OVERLAPPING THE MAP) --- */}
-              <div className="footer-col col-form-card">
-                <div className="dz-form-card bg-primary">
-                  <div className="section-head">
-                    <h4 className="title m-0">Contact us</h4>
-                    <p className="m-t10">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                  </div>
-                  <form className="dzForm dezPlaceAni" onSubmit={(e) => e.preventDefault()}>
-                    <div className="row">
-                      <div className="col-12">
-                        <div className="input-group input-line">
-                          <input name="dzName" required type="text" className="form-control" placeholder="Your Name" />
-                        </div>
-                      </div>
-                      <div className="col-12">
-                        <div className="input-group input-line">
-                          <input name="dzEmail" required type="email" className="form-control" placeholder="Email Address" />
-                        </div>
-                      </div>
-                      <div className="col-12">
-                        <div className="input-group input-line">
-                          <input name="dzOther[Subject]" required type="text" className="form-control" placeholder="Subject" />
-                        </div>
-                      </div>
-                      <div className="col-12">
-                        <div className="input-group input-line">
-                          <textarea name="dzMessage" required className="form-control" placeholder="Message" rows="3"></textarea>
-                        </div>
-                      </div>
-                      <div className="col-12">
-                        <button type="submit" name="submit" value="submit" className="btn btn-md btn-white btn-hover-1">
-                          <span>Send Message</span>
-                        </button>
-                      </div>
+              {/* --- Column 1: Contact Form Card --- */}
+              {/* यहाँ हमने स्टेट चेक लगाया है */}
+              {isFormVisible && (
+                <div className="footer-col col-form-card">
+                  <div className="dz-form-card bg-primary" style={{ position: 'relative' }}>
+                    
+                    {/* क्लोज बटन/आइकॉन */}
+                    <button 
+                      onClick={() => setIsFormVisible(false)}
+                      className="close-form-btn"
+                      style={{
+                        position: 'absolute',
+                        top: '-15px',
+                        right: '-15px',
+                        backgroundColor: '#fff',
+                        color: '#7cb342',
+                        borderRadius: '50%',
+                        width: '35px',
+                        height: '35px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        border: '2px solid #7cb342',
+                        cursor: 'pointer',
+                        zIndex: 999,
+                        boxShadow: '0 4px 10px rgba(0,0,0,0.2)'
+                      }}
+                    >
+                      <X size={20} strokeWidth={3} />
+                    </button>
+
+                    <div className="section-head">
+                      <h4 className="title m-0">Contact us</h4>
+                      <p className="m-t10">Aapka feedback hamare liye anmol hai. Kisi bhi sawal ya sujhaav ke liye humein likhein.</p>
                     </div>
-                  </form>
+                    <form className="dzForm dezPlaceAni" onSubmit={(e) => e.preventDefault()}>
+                      <div className="row">
+                        <div className="col-12">
+                          <div className="input-group input-line">
+                            <input name="dzName" required type="text" className="form-control" placeholder="Your Name" />
+                          </div>
+                        </div>
+                        <div className="col-12">
+                          <div className="input-group input-line">
+                            <input name="dzEmail" required type="email" className="form-control" placeholder="Email Address" />
+                          </div>
+                        </div>
+                        <div className="col-12">
+                          <div className="input-group input-line">
+                            <input name="dzOther[Subject]" required type="text" className="form-control" placeholder="Subject" />
+                          </div>
+                        </div>
+                        <div className="col-12">
+                          <div className="input-group input-line">
+                            <textarea name="dzMessage" required className="form-control" placeholder="Message" rows="3"></textarea>
+                          </div>
+                        </div>
+                        <div className="col-12">
+                          <button type="submit" name="submit" value="submit" className="btn btn-md btn-white btn-hover-1">
+                            <span>Send Message</span>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* --- Column 2: Contact Info --- */}
               <div className="footer-col col-contact-info">
                 <div className="widget widget_getintuch">
                   <h5 className="footer-title">Contact</h5>
                   <ul>
-                    {/* Location */}
                     <li className="flex items-start gap-4 mb-6">
                       <MapPin size={28} strokeWidth={1.5} className="text-[#7cb342] shrink-0 mt-1" />
                       <p className="m-0 leading-relaxed text-[#cccccc]">
                         1/881, Vinay Khand, Gomti Nagar, Lucknow, Uttar Pradesh
                       </p>
                     </li>
-                    
-                    {/* Phone */}
                     <li className="flex items-start gap-4 mb-6">
                       <Phone size={28} strokeWidth={1.5} className="text-[#7cb342] shrink-0 mt-1" />
                       <p className="m-0 leading-relaxed text-[#cccccc]">
                         +91 7007-948-170
                       </p>
                     </li>
-                    
-                    {/* Email */}
                     <li className="flex items-start gap-4 mb-6">
                       <Mail size={28} strokeWidth={1.5} className="text-[#7cb342] shrink-0 mt-1" />
                       <p className="m-0 leading-relaxed text-[#cccccc]">
@@ -146,7 +170,7 @@ const Footer = () => {
               </div>
               <div className="footer-bottom-right text-md-end">
                 <span className="copyright-text">
-                  Crafted With <span className="heart text-danger"></span> Love <a href="#" target="_blank" rel="noreferrer">Made In Lucknow</a>
+                 Made with ❤️ In Lucknow
                 </span>
               </div>
             </div>

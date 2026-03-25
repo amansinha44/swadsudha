@@ -49,12 +49,19 @@ const FromOurMenu = () => {
                       <h5 className="fom-title">{item.name}</h5>
                       <span className="fom-price">{item.price}</span>
                     </div>
-                    <button className="fom-cart-btn">
+                    
+                    {/* 🔴 Cart Button ko Menu Link mein badal diya gaya hai */}
+                    <a href="/menu" className="fom-cart-btn" title="View Menu">
+                      {/* Menu/List Icon */}
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
-                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        <line x1="8" y1="6" x2="21" y2="6"></line>
+                        <line x1="8" y1="12" x2="21" y2="12"></line>
+                        <line x1="8" y1="18" x2="21" y2="18"></line>
+                        <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                        <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                        <line x1="3" y1="18" x2="3.01" y2="18"></line>
                       </svg>
-                    </button>
+                    </a>
                   </div>
                 </div>
               </SwiperSlide>
