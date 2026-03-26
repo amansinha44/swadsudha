@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { MapPin, PhoneCall, Mail, Clock, Send, Loader2, ShieldCheck, RefreshCcw } from 'lucide-react';
+// 🔴 Naye icons (CheckCircle2, XCircle, X) add kiye gaye hain
+import { MapPin, PhoneCall, Mail, Clock, Send, Loader2, ShieldCheck, RefreshCcw, CheckCircle2, XCircle, X } from 'lucide-react';
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // 🔴 Captcha States & Logic
+  // 🔴 NEW: Custom Alert Box State
+  const [alertBox, setAlertBox] = useState({ show: false, message: '', type: 'success' });
+
+  // Captcha States & Logic
   const [captcha, setCaptcha] = useState({ num1: 0, num2: 0 });
   const [captchaInput, setCaptchaInput] = useState('');
 
@@ -21,12 +25,21 @@ const ContactUs = () => {
     generateCaptcha();
   }, []);
 
+  // 🔴 Custom Alert Show Function
+  const showCustomAlert = (message, type = 'success') => {
+    setAlertBox({ show: true, message, type });
+    // 5 seconds baad apne aap gayab ho jayega
+    setTimeout(() => {
+      setAlertBox({ show: false, message: '', type: 'success' });
+    }, 5000);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // 🔴 Captcha Validation
+    // Captcha Validation
     if (parseInt(captchaInput) !== captcha.num1 + captcha.num2) {
-      alert("Kripya sahi Captcha (Math Answer) enter karein!");
+      showCustomAlert("Kripya sahi Captcha (Math Answer) enter karein!", "error");
       generateCaptcha();
       return;
     }
@@ -42,14 +55,14 @@ const ContactUs = () => {
 
       const data = await response.json();
       if (response.ok && data.success) {
-        alert("Aapka message bhej diya gaya hai! Hum jald hi aapse sampark karenge.");
+        showCustomAlert("Aapka message bhej diya gaya hai! Hum jald hi aapse sampark karenge.", "success");
         setFormData({ name: '', phone: '', email: '', message: '' }); 
         generateCaptcha(); // Message bhejne ke baad naya captcha
       } else {
-        alert("Message bhejne me error aayi. Kripya baad me try karein.");
+        showCustomAlert("Message bhejne me error aayi. Kripya baad me try karein.", "error");
       }
     } catch (error) {
-      alert("Internet connection check karein.");
+      showCustomAlert("Internet connection check karein.", "error");
     } finally {
       setIsSubmitting(false);
     }
@@ -245,6 +258,51 @@ const ContactUs = () => {
 
         </div>
       </div>
+
+      {/* ====================================================
+          🚀 THE NEW GLASSMORPHISM TOAST ALERT (Mobile Center, Desktop Top-Right)
+          ==================================================== */}
+      {alertBox.show && (
+        <div className="fixed z-[999999] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:top-8 md:right-8 md:left-auto md:translate-x-0 md:translate-y-0 w-[90vw] max-w-sm md:w-[400px] animate-in fade-in zoom-in-95 duration-300">
+          <div className={`backdrop-blur-xl border p-5 rounded-2xl shadow-2xl flex items-start gap-4 ${
+            alertBox.type === 'success' 
+              ? 'bg-[#0f2405]/95 border-[#a4e363]/40 shadow-[0_10px_40px_rgba(164,227,99,0.3)]' 
+              : 'bg-red-950/95 border-red-500/40 shadow-[0_10px_40px_rgba(239,68,68,0.3)]'
+          }`}>
+            
+            {/* Glowing Icon */}
+            <div className={`shrink-0 w-12 h-12 rounded-full flex items-center justify-center ${
+              alertBox.type === 'success' 
+                ? 'bg-gradient-to-br from-[#7cb342] to-[#a4e363] shadow-[0_0_15px_rgba(124,179,66,0.6)]' 
+                : 'bg-gradient-to-br from-red-500 to-red-400 shadow-[0_0_15px_rgba(239,68,68,0.6)]'
+            }`}>
+               {alertBox.type === 'success' ? <CheckCircle2 className="text-white" size={24} strokeWidth={2.5} /> : <XCircle className="text-white" size={24} strokeWidth={2.5} />}
+            </div>
+            
+            {/* Text Content */}
+            <div className="flex flex-col pr-4 flex-1">
+              <span className={`text-xs font-bold uppercase tracking-widest mb-1 ${
+                alertBox.type === 'success' ? 'text-[#a4e363]' : 'text-red-300'
+              }`}>
+                {alertBox.type === 'success' ? 'Success' : 'Attention'}
+              </span>
+              <span className="text-white font-medium text-sm leading-relaxed">
+                {alertBox.message}
+              </span>
+            </div>
+
+            {/* Close Button */}
+            <button 
+              onClick={() => setAlertBox({ show: false, message: '', type: 'success' })} 
+              className="text-white/50 hover:text-white transition-colors"
+            >
+              <X size={20} />
+            </button>
+
+          </div>
+        </div>
+      )}
+
     </section>
   );
 };

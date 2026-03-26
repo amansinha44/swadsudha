@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Trash2, User, Phone, MapPin, Home, ArrowRight, Mail, Info, ShieldCheck, RefreshCcw, Plus, Minus, Loader2 } from 'lucide-react'; 
+import { Trash2, User, Phone, MapPin, Home, ArrowRight, Mail, Info, ShieldCheck, RefreshCcw, Plus, Minus, Loader2, CheckCircle2, XCircle, X } from 'lucide-react'; // 🔴 3 Naye icons add kiye
 
 const CheckoutPage = ({ cart, setCart }) => {
   const [formData, setFormData] = useState({
@@ -11,6 +11,9 @@ const CheckoutPage = ({ cart, setCart }) => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // 🔴 NEW: Custom Alert Box State
+  const [alertBox, setAlertBox] = useState({ show: false, message: '', type: 'success' });
 
   // Captcha States
   const [captcha, setCaptcha] = useState({ num1: 0, num2: 0 });
@@ -28,6 +31,15 @@ const CheckoutPage = ({ cart, setCart }) => {
     generateCaptcha();
   }, []);
 
+  // Custom Alert Show Function
+  const showCustomAlert = (message, type = 'success') => {
+    setAlertBox({ show: true, message, type });
+    // 5 seconds baad apne aap gayab ho jayega
+    setTimeout(() => {
+      setAlertBox({ show: false, message: '', type: 'success' });
+    }, 5000);
+  };
+
   const finalTotal = cart.reduce((total, item) => total + (item.price * item.qty), 0);
 
   const handleRemove = (id) => {
@@ -37,7 +49,7 @@ const CheckoutPage = ({ cart, setCart }) => {
   const handleQuantityChange = (id, newQty) => {
     if (newQty < 1) return;
     if (newQty > 12) {
-      alert("Aap ek baar mein maximum 12 items hi order kar sakte hain.");
+      showCustomAlert("Aap ek baar mein maximum 12 items hi order kar sakte hain.", "error");
       return;
     }
     
@@ -50,12 +62,12 @@ const CheckoutPage = ({ cart, setCart }) => {
     e.preventDefault();
     
     if(cart.length === 0) {
-      alert("Aapka cart khali hai! Pehle menu se kuch add karein.");
+      showCustomAlert("Aapka cart khali hai! Pehle menu se kuch add karein.", "error");
       return;
     }
 
     if (parseInt(captchaInput) !== captcha.num1 + captcha.num2) {
-      alert("Kripya sahi Captcha (Math Answer) enter karein!");
+      showCustomAlert("Kripya sahi Captcha (Math Answer) enter karein!", "error");
       generateCaptcha();
       return;
     }
@@ -78,25 +90,26 @@ const CheckoutPage = ({ cart, setCart }) => {
       const data = await response.json();
 
       if (response.ok && data.success) {
-        alert(`Shukriya ${formData.name}! Aapka ₹${finalTotal} ka order tayyar ho raha hai. Confirmation email jald hi aayega.`);
+        // 🔴 Success hone par Naya Custom Alert
+        showCustomAlert(`Shukriya ${formData.name}! Aapka ₹${finalTotal} ka order tayyar ho raha hai. Confirmation email jald hi aayega.`, "success");
         
         setCart([]);
         setFormData({ name: '', phone: '', email: '', address: '', landmark: '' });
         generateCaptcha();
       } else {
-        alert("Oops! Kuch technical issue aa gaya. Kripya humein direct call karein.");
+        showCustomAlert("Oops! Kuch technical issue aa gaya. Kripya humein direct call karein.", "error");
         console.error("API Error:", data.message);
       }
     } catch (error) {
       console.error("Checkout Error:", error);
-      alert("Internet connection check karein aur wapas try karein.");
+      showCustomAlert("Internet connection check karein aur wapas try karein.", "error");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="w-full max-w-[1150px] mx-auto py-12 px-4 md:px-6 font-body pb-24">
+    <div className="w-full max-w-[1150px] mx-auto py-12 px-4 md:px-6 font-body pb-24 relative">
       
       <div className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-heading text-green-900 drop-shadow-sm">Complete Your Order</h1>
@@ -105,9 +118,7 @@ const CheckoutPage = ({ cart, setCart }) => {
 
       <div className="flex flex-col lg:flex-row gap-8 items-start">
         
-        {/* =========================================
-            LEFT SIDE: CART SUMMARY
-            ========================================= */}
+        {/* LEFT SIDE: CART SUMMARY */}
         <div className="w-full lg:w-5/12 bg-white rounded-lg shadow-[0_-5px_40px_rgba(0,0,0,0.06)] p-6 md:p-8 border border-gray-100 sticky top-24">
           <h2 className="text-2xl font-bold border-b border-gray-200 pb-4 mb-6 text-[#7CB342] flex items-center gap-2">
             Your Plate 🍽️
@@ -182,9 +193,7 @@ const CheckoutPage = ({ cart, setCart }) => {
           )}
         </div>
 
-        {/* =========================================
-            RIGHT SIDE: DELIVERY FORM
-            ========================================= */}
+        {/* RIGHT SIDE: DELIVERY FORM */}
         <div className="w-full lg:w-7/12 bg-white rounded-lg shadow-[0_-5px_40px_rgba(0,0,0,0.06)] p-6 md:p-8 border border-gray-100 mb-12">
           
           <div className="border-b border-gray-200 pb-4 mb-6">
@@ -197,8 +206,6 @@ const CheckoutPage = ({ cart, setCart }) => {
           <form onSubmit={handlePlaceOrder} className="space-y-6">
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              
-              {/* 🔴 VALIDATION: Full Name */}
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-2">Full Name <span className="text-red-500">*</span></label>
                 <div className="relative">
@@ -206,19 +213,13 @@ const CheckoutPage = ({ cart, setCart }) => {
                     <User size={18} />
                   </div>
                   <input 
-                    required 
-                    type="text" 
-                    value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    required type="text" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})}
                     className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7CB342] focus:border-[#7CB342] outline-none transition-all bg-gray-50 focus:bg-white" 
-                    placeholder="Rahul Kumar"
-                    pattern="^[A-Za-z\s]{3,50}$"
-                    title="Name me sirf alphabets allow hain aur kam se kam 3 akshar hone chahiye."
+                    placeholder="Rahul Kumar" pattern="^[A-Za-z\s]{3,50}$" title="Name me sirf alphabets allow hain aur kam se kam 3 akshar hone chahiye."
                   />
                 </div>
               </div>
 
-              {/* 🔴 VALIDATION: Phone Number */}
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-2">Phone Number <span className="text-red-500">*</span></label>
                 <div className="relative">
@@ -226,24 +227,15 @@ const CheckoutPage = ({ cart, setCart }) => {
                     <Phone size={18} />
                   </div>
                   <input 
-                    required 
-                    type="tel" 
-                    value={formData.phone}
-                    onChange={(e) => {
-                      const val = e.target.value.replace(/\D/g, ''); // Sirf number allow
-                      setFormData({...formData, phone: val})
-                    }}
+                    required type="tel" value={formData.phone}
+                    onChange={(e) => setFormData({...formData, phone: e.target.value.replace(/\D/g, '')})}
                     className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7CB342] focus:border-[#7CB342] outline-none transition-all bg-gray-50 focus:bg-white" 
-                    placeholder="10 digit mobile number"
-                    pattern="^[6-9]\d{9}$"
-                    maxLength="10"
-                    title="Kripya sahi 10-digit mobile number enter karein."
+                    placeholder="10 digit mobile number" pattern="^[6-9]\d{9}$" maxLength="10" title="Kripya sahi 10-digit mobile number enter karein."
                   />
                 </div>
               </div>
             </div>
 
-            {/* Email Address (Optional) */}
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-2">Email Address (Optional)</label>
               <div className="relative">
@@ -251,16 +243,13 @@ const CheckoutPage = ({ cart, setCart }) => {
                   <Mail size={18} />
                 </div>
                 <input 
-                  type="email" 
-                  value={formData.email}
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  type="email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})}
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7CB342] focus:border-[#7CB342] outline-none transition-all bg-gray-50 focus:bg-white" 
                   placeholder="rahul@example.com"
                 />
               </div>
             </div>
 
-            {/* 🔴 VALIDATION: Complete Address */}
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-2">Complete Address <span className="text-red-500">*</span></label>
               <div className="relative">
@@ -268,20 +257,13 @@ const CheckoutPage = ({ cart, setCart }) => {
                   <Home size={18} />
                 </div>
                 <textarea 
-                  required 
-                  rows="3" 
-                  value={formData.address}
-                  onChange={(e) => setFormData({...formData, address: e.target.value})}
+                  required rows="3" value={formData.address} onChange={(e) => setFormData({...formData, address: e.target.value})}
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7CB342] focus:border-[#7CB342] outline-none transition-all resize-none bg-gray-50 focus:bg-white" 
-                  placeholder="House/Flat No., Building Name, Area, Street"
-                  minLength="10"
-                  maxLength="200"
-                  title="Kripya pura address likhein (kam se kam 10 akshar)."
+                  placeholder="House/Flat No., Building Name, Area, Street" minLength="10" maxLength="200" title="Kripya pura address likhein (kam se kam 10 akshar)."
                 ></textarea>
               </div>
             </div>
 
-            {/* Landmark (Optional) */}
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-2">Landmark (Optional)</label>
               <div className="relative">
@@ -289,17 +271,13 @@ const CheckoutPage = ({ cart, setCart }) => {
                   <MapPin size={18} />
                 </div>
                 <input 
-                  type="text" 
-                  value={formData.landmark}
-                  onChange={(e) => setFormData({...formData, landmark: e.target.value})}
+                  type="text" value={formData.landmark} onChange={(e) => setFormData({...formData, landmark: e.target.value})}
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7CB342] focus:border-[#7CB342] outline-none transition-all bg-gray-50 focus:bg-white" 
-                  placeholder="Near Post Office, Opposite Metro Station, etc."
-                  maxLength="100"
+                  placeholder="Near Post Office, Opposite Metro Station, etc." maxLength="100"
                 />
               </div>
             </div>
 
-            {/* Delivery Info Banner */}
             <div className="bg-green-50 border border-green-200 rounded-lg p-4 flex items-start gap-3 mt-6">
               <Info className="text-green-600 shrink-0 mt-0.5" size={20} />
               <div>
@@ -312,34 +290,24 @@ const CheckoutPage = ({ cart, setCart }) => {
               </div>
             </div>
 
-            {/* Math Captcha Section */}
             <div className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <ShieldCheck className="text-[#7CB342]" size={24} />
                 <span className="text-gray-700 font-bold">Verify you are human:</span>
                 <div className="bg-white px-3 py-1.5 rounded-md border border-gray-300 font-bold text-lg tracking-wider shadow-sm flex items-center gap-3 ml-2">
                   {captcha.num1} + {captcha.num2} = ?
-                  <button 
-                    type="button" 
-                    onClick={generateCaptcha} 
-                    className="text-gray-400 hover:text-[#7CB342] transition-colors" 
-                    title="Change Captcha"
-                  >
+                  <button type="button" onClick={generateCaptcha} className="text-gray-400 hover:text-[#7CB342] transition-colors" title="Change Captcha">
                     <RefreshCcw size={16} />
                   </button>
                 </div>
               </div>
               <input
-                type="number"
-                required
-                value={captchaInput}
-                onChange={(e) => setCaptchaInput(e.target.value)}
+                type="number" required value={captchaInput} onChange={(e) => setCaptchaInput(e.target.value)}
                 className="w-full sm:w-24 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7CB342] outline-none text-center font-bold text-lg"
                 placeholder="Ans"
               />
             </div>
 
-            {/* Submit Button */}
             <button 
               type="submit" 
               disabled={cart.length === 0 || isSubmitting}
@@ -367,8 +335,52 @@ const CheckoutPage = ({ cart, setCart }) => {
           </form>
           
         </div>
-
       </div>
+
+      {/* ====================================================
+          🚀 THE NEW GLASSMORPHISM TOAST ALERT (Mobile Center, Desktop Top-Right)
+          ==================================================== */}
+      {alertBox.show && (
+        <div className="fixed z-[999999] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:top-8 md:right-8 md:left-auto md:translate-x-0 md:translate-y-0 w-[90vw] max-w-sm md:w-[400px] animate-in fade-in zoom-in-95 duration-300">
+          <div className={`backdrop-blur-xl border p-5 rounded-2xl shadow-2xl flex items-start gap-4 ${
+            alertBox.type === 'success' 
+              ? 'bg-[#0f2405]/95 border-[#a4e363]/40 shadow-[0_10px_40px_rgba(164,227,99,0.3)]' 
+              : 'bg-red-950/95 border-red-500/40 shadow-[0_10px_40px_rgba(239,68,68,0.3)]'
+          }`}>
+            
+            {/* Glowing Icon */}
+            <div className={`shrink-0 w-12 h-12 rounded-full flex items-center justify-center ${
+              alertBox.type === 'success' 
+                ? 'bg-gradient-to-br from-[#7cb342] to-[#a4e363] shadow-[0_0_15px_rgba(124,179,66,0.6)]' 
+                : 'bg-gradient-to-br from-red-500 to-red-400 shadow-[0_0_15px_rgba(239,68,68,0.6)]'
+            }`}>
+               {alertBox.type === 'success' ? <CheckCircle2 className="text-white" size={24} strokeWidth={2.5} /> : <XCircle className="text-white" size={24} strokeWidth={2.5} />}
+            </div>
+            
+            {/* Text Content */}
+            <div className="flex flex-col pr-4 flex-1">
+              <span className={`text-xs font-bold uppercase tracking-widest mb-1 ${
+                alertBox.type === 'success' ? 'text-[#a4e363]' : 'text-red-300'
+              }`}>
+                {alertBox.type === 'success' ? 'Success' : 'Attention'}
+              </span>
+              <span className="text-white font-medium text-sm leading-relaxed">
+                {alertBox.message}
+              </span>
+            </div>
+
+            {/* Close Button */}
+            <button 
+              onClick={() => setAlertBox({ show: false, message: '', type: 'success' })} 
+              className="text-white/50 hover:text-white transition-colors"
+            >
+              <X size={20} />
+            </button>
+
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };
