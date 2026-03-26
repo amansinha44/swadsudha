@@ -1,27 +1,50 @@
-import React, { useState } from 'react';
-import { MapPin, PhoneCall, Mail, Clock, Send, Loader2 } from 'lucide-react'; // Loader2 add kiya
+import React, { useState, useEffect } from 'react';
+import { MapPin, PhoneCall, Mail, Clock, Send, Loader2, ShieldCheck, RefreshCcw } from 'lucide-react';
 
 const ContactUs = () => {
-  // 🔴 Form Data & Loading State
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // 🔴 Handle Form Submit
+  // 🔴 Captcha States & Logic
+  const [captcha, setCaptcha] = useState({ num1: 0, num2: 0 });
+  const [captchaInput, setCaptchaInput] = useState('');
+
+  const generateCaptcha = () => {
+    setCaptcha({
+      num1: Math.floor(Math.random() * 10) + 1,
+      num2: Math.floor(Math.random() * 10) + 1
+    });
+    setCaptchaInput('');
+  };
+
+  useEffect(() => {
+    generateCaptcha();
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // 🔴 Captcha Validation
+    if (parseInt(captchaInput) !== captcha.num1 + captcha.num2) {
+      alert("Kripya sahi Captcha (Math Answer) enter karein!");
+      generateCaptcha();
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
       const response = await fetch('/api/sendMessage', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, source: 'Contact Us Page' }) // Source bata rahe hain
+        body: JSON.stringify({ ...formData, source: 'Contact Us Page' })
       });
 
       const data = await response.json();
       if (response.ok && data.success) {
         alert("Aapka message bhej diya gaya hai! Hum jald hi aapse sampark karenge.");
-        setFormData({ name: '', phone: '', email: '', message: '' }); // Form clear
+        setFormData({ name: '', phone: '', email: '', message: '' }); 
+        generateCaptcha(); // Message bhejne ke baad naya captcha
       } else {
         alert("Message bhejne me error aayi. Kripya baad me try karein.");
       }
@@ -122,76 +145,65 @@ const ContactUs = () => {
               <p className="text-gray-500 font-medium">Apna sawal ya feedback niche likhein, humari team jald hi aapse baat karegi.</p>
             </div>
 
-            {/* 🔴 Added onSubmit */}
             <form className="space-y-6" onSubmit={handleSubmit}>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="relative group">
                   <input 
-                    type="text" 
-                    id="name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    placeholder=" "
-                    className="block w-full px-4 py-4 rounded-xl border border-gray-200 bg-gray-50/50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#7cb342]/50 focus:border-[#7cb342] focus:bg-white transition-all peer"
-                    required
+                    type="text" id="name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    placeholder=" " className="block w-full px-4 py-4 rounded-xl border border-gray-200 bg-gray-50/50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#7cb342]/50 focus:border-[#7cb342] focus:bg-white transition-all peer" required
                   />
-                  <label htmlFor="name" className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white/0 px-2 peer-focus:px-2 peer-focus:text-[#7cb342] peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-2 peer-focus:bg-white font-medium">
-                    Your Name
-                  </label>
+                  <label htmlFor="name" className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white/0 px-2 peer-focus:px-2 peer-focus:text-[#7cb342] peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-2 peer-focus:bg-white font-medium">Your Name</label>
                 </div>
                 
                 <div className="relative group">
                   <input 
-                    type="tel" 
-                    id="phone"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    placeholder=" "
-                    className="block w-full px-4 py-4 rounded-xl border border-gray-200 bg-gray-50/50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#7cb342]/50 focus:border-[#7cb342] focus:bg-white transition-all peer"
-                    required
+                    type="tel" id="phone" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                    placeholder=" " className="block w-full px-4 py-4 rounded-xl border border-gray-200 bg-gray-50/50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#7cb342]/50 focus:border-[#7cb342] focus:bg-white transition-all peer" required
                   />
-                  <label htmlFor="phone" className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white/0 px-2 peer-focus:px-2 peer-focus:text-[#7cb342] peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-2 peer-focus:bg-white font-medium">
-                    Phone Number
-                  </label>
+                  <label htmlFor="phone" className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white/0 px-2 peer-focus:px-2 peer-focus:text-[#7cb342] peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-2 peer-focus:bg-white font-medium">Phone Number</label>
                 </div>
               </div>
 
               <div className="relative group">
                 <input 
-                  type="email" 
-                  id="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  placeholder=" "
-                  className="block w-full px-4 py-4 rounded-xl border border-gray-200 bg-gray-50/50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#7cb342]/50 focus:border-[#7cb342] focus:bg-white transition-all peer"
-                  required
+                  type="email" id="email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  placeholder=" " className="block w-full px-4 py-4 rounded-xl border border-gray-200 bg-gray-50/50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#7cb342]/50 focus:border-[#7cb342] focus:bg-white transition-all peer" required
                 />
-                <label htmlFor="email" className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white/0 px-2 peer-focus:px-2 peer-focus:text-[#7cb342] peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-2 peer-focus:bg-white font-medium">
-                  Email Address
-                </label>
+                <label htmlFor="email" className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white/0 px-2 peer-focus:px-2 peer-focus:text-[#7cb342] peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-2 peer-focus:bg-white font-medium">Email Address</label>
               </div>
 
               <div className="relative group">
                 <textarea 
-                  id="message"
-                  value={formData.message}
-                  onChange={(e) => setFormData({...formData, message: e.target.value})}
-                  rows="4"
-                  placeholder=" "
-                  className="block w-full px-4 py-4 rounded-xl border border-gray-200 bg-gray-50/50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#7cb342]/50 focus:border-[#7cb342] focus:bg-white transition-all peer resize-none"
-                  required
+                  id="message" value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})}
+                  rows="4" placeholder=" " className="block w-full px-4 py-4 rounded-xl border border-gray-200 bg-gray-50/50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#7cb342]/50 focus:border-[#7cb342] focus:bg-white transition-all peer resize-none" required
                 ></textarea>
-                <label htmlFor="message" className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] bg-white/0 px-2 peer-focus:px-2 peer-focus:text-[#7cb342] peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-0 peer-placeholder-shown:top-4 peer-focus:top-0 peer-focus:scale-75 peer-focus:-translate-y-3 left-2 peer-focus:bg-white font-medium">
-                  Your Message
-                </label>
+                <label htmlFor="message" className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] bg-white/0 px-2 peer-focus:px-2 peer-focus:text-[#7cb342] peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-0 peer-placeholder-shown:top-4 peer-focus:top-0 peer-focus:scale-75 peer-focus:-translate-y-3 left-2 peer-focus:bg-white font-medium">Your Message</label>
               </div>
 
-              {/* 🔴 Button with Loading State */}
+              {/* 🔴 NEW: Math Captcha Section */}
+              <div className="bg-gray-50 p-4 rounded-xl border border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <ShieldCheck className="text-[#7CB342]" size={24} />
+                  <span className="text-gray-700 font-bold text-sm">Spam Check:</span>
+                  <div className="bg-white px-3 py-1.5 rounded-md border border-gray-300 font-bold tracking-wider shadow-sm flex items-center gap-3 ml-1">
+                    {captcha.num1} + {captcha.num2} = ?
+                    <button type="button" onClick={generateCaptcha} className="text-gray-400 hover:text-[#7CB342] transition-colors" title="Change Captcha">
+                      <RefreshCcw size={14} />
+                    </button>
+                  </div>
+                </div>
+                <input
+                  type="number" required value={captchaInput} onChange={(e) => setCaptchaInput(e.target.value)}
+                  className="w-full sm:w-20 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7CB342] outline-none text-center font-bold"
+                  placeholder="Ans"
+                />
+              </div>
+
+              {/* Submit Button */}
               <div className="pt-2">
                 <button 
-                  type="submit"
-                  disabled={isSubmitting}
+                  type="submit" disabled={isSubmitting}
                   className={`w-full sm:w-auto px-10 py-4 font-bold rounded-xl shadow-[0_10px_20px_rgba(124,179,66,0.3)] transition-all flex items-center justify-center gap-3 group relative overflow-hidden ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#7cb342] hover:bg-[#669936] text-white active:scale-95'}`}
                 >
                   <span className="relative z-10">{isSubmitting ? 'Sending...' : 'Send Message'}</span> 
