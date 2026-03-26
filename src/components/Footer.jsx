@@ -1,16 +1,44 @@
-import React, { useState } from 'react'; // useState को इम्पोर्ट किया
-import { MapPin, Phone, Mail, X } from 'lucide-react'; // X आइकॉन इम्पोर्ट किया
+import React, { useState } from 'react';
+import { MapPin, Phone, Mail, X, Loader2 } from 'lucide-react'; // Loader2 add kiya
 import './Footer.css';
 
 const Footer = () => {
-  // फॉर्म की दृश्यता को कंट्रोल करने के लिए स्टेट
   const [isFormVisible, setIsFormVisible] = useState(true);
+  
+  // 🔴 Form Data & Loading State
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // 🔴 Handle Form Submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/sendMessage', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, source: 'Footer Form' }) // Source: Footer
+      });
+
+      const data = await response.json();
+      if (response.ok && data.success) {
+        alert("Aapka message bhej diya gaya hai!");
+        setFormData({ name: '', email: '', phone: '', message: '' }); 
+        setIsFormVisible(false); // Success par form band kar do
+      } else {
+        alert("Error! Kripya baad me try karein.");
+      }
+    } catch (error) {
+      alert("Internet connection check karein.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <>
-      {/* =========================================
-          TOP: FULL WIDTH MAP SECTION
-          ========================================= */}
+      {/* MAP SECTION */}
       <div className="footer-map-section">
         <iframe 
           title="Swad Sudha Location"
@@ -24,41 +52,28 @@ const Footer = () => {
         ></iframe>
       </div>
 
-      {/* =========================================
-          BOTTOM: DARK FOOTER SECTION
-          ========================================= */}
+      {/* DARK FOOTER SECTION */}
       <footer className="site-footer style-1 bg-dark" id="footer">
-        
         <div className="footer-top">
           <div className="container relative-z">
             <div className="footer-row">
               
               {/* --- Column 1: Contact Form Card --- */}
-              {/* यहाँ हमने स्टेट चेक लगाया है */}
               {isFormVisible && (
                 <div className="footer-col col-form-card">
                   <div className="dz-form-card bg-primary" style={{ position: 'relative' }}>
                     
-                    {/* क्लोज बटन/आइकॉन */}
+                    {/* Close Button */}
                     <button 
                       onClick={() => setIsFormVisible(false)}
                       className="close-form-btn"
                       style={{
-                        position: 'absolute',
-                        top: '-15px',
-                        right: '-15px',
-                        backgroundColor: '#fff',
-                        color: '#7cb342',
-                        borderRadius: '50%',
-                        width: '35px',
-                        height: '35px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        border: '2px solid #7cb342',
-                        cursor: 'pointer',
-                        zIndex: 999,
-                        boxShadow: '0 4px 10px rgba(0,0,0,0.2)'
+                        position: 'absolute', top: '-15px', right: '-15px',
+                        backgroundColor: '#fff', color: '#7cb342', borderRadius: '50%',
+                        width: '35px', height: '35px', display: 'flex',
+                        alignItems: 'center', justifyContent: 'center',
+                        border: '2px solid #7cb342', cursor: 'pointer',
+                        zIndex: 999, boxShadow: '0 4px 10px rgba(0,0,0,0.2)'
                       }}
                     >
                       <X size={20} strokeWidth={3} />
@@ -68,31 +83,46 @@ const Footer = () => {
                       <h4 className="title m-0">Contact us</h4>
                       <p className="m-t10">Aapka feedback hamare liye anmol hai. Kisi bhi sawal ya sujhaav ke liye humein likhein.</p>
                     </div>
-                    <form className="dzForm dezPlaceAni" onSubmit={(e) => e.preventDefault()}>
+                    
+                    {/* 🔴 Added onSubmit */}
+                    <form className="dzForm dezPlaceAni" onSubmit={handleSubmit}>
                       <div className="row">
                         <div className="col-12">
                           <div className="input-group input-line">
-                            <input name="dzName" required type="text" className="form-control" placeholder="Your Name" />
+                            <input 
+                              required type="text" className="form-control" placeholder="Your Name" 
+                              value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})}
+                            />
                           </div>
                         </div>
                         <div className="col-12">
                           <div className="input-group input-line">
-                            <input name="dzEmail" required type="email" className="form-control" placeholder="Email Address" />
+                            <input 
+                              required type="email" className="form-control" placeholder="Email Address" 
+                              value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})}
+                            />
                           </div>
                         </div>
                         <div className="col-12">
                           <div className="input-group input-line">
-                            <input name="dzMobile" required type="text" className="form-control" placeholder="Mobile No" />
+                            <input 
+                              required type="tel" className="form-control" placeholder="Mobile No" 
+                              value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                            />
                           </div>
                         </div>
                         <div className="col-12">
                           <div className="input-group input-line">
-                            <textarea name="dzMessage" required className="form-control" placeholder="Message" rows="3"></textarea>
+                            <textarea 
+                              required className="form-control" placeholder="Message" rows="3"
+                              value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})}
+                            ></textarea>
                           </div>
                         </div>
                         <div className="col-12">
-                          <button type="submit" name="submit" value="submit" className="btn btn-md btn-white btn-hover-1">
-                            <span>Send Message</span>
+                          <button type="submit" disabled={isSubmitting} className="btn btn-md btn-white btn-hover-1 w-100 flex justify-center items-center gap-2">
+                            <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+                            {isSubmitting && <Loader2 size={16} className="animate-spin text-[#7cb342]" />}
                           </button>
                         </div>
                       </div>
