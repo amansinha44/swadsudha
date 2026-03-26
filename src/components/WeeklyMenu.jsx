@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Leaf, Droplets, ShieldCheck, MapPin, PhoneCall, Plus, Star } from 'lucide-react'; // Star icon add kiya for special combo
+import { Leaf, Droplets, ShieldCheck, MapPin, PhoneCall, Plus, Star, CheckCircle2 } from 'lucide-react'; // CheckCircle2 add kiya
+import { Link } from 'react-router-dom'; // Toast me checkout link ke liye
 
 const WeeklyMenu = ({ cart = [], setCart }) => {
   const [activeDay, setActiveDay] = useState(0);
+  
+  // 🔴 Toast Alert ke liye state add ki
+  const [toast, setToast] = useState({ show: false, itemName: '' });
 
   const pricingPlans = [
     { name: 'Breakfast Special', price: '60', desc: 'Daily Special Item', includes: 'Freshly Prepared' },
@@ -17,7 +21,7 @@ const WeeklyMenu = ({ cart = [], setCart }) => {
       breakfast: 'Indori Poha (Light & Fresh)',
       lunch: 'Mushroom Matar + Steamed Rice + Roti + Salad + Achaar',
       dinner: 'One Dry Veg + One Gravy Veg + Paratha + Salad + Achaar',
-      comboVeg: 'Mushroom Matar' // Combo ke liye daily gravy veg
+      comboVeg: 'Mushroom Matar' 
     },
     {
       day: 'Tuesday', theme: 'Hearty Comfort',
@@ -71,12 +75,12 @@ const WeeklyMenu = ({ cart = [], setCart }) => {
 
   const handleAddToCart = (mealType, description, price) => {
     if (!setCart) {
-      alert("App.js mein setCart pass karna zaroori hai!");
+      console.error("Cart state is not connected properly in App.js");
       return;
     }
 
     const currentDay = menuData[activeDay].day;
-    const itemId = `${currentDay}_${mealType.replace(/\s+/g, '_')}`; // ID ko space-free banaya
+    const itemId = `${currentDay}_${mealType.replace(/\s+/g, '_')}`; 
     const itemName = `${currentDay} ${mealType}`;
 
     const existingItem = cart.find(cartItem => cartItem.id === itemId);
@@ -89,7 +93,13 @@ const WeeklyMenu = ({ cart = [], setCart }) => {
       setCart([...cart, { id: itemId, name: itemName, desc: description, price: price, qty: 1 }]);
     }
     
-    alert(`${itemName} order list mein add ho gaya! Checkout page par jayein.`);
+    // 🔴 Show 2030 Alert (Toast)
+    setToast({ show: true, itemName: itemName });
+    
+    // 3.5 seconds baad alert gayab ho jayega
+    setTimeout(() => {
+      setToast({ show: false, itemName: '' });
+    }, 3500);
   };
 
   return (
@@ -200,15 +210,14 @@ const WeeklyMenu = ({ cart = [], setCart }) => {
                   </button>
                 </div>
 
-                {/* 🔴 NEW: Super Combo Lunch Item */}
+                {/* Super Combo Lunch Item */}
                 <div className="relative bg-gradient-to-br from-green-50 to-white p-5 rounded-xl border-2 border-[#7CB342]/40 shadow-sm hover:shadow-md transition-shadow">
-                  {/* Special Badge */}
                   <div className="absolute -top-3 -right-3 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm flex items-center gap-1 transform rotate-3">
                     <Star size={12} fill="currentColor" /> Best Deal
                   </div>
                   
                   <div className="flex items-baseline w-full mb-3">
-                    <h4 className="text-xl md:text-2xl font-heading text-[#7CB342]">The ₹ 50: Super Combo Lunch</h4>
+                    <h4 className="text-xl md:text-2xl font-heading text-[#7CB342]">The ₹ 50: Super Combo</h4>
                     <div className="flex-grow border-b-2 border-dotted border-[#7CB342]/40 mx-4 relative top-[-6px]"></div>
                     <span className="font-black text-green-700 text-xl">₹50</span>
                   </div>
@@ -262,6 +271,35 @@ const WeeklyMenu = ({ cart = [], setCart }) => {
           </a>
         </div>
       </div>
+
+      {/* ====================================================
+          🚀 THE 2030 NEON GLASSMORPHISM TOAST ALERT
+          ==================================================== */}
+      {toast.show && (
+        <div className="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-[999999] animate-in slide-in-from-bottom-8 fade-in duration-300">
+          <div className="bg-[#0f2405]/80 backdrop-blur-xl border border-[#a4e363]/40 p-4 rounded-2xl shadow-[0_0_30px_rgba(164,227,99,0.3)] flex items-center gap-4">
+            
+            {/* Glowing Icon */}
+            <div className="bg-gradient-to-br from-[#7cb342] to-[#a4e363] w-12 h-12 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(124,179,66,0.6)]">
+              <CheckCircle2 className="text-white" size={24} strokeWidth={2.5} />
+            </div>
+            
+            {/* Text Content */}
+            <div className="flex flex-col pr-4">
+              <span className="text-[#a4e363] text-xs font-bold uppercase tracking-widest mb-0.5">Success</span>
+              <span className="text-white font-semibold">{toast.itemName} added!</span>
+            </div>
+
+            {/* Quick Action Button */}
+            <Link 
+              to="/checkout" 
+              className="ml-auto bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-xl text-sm font-bold transition-colors border border-white/10"
+            >
+              Checkout
+            </Link>
+          </div>
+        </div>
+      )}
 
     </section>
   );

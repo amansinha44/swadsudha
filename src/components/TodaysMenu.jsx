@@ -73,7 +73,7 @@ const TodaysMenu = () => {
   }, []);
 
   return (
-    <section className="relative py-8 px-2 md:px-4 w-full bg-white font-body overflow-hidden">
+    <section className="relative py-16 px-2 md:px-4 w-full bg-white font-body overflow-hidden">
       <div className="w-full max-w-[1150px] mx-auto">
         
         {/* Responsive Header */}

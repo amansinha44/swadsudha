@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Trash2, User, Phone, MapPin, Home, ArrowRight, Mail, Info, ShieldCheck, RefreshCcw } from 'lucide-react';
+import { Trash2, User, Phone, MapPin, Home, ArrowRight, Mail, Info, ShieldCheck, RefreshCcw, Plus, Minus, Loader2 } from 'lucide-react'; // Loader2 add kiya loading animation ke liye
 
 const CheckoutPage = ({ cart, setCart }) => {
   const [formData, setFormData] = useState({
@@ -10,34 +10,46 @@ const CheckoutPage = ({ cart, setCart }) => {
     landmark: ''
   });
 
-  // 🔴 Captcha States
+  // 🔴 Loading state for API Call
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Captcha States
   const [captcha, setCaptcha] = useState({ num1: 0, num2: 0 });
   const [captchaInput, setCaptchaInput] = useState('');
 
-  // 🔴 Captcha Generate Function
   const generateCaptcha = () => {
     setCaptcha({
-      num1: Math.floor(Math.random() * 10) + 1, // 1 se 10 ke beech random number
+      num1: Math.floor(Math.random() * 10) + 1,
       num2: Math.floor(Math.random() * 10) + 1
     });
-    setCaptchaInput(''); // Naya captcha aane par input clear kar dein
+    setCaptchaInput('');
   };
 
-  // Component load hote hi pehla captcha banayein
   useEffect(() => {
     generateCaptcha();
   }, []);
 
-  // Bill Calculations
   const finalTotal = cart.reduce((total, item) => total + (item.price * item.qty), 0);
 
-  // Remove Item Handler
   const handleRemove = (id) => {
     setCart(cart.filter(item => item.id !== id));
   };
 
-  // 🔴 Form Submit Handler
-  const handlePlaceOrder = (e) => {
+  // Quantity Change Handler
+  const handleQuantityChange = (id, newQty) => {
+    if (newQty < 1) return;
+    if (newQty > 12) {
+      alert("Aap ek baar mein maximum 12 items hi order kar sakte hain.");
+      return;
+    }
+    
+    setCart(cart.map(item => 
+      item.id === id ? { ...item, qty: newQty } : item
+    ));
+  };
+
+  // 🔴 NEW: Vercel API Call Logic
+  const handlePlaceOrder = async (e) => {
     e.preventDefault();
     
     if(cart.length === 0) {
@@ -45,25 +57,50 @@ const CheckoutPage = ({ cart, setCart }) => {
       return;
     }
 
-    // 🔴 Captcha Validation
     if (parseInt(captchaInput) !== captcha.num1 + captcha.num2) {
       alert("Kripya sahi Captcha (Math Answer) enter karein!");
-      generateCaptcha(); // Galat hone par naya captcha de dein
+      generateCaptcha();
       return;
     }
 
-    // Yahan backend data bheja jayega
-    console.log("Order Data:", { items: cart, customer: formData, totalAmount: finalTotal });
-    
-    alert(`Shukriya ${formData.name}! Aapka ₹${finalTotal} ka order place ho gaya hai.`);
-    
-    setCart([]);
-    setFormData({ name: '', phone: '', email: '', address: '', landmark: '' });
-    generateCaptcha(); // Order hone ke baad captcha reset
+    setIsSubmitting(true); // Button ko loading state me daalein
+
+    try {
+      // 🔴 Vercel Backend API ko data bhejein
+      const response = await fetch('/api/sendOrder', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          customer: formData,
+          items: cart,
+          totalAmount: finalTotal
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        alert(`Shukriya ${formData.name}! Aapka ₹${finalTotal} ka order tayyar ho raha hai. Confirmation email jald hi aayega.`);
+        
+        // Order success hone ke baad form aur cart clear karein
+        setCart([]);
+        setFormData({ name: '', phone: '', email: '', address: '', landmark: '' });
+        generateCaptcha();
+      } else {
+        alert("Oops! Kuch technical issue aa gaya. Kripya humein direct call karein.");
+        console.error("API Error:", data.message);
+      }
+    } catch (error) {
+      console.error("Checkout Error:", error);
+      alert("Internet connection check karein aur wapas try karein.");
+    } finally {
+      setIsSubmitting(false); // Loading hata dein
+    }
   };
 
   return (
-    // 🔴 Width set to 1150px
     <div className="w-full max-w-[1150px] mx-auto py-12 px-4 md:px-6 font-body pb-24">
       
       <div className="text-center mb-12">
@@ -93,20 +130,47 @@ const CheckoutPage = ({ cart, setCart }) => {
               {/* Cart Items List */}
               <div className="space-y-4 mb-6 max-h-[350px] overflow-y-auto pr-2 custom-scrollbar">
                 {cart.map((item) => (
-                  <div key={item.id} className="flex justify-between items-center bg-gray-50 p-4 rounded-lg border border-gray-100 transition-all hover:border-green-200">
+                  <div key={item.id} className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-50 p-4 rounded-lg border border-gray-100 transition-all hover:border-green-200 gap-3">
+                    
                     <div className="flex-1 pr-4">
                       <h4 className="font-bold text-gray-800 leading-tight">{item.name}</h4>
-                      <p className="text-sm text-gray-500 mt-1">₹{item.price} x {item.qty}</p>
+                      <p className="text-sm text-gray-500 mt-1">₹{item.price} / item</p>
                     </div>
-                    <div className="flex items-center gap-4 shrink-0">
-                      <span className="font-extrabold text-gray-900 text-lg">₹{item.price * item.qty}</span>
-                      <button 
-                        onClick={() => handleRemove(item.id)} 
-                        className="text-red-400 hover:text-white hover:bg-red-500 p-2 rounded-md transition-colors"
-                        title="Remove Item"
-                      >
-                        <Trash2 size={16} />
-                      </button>
+                    
+                    <div className="flex items-center justify-between w-full sm:w-auto gap-4 shrink-0">
+                      
+                      {/* Quantity Controls */}
+                      <div className="flex items-center bg-white border border-gray-200 rounded-md overflow-hidden shadow-sm">
+                        <button 
+                          type="button"
+                          onClick={() => handleQuantityChange(item.id, item.qty - 1)}
+                          className="px-2 py-1 text-gray-500 hover:bg-gray-100 hover:text-[#7CB342] transition-colors"
+                        >
+                          <Minus size={14} strokeWidth={3} />
+                        </button>
+                        <span className="w-8 text-center font-bold text-sm">{item.qty}</span>
+                        <button 
+                          type="button"
+                          onClick={() => handleQuantityChange(item.id, item.qty + 1)}
+                          className="px-2 py-1 text-gray-500 hover:bg-gray-100 hover:text-[#7CB342] transition-colors"
+                        >
+                          <Plus size={14} strokeWidth={3} />
+                        </button>
+                      </div>
+
+                      {/* Price & Delete */}
+                      <div className="flex items-center gap-3">
+                        <span className="font-extrabold text-gray-900 text-lg w-12 text-right">₹{item.price * item.qty}</span>
+                        <button 
+                          type="button"
+                          onClick={() => handleRemove(item.id)} 
+                          className="text-red-400 hover:text-white hover:bg-red-500 p-1.5 rounded-md transition-colors"
+                          title="Remove Item"
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
+
                     </div>
                   </div>
                 ))}
@@ -240,7 +304,7 @@ const CheckoutPage = ({ cart, setCart }) => {
               </div>
             </div>
 
-            {/* 🔴 NEW: Math Captcha Section */}
+            {/* Math Captcha Section */}
             <div className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <ShieldCheck className="text-[#7CB342]" size={24} />
@@ -267,17 +331,26 @@ const CheckoutPage = ({ cart, setCart }) => {
               />
             </div>
 
-            {/* Submit Button */}
+            {/* 🔴 NEW: Submit Button with Loading State */}
             <button 
               type="submit" 
-              disabled={cart.length === 0}
+              disabled={cart.length === 0 || isSubmitting}
               className={`w-full flex items-center justify-center gap-2 text-white text-lg font-bold py-4 rounded-lg shadow-md transition-all mt-6 ${
-                cart.length === 0 
+                cart.length === 0 || isSubmitting
                   ? 'bg-gray-400 cursor-not-allowed' 
                   : 'bg-[#7CB342] hover:bg-green-700 hover:-translate-y-1 active:scale-95'
               }`}
             >
-              Confirm Order • ₹{cart.length > 0 ? finalTotal : 0} <ArrowRight size={20} />
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="animate-spin" size={24} />
+                  Processing Order...
+                </>
+              ) : (
+                <>
+                  Confirm Order • ₹{cart.length > 0 ? finalTotal : 0} <ArrowRight size={20} />
+                </>
+              )}
             </button>
             
             <p className="text-center text-xs text-gray-400 mt-3 font-medium">

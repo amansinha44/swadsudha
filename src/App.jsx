@@ -185,7 +185,8 @@ const ContactPage = () => (
 // ==========================================
 // 🔴 MAGIC SUBSCRIPTION PAGE
 // ==========================================
-const SubscriptionPage = () => (
+// 🟢 UPDATE 1: Yahan cart aur setCart props add kiye gaye hain
+const SubscriptionPage = ({ cart, setCart }) => (
   <div className="relative w-full flex flex-col min-h-screen">
     {/* 🔴 SEO META TAGS FOR SUBSCRIPTION */}
     <title>Monthly Meal Subscriptions | Best Tiffin Service - Swad Sudha</title>
@@ -215,7 +216,8 @@ const SubscriptionPage = () => (
     </div>
 
     <div className="relative z-10 w-full flex-grow">
-      <SubscriptionPlans />
+      {/* 🟢 UPDATE 2: Yahan SubscriptionPlans me cart data bheja gaya hai */}
+      <SubscriptionPlans cart={cart} setCart={setCart} />
     </div>
     <TodaysMenu />
   </div>
@@ -299,7 +301,10 @@ export default function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/menu" element={<MenuPage cart={cart} setCart={setCart} />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/subscription" element={<SubscriptionPage />} />
+          
+          {/* 🟢 UPDATE 3: Route level par bhi cart data pass kiya gaya hai */}
+          <Route path="/subscription" element={<SubscriptionPage cart={cart} setCart={setCart} />} />
+          
           <Route path="/checkout" element={<CheckoutPageRoute cart={cart} setCart={setCart} />} />
         </Routes>
 
