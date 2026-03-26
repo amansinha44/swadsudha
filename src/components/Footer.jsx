@@ -94,53 +94,126 @@ const Footer = () => {
                     </div>
                     
                     <form className="dzForm dezPlaceAni" onSubmit={handleSubmit}>
-                      <div className="row">
-                        <div className="col-12">
-                          <div className="input-group input-line">
-                            <input required type="text" className="form-control" placeholder="Your Name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} />
-                          </div>
-                        </div>
-                        <div className="col-12">
-                          <div className="input-group input-line">
-                            <input required type="email" className="form-control" placeholder="Email Address" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} />
-                          </div>
-                        </div>
-                        <div className="col-12">
-                          <div className="input-group input-line">
-                            <input required type="tel" className="form-control" placeholder="Mobile No" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} />
-                          </div>
-                        </div>
-                        <div className="col-12">
-                          <div className="input-group input-line">
-                            <textarea required className="form-control" placeholder="Message" rows="3" value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} ></textarea>
-                          </div>
-                        </div>
+  <div className="row">
+    
+    {/* 1. NAME VALIDATION: Only letters & spaces, Min 3 chars */}
+    <div className="col-12">
+      <div className="input-group input-line">
+        <input 
+          required 
+          type="text" 
+          className="form-control" 
+          placeholder="Your Name" 
+          value={formData.name} 
+          onChange={(e) => setFormData({...formData, name: e.target.value})} 
+          pattern="^[A-Za-z\s]{3,50}$"
+          title="Name me sirf alphabets allow hain aur kam se kam 3 akshar hone chahiye."
+        />
+      </div>
+    </div>
+    
+    {/* 2. EMAIL VALIDATION */}
+    <div className="col-12">
+      <div className="input-group input-line">
+        <input 
+          required 
+          type="email" 
+          className="form-control" 
+          placeholder="Email Address" 
+          value={formData.email} 
+          onChange={(e) => setFormData({...formData, email: e.target.value})} 
+        />
+      </div>
+    </div>
+    
+    {/* 3. PHONE VALIDATION: Exactly 10 digits, starts with 6-9 */}
+    <div className="col-12">
+      <div className="input-group input-line">
+        <input 
+          required 
+          type="tel" 
+          className="form-control" 
+          placeholder="Mobile No (10 digits)" 
+          value={formData.phone} 
+          onChange={(e) => {
+            // Sirf numbers allow karega type karte waqt
+            const val = e.target.value.replace(/\D/g, ''); 
+            setFormData({...formData, phone: val})
+          }} 
+          pattern="^[6-9]\d{9}$"
+          maxLength="10"
+          title="Kripya sahi 10-digit mobile number enter karein."
+        />
+      </div>
+    </div>
+    
+    {/* 4. MESSAGE VALIDATION: Min 10, Max 500 chars */}
+    <div className="col-12">
+      <div className="input-group input-line">
+        <textarea 
+          required 
+          className="form-control" 
+          placeholder="Message (Min 10 characters)" 
+          rows="3" 
+          value={formData.message} 
+          onChange={(e) => setFormData({...formData, message: e.target.value})} 
+          minLength="10"
+          maxLength="500"
+          title="Message kam se kam 10 characters lamba hona chahiye."
+        ></textarea>
+      </div>
+    </div>
 
-                        {/* 🔴 NEW: Math Captcha (Compact for Footer) */}
-                        <div className="col-12 mb-3">
-                          <div className="d-flex align-items-center justify-content-between p-2 rounded" style={{ backgroundColor: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}>
-                            <div className="d-flex align-items-center gap-2">
-                              <ShieldCheck size={18} className="text-white" />
-                              <span className="text-white fw-bold small">{captcha.num1} + {captcha.num2} = ?</span>
-                              <button type="button" onClick={generateCaptcha} style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', padding: 0 }} title="Change Captcha">
-                                <RefreshCcw size={14} />
-                              </button>
-                            </div>
-                            <input
-                              type="number" required value={captchaInput} onChange={(e) => setCaptchaInput(e.target.value)}
-                              style={{ width: '60px', padding: '4px', textAlign: 'center', borderRadius: '4px', border: 'none', outline: 'none' }} placeholder="Ans"
-                            />
-                          </div>
-                        </div>
+    {/* MATH CAPTCHA (Same as before) */}
+    <div className="col-12 mb-3">
+      <div 
+        style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'space-between', 
+          flexWrap: 'nowrap',
+          backgroundColor: 'rgba(255,255,255,0.1)', 
+          border: '1px solid rgba(255,255,255,0.2)',
+          padding: '8px 10px',
+          borderRadius: '6px',
+          gap: '8px'
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', whiteSpace: 'nowrap' }}>
+          <ShieldCheck size={18} className="text-white" style={{ flexShrink: 0 }} />
+          <span className="text-white fw-bold" style={{ fontSize: '14px' }}>
+            {captcha.num1} + {captcha.num2} = ?
+          </span>
+          <button 
+            type="button" 
+            onClick={generateCaptcha} 
+            style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', padding: 0, display: 'flex', flexShrink: 0 }} 
+            title="Change Captcha"
+          >
+            <RefreshCcw size={15} />
+          </button>
+        </div>
+        <input
+          type="number" 
+          required 
+          value={captchaInput} 
+          onChange={(e) => setCaptchaInput(e.target.value)}
+          style={{ width: '65px', flexShrink: 0, color: 'black', padding: '4px', textAlign: 'center', borderRadius: '4px', border: 'none', outline: 'none', fontWeight: 'bold' }} 
+          placeholder="Ans"
+        />
+      </div>
+    </div>
 
-                        <div className="col-12">
-                          <button type="submit" disabled={isSubmitting} className="btn btn-md btn-white btn-hover-1 w-100 flex justify-center items-center gap-2">
-                            <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
-                            {isSubmitting && <Loader2 size={16} className="animate-spin text-[#7cb342]" />}
-                          </button>
-                        </div>
-                      </div>
-                    </form>
+    {/* SUBMIT BUTTON */}
+    <div className="col-12">
+      <button type="submit" disabled={isSubmitting} className="btn btn-md btn-white btn-hover-1 w-100 flex justify-center items-center gap-2">
+        <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+        {isSubmitting && <Loader2 size={16} className="animate-spin text-[#7cb342]" />}
+      </button>
+    </div>
+    
+  </div>
+</form>
                   </div>
                 </div>
               )}

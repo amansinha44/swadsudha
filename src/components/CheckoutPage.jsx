@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Trash2, User, Phone, MapPin, Home, ArrowRight, Mail, Info, ShieldCheck, RefreshCcw, Plus, Minus, Loader2 } from 'lucide-react'; // Loader2 add kiya loading animation ke liye
+import { Trash2, User, Phone, MapPin, Home, ArrowRight, Mail, Info, ShieldCheck, RefreshCcw, Plus, Minus, Loader2 } from 'lucide-react'; 
 
 const CheckoutPage = ({ cart, setCart }) => {
   const [formData, setFormData] = useState({
@@ -10,7 +10,6 @@ const CheckoutPage = ({ cart, setCart }) => {
     landmark: ''
   });
 
-  // 🔴 Loading state for API Call
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Captcha States
@@ -35,7 +34,6 @@ const CheckoutPage = ({ cart, setCart }) => {
     setCart(cart.filter(item => item.id !== id));
   };
 
-  // Quantity Change Handler
   const handleQuantityChange = (id, newQty) => {
     if (newQty < 1) return;
     if (newQty > 12) {
@@ -48,7 +46,6 @@ const CheckoutPage = ({ cart, setCart }) => {
     ));
   };
 
-  // 🔴 NEW: Vercel API Call Logic
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
     
@@ -63,10 +60,9 @@ const CheckoutPage = ({ cart, setCart }) => {
       return;
     }
 
-    setIsSubmitting(true); // Button ko loading state me daalein
+    setIsSubmitting(true);
 
     try {
-      // 🔴 Vercel Backend API ko data bhejein
       const response = await fetch('/api/sendOrder', {
         method: 'POST',
         headers: {
@@ -84,7 +80,6 @@ const CheckoutPage = ({ cart, setCart }) => {
       if (response.ok && data.success) {
         alert(`Shukriya ${formData.name}! Aapka ₹${finalTotal} ka order tayyar ho raha hai. Confirmation email jald hi aayega.`);
         
-        // Order success hone ke baad form aur cart clear karein
         setCart([]);
         setFormData({ name: '', phone: '', email: '', address: '', landmark: '' });
         generateCaptcha();
@@ -96,7 +91,7 @@ const CheckoutPage = ({ cart, setCart }) => {
       console.error("Checkout Error:", error);
       alert("Internet connection check karein aur wapas try karein.");
     } finally {
-      setIsSubmitting(false); // Loading hata dein
+      setIsSubmitting(false);
     }
   };
 
@@ -202,7 +197,8 @@ const CheckoutPage = ({ cart, setCart }) => {
           <form onSubmit={handlePlaceOrder} className="space-y-6">
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Full Name */}
+              
+              {/* 🔴 VALIDATION: Full Name */}
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-2">Full Name <span className="text-red-500">*</span></label>
                 <div className="relative">
@@ -216,11 +212,13 @@ const CheckoutPage = ({ cart, setCart }) => {
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
                     className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7CB342] focus:border-[#7CB342] outline-none transition-all bg-gray-50 focus:bg-white" 
                     placeholder="Rahul Kumar"
+                    pattern="^[A-Za-z\s]{3,50}$"
+                    title="Name me sirf alphabets allow hain aur kam se kam 3 akshar hone chahiye."
                   />
                 </div>
               </div>
 
-              {/* Phone Number */}
+              {/* 🔴 VALIDATION: Phone Number */}
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-2">Phone Number <span className="text-red-500">*</span></label>
                 <div className="relative">
@@ -231,15 +229,21 @@ const CheckoutPage = ({ cart, setCart }) => {
                     required 
                     type="tel" 
                     value={formData.phone}
-                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                    onChange={(e) => {
+                      const val = e.target.value.replace(/\D/g, ''); // Sirf number allow
+                      setFormData({...formData, phone: val})
+                    }}
                     className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7CB342] focus:border-[#7CB342] outline-none transition-all bg-gray-50 focus:bg-white" 
-                    placeholder="+91 9876543210"
+                    placeholder="10 digit mobile number"
+                    pattern="^[6-9]\d{9}$"
+                    maxLength="10"
+                    title="Kripya sahi 10-digit mobile number enter karein."
                   />
                 </div>
               </div>
             </div>
 
-            {/* Email Address */}
+            {/* Email Address (Optional) */}
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-2">Email Address (Optional)</label>
               <div className="relative">
@@ -256,7 +260,7 @@ const CheckoutPage = ({ cart, setCart }) => {
               </div>
             </div>
 
-            {/* Complete Address */}
+            {/* 🔴 VALIDATION: Complete Address */}
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-2">Complete Address <span className="text-red-500">*</span></label>
               <div className="relative">
@@ -270,11 +274,14 @@ const CheckoutPage = ({ cart, setCart }) => {
                   onChange={(e) => setFormData({...formData, address: e.target.value})}
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7CB342] focus:border-[#7CB342] outline-none transition-all resize-none bg-gray-50 focus:bg-white" 
                   placeholder="House/Flat No., Building Name, Area, Street"
+                  minLength="10"
+                  maxLength="200"
+                  title="Kripya pura address likhein (kam se kam 10 akshar)."
                 ></textarea>
               </div>
             </div>
 
-            {/* Landmark */}
+            {/* Landmark (Optional) */}
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-2">Landmark (Optional)</label>
               <div className="relative">
@@ -287,6 +294,7 @@ const CheckoutPage = ({ cart, setCart }) => {
                   onChange={(e) => setFormData({...formData, landmark: e.target.value})}
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7CB342] focus:border-[#7CB342] outline-none transition-all bg-gray-50 focus:bg-white" 
                   placeholder="Near Post Office, Opposite Metro Station, etc."
+                  maxLength="100"
                 />
               </div>
             </div>
@@ -331,7 +339,7 @@ const CheckoutPage = ({ cart, setCart }) => {
               />
             </div>
 
-            {/* 🔴 NEW: Submit Button with Loading State */}
+            {/* Submit Button */}
             <button 
               type="submit" 
               disabled={cart.length === 0 || isSubmitting}

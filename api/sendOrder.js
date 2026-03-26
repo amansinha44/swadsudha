@@ -10,6 +10,56 @@ export default async function handler(req, res) {
     // 2. Frontend se aaya hua data nikalein
     const { customer, items, totalAmount } = req.body;
 
+    // ==========================================
+    // 🔴 BACKEND SECURITY & STRICT VALIDATION
+    // ==========================================
+
+    // A. Check Basic Data Exists
+    if (!customer || !items || totalAmount === undefined) {
+      return res.status(400).json({ success: false, message: 'Incomplete order data received.' });
+    }
+
+    const { name, phone, email, address } = customer;
+
+    // B. Cart & Items Validation (Khali cart ya 12 se jyada items block karein)
+    if (!Array.isArray(items) || items.length === 0) {
+      return res.status(400).json({ success: false, message: 'Cart is empty. Cannot process order.' });
+    }
+    for (let item of items) {
+      if (!item.qty || item.qty < 1 || item.qty > 12) {
+        return res.status(400).json({ success: false, message: `Invalid quantity for ${item.name}. Maximum 12 allowed per item.` });
+      }
+    }
+
+    // C. Name Validation (Sirf A-Z aur spaces, min 3 chars)
+    const nameRegex = /^[A-Za-z\s]{3,50}$/;
+    if (!name || !nameRegex.test(name)) {
+      return res.status(400).json({ success: false, message: 'Invalid Name. Only letters and spaces allowed (Min 3 chars).' });
+    }
+
+    // D. Phone Validation (Sirf 10 numbers, 6,7,8,9 se shuru)
+    const phoneRegex = /^[6-9]\d{9}$/;
+    if (!phone || !phoneRegex.test(phone)) {
+      return res.status(400).json({ success: false, message: 'Invalid Phone Number. Must be exactly 10 digits.' });
+    }
+
+    // E. Address Validation (Min 10 chars)
+    if (!address || address.length < 10 || address.length > 200) {
+      return res.status(400).json({ success: false, message: 'Invalid Address. Must be between 10 and 200 characters.' });
+    }
+
+    // F. Email Validation (Optional hai, par agar ho to sahi format me ho)
+    if (email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        return res.status(400).json({ success: false, message: 'Invalid Email Address format.' });
+      }
+    }
+
+    // ==========================================
+    // ✅ EMAIL SENDING LOGIC (Agar upar sab pass ho gaya)
+    // ==========================================
+
     // 3. Hostinger SMTP Setup
     const transporter = nodemailer.createTransport({
       host: 'smtp.hostinger.com',

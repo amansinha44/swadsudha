@@ -148,40 +148,64 @@ const ContactUs = () => {
             <form className="space-y-6" onSubmit={handleSubmit}>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                {/* 1. NAME VALIDATION */}
                 <div className="relative group">
                   <input 
-                    type="text" id="name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    placeholder=" " className="block w-full px-4 py-4 rounded-xl border border-gray-200 bg-gray-50/50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#7cb342]/50 focus:border-[#7cb342] focus:bg-white transition-all peer" required
+                    type="text" id="name" value={formData.name} 
+                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    placeholder=" " className="block w-full px-4 py-4 rounded-xl border border-gray-200 bg-gray-50/50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#7cb342]/50 focus:border-[#7cb342] focus:bg-white transition-all peer" 
+                    required
+                    pattern="^[A-Za-z\s]{3,50}$"
+                    title="Name me sirf alphabets allow hain aur kam se kam 3 akshar hone chahiye."
                   />
                   <label htmlFor="name" className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white/0 px-2 peer-focus:px-2 peer-focus:text-[#7cb342] peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-2 peer-focus:bg-white font-medium">Your Name</label>
                 </div>
                 
+                {/* 2. PHONE VALIDATION */}
                 <div className="relative group">
                   <input 
-                    type="tel" id="phone" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    placeholder=" " className="block w-full px-4 py-4 rounded-xl border border-gray-200 bg-gray-50/50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#7cb342]/50 focus:border-[#7cb342] focus:bg-white transition-all peer" required
+                    type="tel" id="phone" value={formData.phone} 
+                    onChange={(e) => {
+                      const val = e.target.value.replace(/\D/g, ''); // Sirf numbers allow karega
+                      setFormData({...formData, phone: val})
+                    }}
+                    placeholder=" " className="block w-full px-4 py-4 rounded-xl border border-gray-200 bg-gray-50/50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#7cb342]/50 focus:border-[#7cb342] focus:bg-white transition-all peer" 
+                    required
+                    pattern="^[6-9]\d{9}$"
+                    maxLength="10"
+                    title="Kripya sahi 10-digit mobile number enter karein."
                   />
                   <label htmlFor="phone" className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white/0 px-2 peer-focus:px-2 peer-focus:text-[#7cb342] peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-2 peer-focus:bg-white font-medium">Phone Number</label>
                 </div>
               </div>
 
+              {/* 3. EMAIL VALIDATION */}
               <div className="relative group">
                 <input 
-                  type="email" id="email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  placeholder=" " className="block w-full px-4 py-4 rounded-xl border border-gray-200 bg-gray-50/50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#7cb342]/50 focus:border-[#7cb342] focus:bg-white transition-all peer" required
+                  type="email" id="email" value={formData.email} 
+                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  placeholder=" " className="block w-full px-4 py-4 rounded-xl border border-gray-200 bg-gray-50/50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#7cb342]/50 focus:border-[#7cb342] focus:bg-white transition-all peer" 
+                  required
                 />
                 <label htmlFor="email" className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white/0 px-2 peer-focus:px-2 peer-focus:text-[#7cb342] peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-2 peer-focus:bg-white font-medium">Email Address</label>
               </div>
 
+              {/* 4. MESSAGE VALIDATION */}
               <div className="relative group">
                 <textarea 
-                  id="message" value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})}
-                  rows="4" placeholder=" " className="block w-full px-4 py-4 rounded-xl border border-gray-200 bg-gray-50/50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#7cb342]/50 focus:border-[#7cb342] focus:bg-white transition-all peer resize-none" required
+                  id="message" value={formData.message} 
+                  onChange={(e) => setFormData({...formData, message: e.target.value})}
+                  rows="4" placeholder=" " className="block w-full px-4 py-4 rounded-xl border border-gray-200 bg-gray-50/50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#7cb342]/50 focus:border-[#7cb342] focus:bg-white transition-all peer resize-none" 
+                  required
+                  minLength="10"
+                  maxLength="500"
+                  title="Message kam se kam 10 characters lamba hona chahiye."
                 ></textarea>
                 <label htmlFor="message" className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] bg-white/0 px-2 peer-focus:px-2 peer-focus:text-[#7cb342] peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-0 peer-placeholder-shown:top-4 peer-focus:top-0 peer-focus:scale-75 peer-focus:-translate-y-3 left-2 peer-focus:bg-white font-medium">Your Message</label>
               </div>
 
-              {/* 🔴 NEW: Math Captcha Section */}
+              {/* MATH CAPTCHA SECTION */}
               <div className="bg-gray-50 p-4 rounded-xl border border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
                   <ShieldCheck className="text-[#7CB342]" size={24} />
@@ -200,7 +224,7 @@ const ContactUs = () => {
                 />
               </div>
 
-              {/* Submit Button */}
+              {/* SUBMIT BUTTON */}
               <div className="pt-2">
                 <button 
                   type="submit" disabled={isSubmitting}

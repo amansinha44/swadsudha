@@ -9,7 +9,43 @@ export default async function handler(req, res) {
     // Frontend se data receive karein
     const { name, email, phone, message, source } = req.body;
 
-    // Hostinger SMTP (Ye same wahi hai jo Order me use kiya tha)
+    // ==========================================
+    // 🔴 BACKEND SECURITY & VALIDATION (STRICT)
+    // ==========================================
+
+    // 1. Check for empty fields (Koi field khali to nahi?)
+    if (!name || !email || !phone || !message) {
+      return res.status(400).json({ success: false, message: 'All fields are required.' });
+    }
+
+    // 2. Name Validation (Sirf A-Z aur spaces, min 3 chars)
+    const nameRegex = /^[A-Za-z\s]{3,50}$/;
+    if (!nameRegex.test(name)) {
+      return res.status(400).json({ success: false, message: 'Invalid Name. Only letters and spaces allowed (Min 3 chars).' });
+    }
+
+    // 3. Phone Validation (Sirf 10 numbers, 6,7,8,9 se shuru)
+    const phoneRegex = /^[6-9]\d{9}$/;
+    if (!phoneRegex.test(phone)) {
+      return res.status(400).json({ success: false, message: 'Invalid Phone Number. Must be exactly 10 digits.' });
+    }
+
+    // 4. Email Validation (Basic email format check)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ success: false, message: 'Invalid Email Address.' });
+    }
+
+    // 5. Message Validation (Min 10, Max 500 chars)
+    if (message.length < 10 || message.length > 500) {
+      return res.status(400).json({ success: false, message: 'Message must be between 10 and 500 characters long.' });
+    }
+
+    // ==========================================
+    // ✅ EMAIL SENDING LOGIC (Agar sab sahi hai)
+    // ==========================================
+
+    // Hostinger SMTP Setup
     const transporter = nodemailer.createTransport({
       host: 'smtp.hostinger.com',
       port: 465,
@@ -23,9 +59,9 @@ export default async function handler(req, res) {
     // Email format setup
     const mailOptions = {
       from: `"Swad Sudha Queries" <${process.env.EMAIL_USER}>`, 
-      to: 'query@swadsudha.in', // Yahan message receive hoga
-      subject: `📬 New Inquiry from ${name} (${source})`,
-      text: `Hello Swad Sudha Team,\n\nAapko ek naya message mila hai (${source} se):\n\n-- SENDER DETAILS --\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\n\n-- MESSAGE --\n${message}\n`
+      to: 'query@swadsudha.in', 
+      subject: `📬 New Inquiry from ${name} (${source || 'Website'})`,
+      text: `Hello Swad Sudha Team,\n\nAapko ek naya message mila hai (${source || 'Website'} se):\n\n-- SENDER DETAILS --\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\n\n-- MESSAGE --\n${message}\n`
     };
 
     // Email bhej dein
