@@ -17,6 +17,7 @@ import ContactUs from './components/ContactUs';
 import ScrollToTop from './components/ScrollToTop';
 import WhatsAppButton from './components/WhatsAppButton';
 import CheckoutPage from './components/CheckoutPage'; 
+import AtAGlance from './components/AtAGlance'; 
 
 // ==========================================
 // INDIVIDUAL PAGES
@@ -47,6 +48,7 @@ const HomePage = () => (
     <Reservation />
     <FromOurMenu />    
     <CustomersComment />
+    <AtAGlance />
   </>
 );
 

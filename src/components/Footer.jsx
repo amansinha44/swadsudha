@@ -103,7 +103,7 @@ const Footer = () => {
 
                     <div className="section-head">
                       <h4 className="title m-0">Contact us</h4>
-                      <p className="m-t10">Aapka feedback hamare liye anmol hai. Kisi bhi sawal ya sujhaav ke liye humein likhein.</p>
+                      <p className="m-t10">Your feedback is invaluable to us. Feel free to write to us for any questions or suggestions.</p>
                     </div>
                     
                     <form className="dzForm dezPlaceAni" onSubmit={handleSubmit}>
@@ -120,7 +120,7 @@ const Footer = () => {
                               value={formData.name} 
                               onChange={(e) => setFormData({...formData, name: e.target.value})} 
                               pattern="^[A-Za-z\s]{3,50}$"
-                              title="Name me sirf alphabets allow hain aur kam se kam 3 akshar hone chahiye."
+                              title="Only letters are allowed and it must be at least 3 characters long."
                             />
                           </div>
                         </div>
@@ -155,7 +155,7 @@ const Footer = () => {
                               }} 
                               pattern="^[6-9]\d{9}$"
                               maxLength="10"
-                              title="Kripya sahi 10-digit mobile number enter karein."
+                              title="Please enter a valid 10-digit mobile number."
                             />
                           </div>
                         </div>
@@ -172,7 +172,7 @@ const Footer = () => {
                               onChange={(e) => setFormData({...formData, message: e.target.value})} 
                               minLength="10"
                               maxLength="500"
-                              title="Message kam se kam 10 characters lamba hona chahiye."
+                              title="Message must be at least 10 characters long."
                             ></textarea>
                           </div>
                         </div>
@@ -259,9 +259,9 @@ const Footer = () => {
                   <ul>
                     <li><a href="/"><span>Home</span></a></li>
                     <li><a href="/about-us"><span>About Us</span></a></li>
-                    <li><a href="/services"><span>Services</span></a></li>
-                    <li><a href="/team"><span>Team</span></a></li>
-                    <li><a href="/blog-standard"><span>Blog</span></a></li>
+                    <li><a href="/menu"><span>Our Menu</span></a></li>
+                    <li><a href="/subscription"><span>Subscription</span></a></li>
+                    <li><a href="/contact"><span>Contact Us</span></a></li>
                   </ul>
                 </div>
               </div>
@@ -272,9 +272,9 @@ const Footer = () => {
                   <h5 className="footer-title">Help Center</h5>
                   <ul>
                     <li><a href="/faq"><span>FAQ</span></a></li>
-                    <li><a href="/shop-style-1"><span>Shop</span></a></li>
+                    <li><a href="/checkout"><span>Shop</span></a></li>
                     <li><a href="/shop-style-2"><span>Category Filter</span></a></li>
-                    <li><a href="/testimonial"><span>Testimonials</span></a></li>
+                    <li><a href="/home#testimonial"><span>Testimonials</span></a></li>
                     <li><a href="/contact-us"><span>Contact Us</span></a></li>
                   </ul>
                 </div>
