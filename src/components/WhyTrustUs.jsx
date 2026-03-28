@@ -54,7 +54,6 @@ const WhyTrustUs = () => {
   ];
 
   return (
-   
     <section className="py-20 px-4 sm:px-6 font-body w-full bg-[#F8FBEF]">
       <div className="max-w-[1100px] mx-auto">
         
@@ -64,7 +63,11 @@ const WhyTrustUs = () => {
             Trust & Safety
           </span>
           
-          <h2 className="text-4xl md:text-5xl font-extrabold text-[#2d2a26] tracking-tight mb-3">
+          {/* 🔴 UPDATED: Swad Sudha Signature Font & Size */}
+          <h2 
+            className="text-[2.25rem] md:text-[3.5rem] leading-tight text-[#2d2a26] tracking-tight mb-3"
+            style={{ fontFamily: "'Lobster', cursive" }}
+          >
             Why Lucknow Trusts Us
           </h2>
           
@@ -73,7 +76,7 @@ const WhyTrustUs = () => {
           </p>
         </div>
 
-        {/* Horizontal Grid Section (Exactly like Screenshot) */}
+        {/* Horizontal Grid Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {trustFeatures.map((feature) => (
             <div 

@@ -46,8 +46,7 @@ const HomePage = () => (
       </div>
     </div>
     <SpecialMenu />
-    <TodaysMenu />
-    <WhyTrustUs />
+    <TodaysMenu />    
     <QualityServices />
     <Reservation />
     <FromOurMenu />    
@@ -96,7 +95,9 @@ const AboutPage = () => (
     </div>
     <OrderSteps />
     <QualityServices />
+    <WhyTrustUs />
     <CustomersComment />
+    <AtAGlance />
   </div>
 );
 
@@ -139,9 +140,11 @@ const MenuPage = ({ cart, setCart }) => (
       {/* 🔴 WeeklyMenu ko cart state pass ki hai taaki add to order kaam kare */}
       <WeeklyMenu cart={cart} setCart={setCart} />
     </div>
-      <OrderSteps />
+    <OrderSteps />
+    <WhyTrustUs />
     <SpecialMenu />
     <TodaysMenu />
+    <AtAGlance />
   </div>
 );
 
@@ -183,8 +186,9 @@ const ContactPage = () => (
     <div className="relative z-10 w-full flex-grow">
       <ContactUs />
     </div>
-    
+    <WhyTrustUs />
     <CustomersComment />
+    <AtAGlance />
   </div>
 );
 
@@ -225,8 +229,10 @@ const SubscriptionPage = ({ cart, setCart }) => (
       {/* 🟢 UPDATE 2: Yahan SubscriptionPlans me cart data bheja gaya hai */}
       <SubscriptionPlans cart={cart} setCart={setCart} />
     </div>
-     <OrderSteps />
+    <OrderSteps />
     <TodaysMenu />
+    <WhyTrustUs /> 
+    <AtAGlance />
   </div>
 );
 
