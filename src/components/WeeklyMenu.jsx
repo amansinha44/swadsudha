@@ -3,7 +3,7 @@ import { Leaf, Droplets, ShieldCheck, MapPin, PhoneCall, Plus, Star, CheckCircle
 import { Link } from 'react-router-dom'; // Toast me checkout link ke liye
 
 const WeeklyMenu = ({ cart = [], setCart }) => {
-  const [activeDay, setActiveDay] = useState(0);
+const [activeDay, setActiveDay] = useState(0);
   
   // 🔴 Toast Alert ke liye state add ki
   const [toast, setToast] = useState({ show: false, itemName: '' });

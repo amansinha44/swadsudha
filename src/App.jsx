@@ -18,6 +18,9 @@ import ScrollToTop from './components/ScrollToTop';
 import WhatsAppButton from './components/WhatsAppButton';
 import CheckoutPage from './components/CheckoutPage'; 
 import AtAGlance from './components/AtAGlance'; 
+import OrderSteps from './components/OrderSteps'; 
+import WhyTrustUs from './components/WhyTrustUs'; 
+
 
 // ==========================================
 // INDIVIDUAL PAGES
@@ -44,6 +47,7 @@ const HomePage = () => (
     </div>
     <SpecialMenu />
     <TodaysMenu />
+    <WhyTrustUs />
     <QualityServices />
     <Reservation />
     <FromOurMenu />    
@@ -90,7 +94,7 @@ const AboutPage = () => (
     <div className="relative z-10 w-full flex-grow">
       <AboutUs />
     </div>
-    
+    <OrderSteps />
     <QualityServices />
     <CustomersComment />
   </div>
@@ -135,7 +139,7 @@ const MenuPage = ({ cart, setCart }) => (
       {/* 🔴 WeeklyMenu ko cart state pass ki hai taaki add to order kaam kare */}
       <WeeklyMenu cart={cart} setCart={setCart} />
     </div>
-    
+      <OrderSteps />
     <SpecialMenu />
     <TodaysMenu />
   </div>
@@ -221,6 +225,7 @@ const SubscriptionPage = ({ cart, setCart }) => (
       {/* 🟢 UPDATE 2: Yahan SubscriptionPlans me cart data bheja gaya hai */}
       <SubscriptionPlans cart={cart} setCart={setCart} />
     </div>
+     <OrderSteps />
     <TodaysMenu />
   </div>
 );

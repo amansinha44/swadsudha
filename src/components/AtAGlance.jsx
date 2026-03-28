@@ -27,7 +27,7 @@ const AtAGlance = () => {
               <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Area Served</p>
               <p className="text-gray-800 font-semibold text-[15px] leading-snug">
                 Gomti Nagar, Lucknow<br/>
-                <span className="text-sm font-medium text-gray-500">Free Delivery (Near Singapore Mall)</span>
+                <span className="text-sm font-medium text-gray-500">Free Delivery</span>
               </p>
             </div>
           </div>
