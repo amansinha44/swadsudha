@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// 🔴 Naye icons (CheckCircle2, XCircle) add kiye gaye hain
 import { MapPin, Phone, Mail, X, Loader2, ShieldCheck, RefreshCcw, CheckCircle2, XCircle } from 'lucide-react';
 import './Footer.css';
 
@@ -8,10 +7,7 @@ const Footer = () => {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // 🔴 NEW: Custom Alert Box State
   const [alertBox, setAlertBox] = useState({ show: false, message: '', type: 'success' });
-
-  // Captcha States & Logic
   const [captcha, setCaptcha] = useState({ num1: 0, num2: 0 });
   const [captchaInput, setCaptchaInput] = useState('');
 
@@ -27,10 +23,8 @@ const Footer = () => {
     generateCaptcha();
   }, []);
 
-  // 🔴 Custom Alert Show Function
   const showCustomAlert = (message, type = 'success') => {
     setAlertBox({ show: true, message, type });
-    // 5 seconds baad apne aap gayab ho jayega
     setTimeout(() => {
       setAlertBox({ show: false, message: '', type: 'success' });
     }, 5000);
@@ -39,7 +33,6 @@ const Footer = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Captcha Validation
     if (parseInt(captchaInput) !== captcha.num1 + captcha.num2) {
       showCustomAlert("Kripya sahi Captcha (Math Answer) enter karein!", "error");
       generateCaptcha();
@@ -59,7 +52,7 @@ const Footer = () => {
       if (response.ok && data.success) {
         showCustomAlert("Aapka message bhej diya gaya hai!", "success");
         setFormData({ name: '', email: '', phone: '', message: '' }); 
-        setIsFormVisible(false); // Success par form band kar do
+        setIsFormVisible(false); 
         generateCaptcha();
       } else {
         showCustomAlert("Error! Kripya baad me try karein.", "error");
@@ -89,7 +82,6 @@ const Footer = () => {
               {isFormVisible && (
                 <div className="footer-col col-form-card">
                   <div className="dz-form-card bg-primary" style={{ position: 'relative' }}>
-                    
                     <button 
                       onClick={() => setIsFormVisible(false)} className="close-form-btn"
                       style={{
@@ -109,7 +101,7 @@ const Footer = () => {
                     <form className="dzForm dezPlaceAni" onSubmit={handleSubmit}>
                       <div className="row">
                         
-                        {/* 1. NAME VALIDATION: Only letters & spaces, Min 3 chars */}
+                        {/* 1. NAME VALIDATION */}
                         <div className="col-12">
                           <div className="input-group input-line">
                             <input 
@@ -139,7 +131,7 @@ const Footer = () => {
                           </div>
                         </div>
                         
-                        {/* 3. PHONE VALIDATION: Exactly 10 digits, starts with 6-9 */}
+                        {/* 3. PHONE VALIDATION */}
                         <div className="col-12">
                           <div className="input-group input-line">
                             <input 
@@ -149,7 +141,6 @@ const Footer = () => {
                               placeholder="Mobile No (10 digits)" 
                               value={formData.phone} 
                               onChange={(e) => {
-                                // Sirf numbers allow karega type karte waqt
                                 const val = e.target.value.replace(/\D/g, ''); 
                                 setFormData({...formData, phone: val})
                               }} 
@@ -160,7 +151,7 @@ const Footer = () => {
                           </div>
                         </div>
                         
-                        {/* 4. MESSAGE VALIDATION: Min 10, Max 500 chars */}
+                        {/* 4. MESSAGE VALIDATION */}
                         <div className="col-12">
                           <div className="input-group input-line">
                             <textarea 
@@ -177,7 +168,7 @@ const Footer = () => {
                           </div>
                         </div>
 
-                        {/* MATH CAPTCHA */}
+                        {/* MATH CAPTCHA (Single Line Compact Design) */}
                         <div className="col-12 mb-3">
                           <div 
                             style={{ 
@@ -234,63 +225,68 @@ const Footer = () => {
               {/* --- Column 2: Contact Info --- */}
               <div className="footer-col col-contact-info">
                 <div className="widget widget_getintuch">
-                  <h5 className="footer-title">Contact</h5>
+                  <h5 className="footer-title text-white font-bold uppercase tracking-wider mb-6">Contact</h5>
                   <ul>
-                    <li className="flex items-start gap-4 mb-6">
-                      <MapPin size={28} strokeWidth={1.5} className="text-[#7cb342] shrink-0 mt-1" />
-                      <p className="m-0 leading-relaxed text-[#cccccc]">1/881, Vinay Khand, Gomti Nagar, Lucknow, Uttar Pradesh</p>
+                    <li className="flex items-start gap-4 mb-5">
+                      <MapPin size={24} strokeWidth={1.5} className="text-[#7cb342] shrink-0 mt-0.5" />
+                      <p className="m-0 leading-relaxed text-[#cccccc] text-[15px]">1/881, Vinay Khand, Colony,<br/>Gomti Nagar, Lucknow</p>
                     </li>
-                    <li className="flex items-start gap-4 mb-6">
-                      <Phone size={28} strokeWidth={1.5} className="text-[#7cb342] shrink-0 mt-1" />
-                      <p className="m-0 leading-relaxed text-[#cccccc]">+91 7007-948-170</p>
+                    <li className="flex items-start gap-4 mb-5">
+                      <Phone size={24} strokeWidth={1.5} className="text-[#7cb342] shrink-0 mt-0.5" />
+                      <p className="m-0 leading-relaxed text-[#cccccc] text-[15px]">+91 7007-948-170<br/>+91 9628-354-559</p>
                     </li>
-                    <li className="flex items-start gap-4 mb-6">
-                      <Mail size={28} strokeWidth={1.5} className="text-[#7cb342] shrink-0 mt-1" />
-                      <p className="m-0 leading-relaxed text-[#cccccc]">query@swadsudha.in<br />info@swadsudha.in</p>
+                    <li className="flex items-start gap-4 mb-5">
+                      <Mail size={24} strokeWidth={1.5} className="text-[#7cb342] shrink-0 mt-0.5" />
+                      <p className="m-0 leading-relaxed text-[#cccccc] text-[15px]">query@swadsudha.in<br/>info@swadsudha.in</p>
                     </li>
                   </ul>
                 </div>
               </div>
 
+              {/* 🔴 FIXED: w-1/2 on Mobile for Side-by-Side View */}
               {/* --- Column 3: Our Links --- */}
-              <div className="footer-col col-links">
+              <div className="footer-col col-links w-1/2 md:w-auto float-left md:float-none">
                 <div className="widget widget_services">
-                  <h5 className="footer-title">Our Links</h5>
-                  <ul>
-                    <li><a href="/"><span>Home</span></a></li>
-                    <li><a href="/about-us"><span>About Us</span></a></li>
-                    <li><a href="/menu"><span>Our Menu</span></a></li>
-                    <li><a href="/subscription"><span>Subscription</span></a></li>
-                    <li><a href="/contact"><span>Contact Us</span></a></li>
+                  <h5 className="footer-title text-white font-bold uppercase tracking-wider mb-6">Our Links</h5>
+                  <ul className="space-y-3">
+                    <li><a href="/" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">Home</a></li>
+                    <li><a href="/about-us" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">About Us</a></li>
+                    <li><a href="/menu" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">Our Menu</a></li>
+                    <li><a href="/subscription" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">Subscription</a></li>
+                    <li><a href="/contact" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">Contact Us</a></li>
                   </ul>
                 </div>
               </div>
 
               {/* --- Column 4: Help Center --- */}
-              <div className="footer-col col-links">
+              <div className="footer-col col-links w-1/2 md:w-auto float-left md:float-none">
                 <div className="widget widget_services">
-                  <h5 className="footer-title">Help Center</h5>
-                  <ul>
-                    <li><a href="/faq"><span>FAQ</span></a></li>
-                    <li><a href="/checkout"><span>Shop</span></a></li>
-                    <li><a href="/shop-style-2"><span>Category Filter</span></a></li>
-                    <li><a href="/home#testimonial"><span>Testimonials</span></a></li>
-                    <li><a href="/contact-us"><span>Contact Us</span></a></li>
+                  <h5 className="footer-title text-white font-bold uppercase tracking-wider mb-6">Help Center</h5>
+                  <ul className="space-y-3">
+                    <li><a href="/faq" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">FAQ</a></li>
+                    <li><a href="/checkout" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">Shop</a></li>
+                    <li><a href="/shop-style-2" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">Category Filter</a></li>
+                    <li><a href="/home#testimonial" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">Testimonials</a></li>
+                    <li><a href="/contact-us" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">Contact Us</a></li>
                   </ul>
                 </div>
               </div>
+
+              {/* Utility to clear floats on mobile if needed by your theme */}
+              <div className="clear-both md:hidden"></div>
 
             </div>
           </div>
         </div>
 
+        {/* 🔴 RESTORED: Original Theme's Footer Bottom Classes + Mobile Center fix */}
         <div className="footer-bottom">
           <div className="container">
-            <div className="footer-bottom-row">
+            <div className="footer-bottom-row flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
               <div className="footer-bottom-left text-md-start">
-                <p>Copyright 2026 All rights reserved.</p>
+                <p className="m-0 text-[#cccccc] text-[14px]">Copyright 2026 All rights reserved.</p>
               </div>
-              <div className="footer-bottom-right text-md-end">
+              <div className="footer-bottom-right text-md-end text-[#cccccc] text-[14px]">
                 <span className="copyright-text">Made with ❤️ In Lucknow</span>
               </div>
             </div>
@@ -300,7 +296,7 @@ const Footer = () => {
       </footer>
 
       {/* ====================================================
-          🚀 THE NEW GLASSMORPHISM TOAST ALERT FOR FOOTER (Fixed Bottom Center)
+          🚀 THE NEW GLASSMORPHISM TOAST ALERT FOR FOOTER
           ==================================================== */}
       {alertBox.show && (
         <div className="fixed z-[999999] bottom-6 left-1/2 -translate-x-1/2 w-[90vw] max-w-sm animate-in slide-in-from-bottom-10 fade-in duration-300">
@@ -310,7 +306,6 @@ const Footer = () => {
               : 'bg-red-950/95 border-red-500/40 shadow-[0_10px_40px_rgba(239,68,68,0.3)]'
           }`}>
             
-            {/* Glowing Icon */}
             <div className={`shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${
               alertBox.type === 'success' 
                 ? 'bg-gradient-to-br from-[#7cb342] to-[#a4e363] shadow-[0_0_15px_rgba(124,179,66,0.6)]' 
@@ -319,7 +314,6 @@ const Footer = () => {
                {alertBox.type === 'success' ? <CheckCircle2 className="text-white" size={20} strokeWidth={2.5} /> : <XCircle className="text-white" size={20} strokeWidth={2.5} />}
             </div>
             
-            {/* Text Content */}
             <div className="flex flex-col pr-2 flex-1">
               <span className={`text-[10px] font-bold uppercase tracking-widest mb-0.5 ${
                 alertBox.type === 'success' ? 'text-[#a4e363]' : 'text-red-300'
@@ -331,7 +325,6 @@ const Footer = () => {
               </span>
             </div>
 
-            {/* Close Button */}
             <button 
               onClick={() => setAlertBox({ show: false, message: '', type: 'success' })} 
               className="text-white/50 hover:text-white transition-colors"

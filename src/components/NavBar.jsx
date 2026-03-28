@@ -1,126 +1,303 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom'; 
-import { ShoppingBag, Menu, X, Home, Info, Utensils, CalendarDays, Phone } from 'lucide-react'; 
+import { ShoppingBag, Menu, X, Home, Info, Utensils, CalendarDays, Phone, Facebook, Instagram, Youtube, Twitter, ChevronRight } from 'lucide-react'; 
 
-const NavBar = () => {
+const NavBar = ({ cart = [], setCart }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   
   const location = useLocation();
-  const isHomePage = location.pathname === '/';
+  const isHomePage = location?.pathname === '/';
+
+  const safeCart = Array.isArray(cart) ? cart : [];
+  const cartTotal = safeCart.reduce((total, item) => total + ((item?.price || 0) * (item?.qty || 1)), 0);
+
+  const handleRemove = (id) => {
+    if (typeof setCart === 'function') {
+      setCart(safeCart.filter(item => item?.id !== id));
+    }
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleLinkClick = () => {
     setIsMobileMenuOpen(false);
+    setIsCartOpen(false);
   };
 
   return (
-    <nav className={`relative z-[999999] pt-6 pb-2 px-4 sm:px-6 lg:px-12 font-body flex justify-between items-center ${isHomePage ? 'w-full' : 'w-full max-w-[1150px] mx-auto'}`}>
+    <header className={`w-full z-[999999] transition-all duration-300 font-body ${
+      isScrolled 
+        ? 'fixed top-0 left-0 bg-white shadow-md animate-in slide-in-from-top-2' 
+        : 'relative bg-transparent'
+    }`}>
       
-      {/* 1. LOGO SECTION */}
-      <div className="flex items-center cursor-pointer relative z-[999999]">
-        <Link to="/">
-          <img 
-            src="/swad-sudha-logo.png" 
-            alt="SwadSudha Logo" 
-            className="h-20 sm:h-30 lg:h-[90px] w-auto object-contain transition-transform origin-left drop-shadow-md hover:scale-105" 
-          />
-        </Link>
-      </div>
-
-      {/* 2. MENU & BUTTON SECTION */}
-      <div className="flex items-center gap-4 lg:gap-6 relative z-[999999]">
+      <nav className={`mx-auto flex justify-between items-center transition-all duration-300 ${
+        isScrolled ? 'py-2' : 'pt-6 pb-2'
+      } ${
+        isHomePage ? 'w-full px-4 sm:px-6 lg:px-12' : 'w-full max-w-[1100px] px-4 sm:px-6'
+      }`}>
         
-        {/* Desktop Menu Links */}
-        <div className="hidden md:flex items-center gap-8 font-bold text-[14px] text-gray-700 lg:text-white lg:bg-white/10 lg:backdrop-blur-md lg:border lg:border-white/20 px-8 py-2.5 shadow-[0_4px_30px_rgba(0,0,0,0.1)] transition-all">
-          <Link to="/" className="hover:text-[#7cb342] lg:hover:text-[#a4e363] transition-colors drop-shadow-sm">Home</Link>
-          <Link to="/about" className="hover:text-[#7cb342] lg:hover:text-[#a4e363] transition-colors drop-shadow-sm">About</Link>
-          <Link to="/menu" className="hover:text-[#7cb342] lg:hover:text-[#a4e363] transition-colors drop-shadow-sm">Our Menu</Link>
-          <Link to="/subscription" className="hover:text-[#7cb342] lg:hover:text-[#a4e363] transition-colors drop-shadow-sm">Subscription</Link>
-          <Link to="/contact" className="hover:text-[#7cb342] lg:hover:text-[#a4e363] transition-colors drop-shadow-sm">Contact</Link>
-        </div>
-        
-        {/* 🔴 Desktop Order Button (Changed to Link) */}
-        <div className="hidden sm:flex items-center">
-          <Link 
-            to="/checkout" 
-            className="bg-gradient-to-r from-[#7cb342] to-[#568a35] text-white px-6 py-2.5 font-bold text-sm shadow-[0_5px_15px_rgba(124,179,66,0.3)] hover:shadow-[0_8px_20px_rgba(124,179,66,0.4)] transition-all flex items-center gap-2 hover:-translate-y-0.5 border border-[#7cb342]/50 rounded-md"
-          >
-            <ShoppingBag size={16} /> CheckOut
+        {/* LOGO SECTION */}
+        <div className="flex items-center cursor-pointer relative z-[999999]">
+          <Link to="/">
+            <img 
+              src="/swad-sudha-logo.png" 
+              alt="SwadSudha Logo" 
+              className={`w-auto object-contain transition-all duration-300 origin-left drop-shadow-md hover:scale-105 ${
+                isScrolled ? 'h-10 sm:h-12' : 'h-20 sm:h-30 lg:h-[90px]'
+              }`} 
+            />
           </Link>
         </div>
 
-        {/* MOBILE MENU BUTTON (Hamburger) */}
-        <button 
-          className="md:hidden flex items-center justify-center p-2.5 text-white bg-[#7cb342]/90 backdrop-blur-sm rounded-full shadow-[0_4px_15px_rgba(124,179,66,0.3)] border border-[#7cb342]/50 hover:bg-[#669936] transition-all active:scale-95"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X size={22} strokeWidth={2.5} /> : <Menu size={22} strokeWidth={2.5} />}
-        </button>
-
-      </div>
-
-      {/* 🔴 MOBILE DROPDOWN MENU */}
-      {isMobileMenuOpen && (
-        <div 
-          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[999998] md:hidden"
-          onClick={() => setIsMobileMenuOpen(false)}
-        ></div>
-      )}
-
-      {isMobileMenuOpen && (
-        <div className="fixed top-[100px] right-4 w-[280px] bg-white/95 backdrop-blur-2xl rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.3)] border border-white/80 flex flex-col overflow-hidden md:hidden z-[999999] animate-in slide-in-from-top-4 fade-in duration-300">
+        {/* MENU & BUTTON SECTION */}
+        <div className="flex items-center gap-4 lg:gap-6 relative z-[999999]">
           
-          <div className="flex flex-col py-3 px-2 gap-1">
-            <Link to="/" onClick={handleLinkClick} className="flex items-center gap-3 px-4 py-3 rounded-md font-bold text-gray-800 hover:bg-[#7cb342]/15 hover:text-[#467b2d] transition-all group border-b-2 border-green-700">
-              <div className="w-8 h-8 rounded-full bg-gray-100 group-hover:bg-white flex items-center justify-center transition-colors shadow-sm ">
-                <Home size={16} className="text-gray-500 group-hover:text-[#7cb342] transition-colors" /> 
-              </div>
-              Home
-            </Link>
-
-            <Link to="/about" onClick={handleLinkClick} className="flex items-center gap-3 px-4 py-3 rounded-md font-bold text-gray-800 hover:bg-[#7cb342]/15 hover:text-[#467b2d] transition-all group border-b-2 border-green-700">
-              <div className="w-8 h-8 rounded-full bg-gray-100 group-hover:bg-white flex items-center justify-center transition-colors shadow-sm">
-                <Info size={16} className="text-gray-500 group-hover:text-[#7cb342] transition-colors" /> 
-              </div>
-              About
-            </Link>
-
-            <Link to="/menu" onClick={handleLinkClick} className="flex items-center gap-3 px-4 py-3 rounded-md font-bold text-gray-800 hover:bg-[#7cb342]/15 hover:text-[#467b2d] transition-all group border-b-2 border-green-700">
-              <div className="w-8 h-8 rounded-full bg-gray-100 group-hover:bg-white flex items-center justify-center transition-colors shadow-sm">
-                <Utensils size={16} className="text-gray-500 group-hover:text-[#7cb342] transition-colors" /> 
-              </div>
-              Our Menu
-            </Link>
-
-            <Link to="/subscription" onClick={handleLinkClick} className="flex items-center gap-3 px-4 py-3 rounded-md font-bold text-gray-800 hover:bg-[#7cb342]/15 hover:text-[#467b2d] transition-all group border-b-2 border-green-700">
-              <div className="w-8 h-8 rounded-full bg-gray-100 group-hover:bg-white flex items-center justify-center transition-colors shadow-sm">
-                <CalendarDays size={16} className="text-gray-500 group-hover:text-[#7cb342] transition-colors" /> 
-              </div>
-              Subscription
-            </Link>
-
-            <Link to="/contact" onClick={handleLinkClick} className="flex items-center gap-3 px-4 py-3 rounded-md font-bold text-gray-800 hover:bg-[#7cb342]/15 hover:text-[#467b2d] transition-all group border-b-2 border-green-700">
-              <div className="w-8 h-8 rounded-full bg-gray-100 group-hover:bg-white flex items-center justify-center transition-colors shadow-sm">
-                <Phone size={16} className="text-gray-500 group-hover:text-[#7cb342] transition-colors" /> 
-              </div>
-              Contact
-            </Link>
+          {/* Desktop Menu Links */}
+          <div className={`hidden md:flex items-center gap-8 font-bold text-[14px] px-8 py-2.5 transition-all rounded-full ${
+            isScrolled 
+              ? 'text-gray-800' 
+              : 'text-gray-700 lg:text-white lg:bg-white/10 lg:backdrop-blur-md lg:border lg:border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1)]'
+          }`}>
+            <Link to="/" className={`transition-colors drop-shadow-sm ${isScrolled ? 'hover:text-[#7cb342]' : 'hover:text-[#7cb342] lg:hover:text-[#a4e363]'}`}>Home</Link>
+            <Link to="/about" className={`transition-colors drop-shadow-sm ${isScrolled ? 'hover:text-[#7cb342]' : 'hover:text-[#7cb342] lg:hover:text-[#a4e363]'}`}>About</Link>
+            <Link to="/menu" className={`transition-colors drop-shadow-sm ${isScrolled ? 'hover:text-[#7cb342]' : 'hover:text-[#7cb342] lg:hover:text-[#a4e363]'}`}>Our Menu</Link>
+            <Link to="/subscription" className={`transition-colors drop-shadow-sm ${isScrolled ? 'hover:text-[#7cb342]' : 'hover:text-[#7cb342] lg:hover:text-[#a4e363]'}`}>Subscription</Link>
+            <Link to="/contact" className={`transition-colors drop-shadow-sm ${isScrolled ? 'hover:text-[#7cb342]' : 'hover:text-[#7cb342] lg:hover:text-[#a4e363]'}`}>Contact</Link>
           </div>
           
-          <div className="px-4 py-4 bg-gradient-to-br from-gray-50/50 to-gray-100/50 border-t border-gray-100 sm:hidden backdrop-blur-md">
-            {/* 🔴 Mobile Order Button (Changed to Link) */}
-            <Link 
-              to="/checkout"
-              onClick={handleLinkClick}
-              className="w-full bg-gradient-to-r from-[#7cb342] to-[#568a35] text-white px-4 py-3.5 rounded-xl font-bold text-[15px] shadow-[0_5px_15px_rgba(124,179,66,0.3)] hover:shadow-[0_8px_20px_rgba(124,179,66,0.4)] transition-all flex items-center justify-center gap-2 active:scale-95"
+          {/* Desktop Order Button & Cart Dropdown */}
+          <div className="hidden sm:flex items-center relative">
+            <button 
+              onClick={() => setIsCartOpen(!isCartOpen)}
+              className={`bg-gradient-to-r from-[#7cb342] to-[#568a35] text-white font-bold shadow-[0_5px_15px_rgba(124,179,66,0.3)] hover:shadow-[0_8px_20px_rgba(124,179,66,0.4)] transition-all flex items-center gap-2 hover:-translate-y-0.5 border border-[#7cb342]/50 rounded-md relative ${
+                isScrolled ? 'px-4 py-2 text-sm' : 'px-6 py-2.5 text-sm'
+              }`}
             >
-              <ShoppingBag size={18} /> CheckOut
-            </Link>
-          </div>
-          
-        </div>
-      )}
+              <ShoppingBag size={isScrolled ? 16 : 18} /> 
+              {safeCart.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-bold shadow-md">
+                  {safeCart.length}
+                </span>
+              )}
+              <span className="hidden lg:inline">CheckOut</span>
+            </button>
 
-    </nav>
+            {isCartOpen && (
+              <div className="absolute top-[130%] right-0 w-[320px] bg-white rounded-lg shadow-[0_20px_60px_rgba(0,0,0,0.15)] border border-gray-200 overflow-hidden z-[999999] animate-in fade-in zoom-in-95 duration-200 text-left">
+                <div className="absolute -top-2 right-12 w-4 h-4 bg-white rotate-45 border-l border-t border-gray-200"></div>
+                <div className="max-h-[320px] overflow-y-auto bg-white relative z-10 custom-scrollbar">
+                  {safeCart.length === 0 ? (
+                    <div className="p-8 text-center text-gray-500 font-medium">Aapka cart khali hai.</div>
+                  ) : (
+                    safeCart.map((item) => (
+                      <div key={item.id} className="flex items-center justify-between p-4 border-b border-gray-200 border-dashed">
+                        <div className="flex items-center gap-3">
+                          <div className="w-14 h-14 bg-green-50 rounded flex items-center justify-center shrink-0">
+                            <Utensils size={24} className="text-[#7cb342]" />
+                          </div>
+                          <div>
+                            <h4 className="text-gray-900 font-extrabold text-[15px] leading-tight m-0">{item.name}</h4>
+                            <p className="text-[#7CB342] font-semibold text-[15px] m-0 mt-1">₹{item.price} <span className="text-gray-400 text-xs font-medium ml-1">x {item.qty}</span></p>
+                          </div>
+                        </div>
+                        <button onClick={() => handleRemove(item.id)} className="w-7 h-7 bg-red-600 text-white rounded-[4px] flex items-center justify-center hover:bg-red-700 transition-colors shrink-0">
+                          <X size={16} strokeWidth={3} />
+                        </button>
+                      </div>
+                    ))
+                  )}
+                </div>
+                {safeCart.length > 0 && (
+                  <div className="p-4 bg-white relative z-10">
+                    <div className="flex justify-between items-center mb-4 px-1">
+                      <span className="text-[#7CB342] font-extrabold text-xl tracking-wide">Total:</span>
+                      <span className="text-[#7CB342] font-extrabold text-xl">₹{cartTotal}</span>
+                    </div>
+                    <div className="flex gap-3">
+                      <Link to="/checkout" onClick={() => setIsCartOpen(false)} className="flex-1 bg-[#7cb342] hover:bg-[#669936] text-white text-center py-2.5 rounded-md font-bold text-[15px] transition-colors shadow-sm block">
+                        View Cart
+                      </Link>
+                      <Link to="/menu" onClick={() => setIsCartOpen(false)} className="flex-1 bg-white border-2 border-[#7cb342] text-[#7cb342] hover:bg-green-50 text-center py-2 rounded-md font-bold text-[15px] transition-colors block">
+                        Menu
+                      </Link>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* MOBILE CART ICON & HAMBURGER */}
+          <div className="flex items-center gap-3 sm:hidden">
+            <button 
+              className={`relative p-2 rounded-md border transition-colors ${
+                isScrolled ? 'text-[#7cb342] bg-[#7cb342]/10 border-[#7cb342]/20' : 'text-white bg-white/20 backdrop-blur-md border-white/40'
+              }`}
+              onClick={() => { setIsCartOpen(!isCartOpen); setIsMobileMenuOpen(false); }}
+            >
+              <ShoppingBag size={20} />
+              {safeCart.length > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 bg-red-600 text-white rounded-full w-[18px] h-[18px] flex items-center justify-center text-[9px] font-bold shadow-sm">
+                  {safeCart.length}
+                </span>
+              )}
+            </button>
+            <button 
+              className={`flex items-center justify-center p-2 rounded-md shadow-sm active:scale-95 transition-colors ${
+                isScrolled ? 'bg-[#7cb342] text-white' : 'text-white bg-[#7cb342]/90 backdrop-blur-sm border border-[#7cb342]/50'
+              }`}
+              onClick={() => { setIsMobileMenuOpen(!isMobileMenuOpen); setIsCartOpen(false); }}
+            >
+              <Menu size={20} strokeWidth={2.5} />
+            </button>
+          </div>
+
+        </div>
+
+        {/* MOBILE CART POPUP */}
+        {isCartOpen && (
+          <div className="fixed inset-0 z-[999998] bg-black/30 backdrop-blur-sm sm:hidden" onClick={() => setIsCartOpen(false)}>
+            <div 
+              className="absolute top-[70px] right-4 left-4 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden animate-in slide-in-from-top-4 fade-in text-left"
+              onClick={(e) => e.stopPropagation()} 
+            >
+              <div className="max-h-[50vh] overflow-y-auto bg-white p-2">
+                {safeCart.length === 0 ? (
+                  <div className="p-8 text-center text-gray-500 font-medium">Aapka cart khali hai.</div>
+                ) : (
+                  safeCart.map((item) => (
+                    <div key={item.id} className="flex items-center justify-between p-3 border-b border-gray-200 border-dashed">
+                      <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 bg-green-50 rounded flex items-center justify-center shrink-0">
+                          <Utensils size={20} className="text-[#7cb342]" />
+                        </div>
+                        <div>
+                          <h4 className="text-gray-900 font-extrabold text-[14px] leading-tight m-0">{item.name}</h4>
+                          <p className="text-[#7CB342] font-semibold text-[14px] m-0 mt-0.5">₹{item.price} <span className="text-gray-400 text-xs ml-1">x{item.qty}</span></p>
+                        </div>
+                      </div>
+                      <button onClick={() => handleRemove(item.id)} className="w-7 h-7 bg-red-600 text-white rounded flex items-center justify-center hover:bg-red-700 shrink-0">
+                        <X size={16} strokeWidth={3} />
+                      </button>
+                    </div>
+                  ))
+                )}
+              </div>
+              
+              {safeCart.length > 0 && (
+                <div className="p-4 bg-gray-50 border-t border-gray-100">
+                  <div className="flex justify-between items-center mb-4">
+                    <span className="text-[#7CB342] font-extrabold text-lg">Total:</span>
+                    <span className="text-[#7CB342] font-extrabold text-lg">₹{cartTotal}</span>
+                  </div>
+                  <div className="flex gap-2">
+                    <Link to="/checkout" onClick={() => setIsCartOpen(false)} className="flex-1 bg-[#7cb342] text-white text-center py-2.5 rounded-lg font-bold text-[14px] shadow-sm block">
+                      View Cart
+                    </Link>
+                    <Link to="/menu" onClick={() => setIsCartOpen(false)} className="flex-1 bg-white border-2 border-[#7cb342] text-[#7cb342] text-center py-2 rounded-lg font-bold text-[14px] block">
+                      Menu
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* =========================================================
+            🔴 MOBILE SIDEBAR MENU (LEFT DRAWER WITH NEW SWAD SUDHA STYLE)
+            ========================================================= */}
+        {isMobileMenuOpen && (
+          <div className="fixed inset-0 z-[999998] md:hidden flex justify-start">
+            
+            {/* Dark Overlay with External Close Button (Like Screenshot) */}
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onClick={() => setIsMobileMenuOpen(false)}></div>
+            <button 
+              onClick={() => setIsMobileMenuOpen(false)} 
+              className="absolute top-4 right-4 w-10 h-10 bg-[#568a35] hover:bg-[#467b2d] rounded-md flex items-center justify-center text-white z-[999999] shadow-lg border border-white/20 transition-colors"
+            >
+              <X size={24} strokeWidth={2.5} />
+            </button>
+
+            {/* White Drawer Panel */}
+            <div className="relative h-screen w-[280px] bg-white shadow-[20px_0_60px_rgba(0,0,0,0.3)] flex flex-col z-[999999] animate-in slide-in-from-left duration-300 text-left">
+              
+              {/* Drawer Header (Logo) */}
+              <div className="flex items-center px-6 py-6 border-b border-gray-100">
+                <img src="/swad-sudha-logo.png" alt="SwadSudha Logo" className="h-12 object-contain" />
+              </div>
+
+              {/* Menu Links (Styled exactly like the screenshot with Swad Sudha colors) */}
+              <div className="flex flex-col overflow-y-auto flex-grow custom-scrollbar">
+                
+                <Link to="/" onClick={handleLinkClick} className="flex items-center justify-between py-4 px-6 border-b border-gray-100 font-bold text-[15px] text-gray-800 hover:text-[#7cb342] transition-colors group">
+                  <span>Home</span>
+                  <div className="w-8 h-8 rounded-md bg-[#7cb342] flex items-center justify-center shadow-sm group-hover:bg-[#568a35] transition-colors">
+                    <ChevronRight size={18} className="text-white" />
+                  </div>
+                </Link>
+
+                <Link to="/about" onClick={handleLinkClick} className="flex items-center justify-between py-4 px-6 border-b border-gray-100 font-bold text-[15px] text-gray-800 hover:text-[#7cb342] transition-colors group">
+                  <span>About Us</span>
+                  <div className="w-8 h-8 rounded-md bg-[#7cb342] flex items-center justify-center shadow-sm group-hover:bg-[#568a35] transition-colors">
+                    <ChevronRight size={18} className="text-white" />
+                  </div>
+                </Link>
+
+                <Link to="/menu" onClick={handleLinkClick} className="flex items-center justify-between py-4 px-6 border-b border-gray-100 font-bold text-[15px] text-gray-800 hover:text-[#7cb342] transition-colors group">
+                  <span>Our Menu</span>
+                  <div className="w-8 h-8 rounded-md bg-[#7cb342] flex items-center justify-center shadow-sm group-hover:bg-[#568a35] transition-colors">
+                    <ChevronRight size={18} className="text-white" />
+                  </div>
+                </Link>
+
+                <Link to="/subscription" onClick={handleLinkClick} className="flex items-center justify-between py-4 px-6 border-b border-gray-100 font-bold text-[15px] text-gray-800 hover:text-[#7cb342] transition-colors group">
+                  <span>Subscription</span>
+                  <div className="w-8 h-8 rounded-md bg-[#7cb342] flex items-center justify-center shadow-sm group-hover:bg-[#568a35] transition-colors">
+                    <ChevronRight size={18} className="text-white" />
+                  </div>
+                </Link>
+
+                <Link to="/contact" onClick={handleLinkClick} className="flex items-center justify-between py-4 px-6 border-b border-gray-100 font-bold text-[15px] text-gray-800 hover:text-[#7cb342] transition-colors group">
+                  <span>Contact Us</span>
+                  <div className="w-8 h-8 rounded-md bg-[#7cb342] flex items-center justify-center shadow-sm group-hover:bg-[#568a35] transition-colors">
+                    <ChevronRight size={18} className="text-white" />
+                  </div>
+                </Link>
+
+                {/* 🔴 Social Icons (Screenshot Style) */}
+                <div className="mt-6 mb-8 flex items-center justify-center gap-3 px-6">
+                  <a href="https://facebook.com" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-md border border-gray-200 flex items-center justify-center text-[#7cb342] hover:text-white hover:bg-[#7cb342] hover:border-[#7cb342] transition-all">
+                    <Facebook size={18} strokeWidth={2.5} />
+                  </a>
+                  <a href="https://twitter.com" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-md border border-gray-200 flex items-center justify-center text-[#7cb342] hover:text-white hover:bg-[#7cb342] hover:border-[#7cb342] transition-all">
+                    <Twitter size={18} strokeWidth={2.5} />
+                  </a>
+                  <a href="https://youtube.com" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-md border border-gray-200 flex items-center justify-center text-[#7cb342] hover:text-white hover:bg-[#7cb342] hover:border-[#7cb342] transition-all">
+                    <Youtube size={18} strokeWidth={2.5} />
+                  </a>
+                  <a href="https://instagram.com" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-md border border-gray-200 flex items-center justify-center text-[#7cb342] hover:text-white hover:bg-[#7cb342] hover:border-[#7cb342] transition-all">
+                    <Instagram size={18} strokeWidth={2.5} />
+                  </a>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        )}
+
+      </nav>
+    </header>
   );
 };
 

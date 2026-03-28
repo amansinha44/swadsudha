@@ -46,9 +46,10 @@ const Reservation = () => {
 
   return (
     <section className="reservation-section" style={{ backgroundImage: `url('./bk_8.png')` }}>
+     
       <div className="res-overlay"></div>
       
-      <div className="container relative-z">
+      <div className="container relative-z max-w-[1100px] mx-auto">
         <div className="section-head text-center">
           <h2 className="title" style={{ color: '#ffffff' }}>Order a Meal</h2>
           <p style={{ color: '#ddd', marginBottom: '20px' }}>
@@ -171,6 +172,7 @@ const Reservation = () => {
           </div>
         </form>
       </div>
+      
     </section>
   );
 };
