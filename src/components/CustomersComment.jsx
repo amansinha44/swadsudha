@@ -66,7 +66,7 @@ const CustomersComment = () => {
   ];
 
   return (
-    <section className="customers-comment-section">
+    <section className="customers-comment-section" id="testimonial">
       {/* 🔴 decorative timaatar image -- make sure it's in your public/assets/ folder */}
       <img className="cc-tamatar-bg" src="/tamatar.png" alt="Tomato Decor" />
       <div className="cc-container">

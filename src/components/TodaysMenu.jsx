@@ -104,8 +104,8 @@ const TodaysMenu = () => {
                       ? 'bg-[#7CB342] text-white shadow-sm' 
                       : 'bg-transparent text-gray-500 hover:bg-gray-50 hover:text-gray-900'
                     }
-                    ${index === 0 ? 'lg:rounded-t-[1rem]' : ''}
-                    ${index === daysOfWeek.length - 1 ? 'lg:rounded-b-[1rem]' : ''}
+                    ${index === 0 ? 'lg:rounded-t-lg' : ''}
+                    ${index === daysOfWeek.length - 1 ? 'lg:rounded-b-lg' : ''}
                   `}
                 >
                   <span className="relative z-10">{day}</span>
@@ -134,8 +134,7 @@ const TodaysMenu = () => {
               {weeklyMenu[activeDay].meals.map((meal) => (
                 <div 
                   key={meal.id} 
-                  className="bg-white rounded-[1.5rem] shadow-[0_8px_30px_rgba(0,0,0,0.05)] flex flex-col shrink-0 w-[270px] md:w-[290px] lg:w-auto snap-center relative group hover:-translate-y-1 transition-transform duration-300 border border-gray-100/50"
-                >
+                  className="bg-white rounded-[1.5rem] shadow-[0_8px_30px_rgba(0,0,0,0.05)] flex flex-col shrink-0 w-[270px] md:w-[290px] lg:w-auto snap-center relative group hover:-translate-y-1 transition-transform duration-300 border border-gray-100/50">
                   {/* Image Half */}
                   <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100 rounded-t-[1.5rem] shrink-0">
                     <img 

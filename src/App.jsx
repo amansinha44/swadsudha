@@ -20,19 +20,44 @@ import CheckoutPage from './components/CheckoutPage';
 import AtAGlance from './components/AtAGlance'; 
 import OrderSteps from './components/OrderSteps'; 
 import WhyTrustUs from './components/WhyTrustUs'; 
+import FAQ from './components/FAQ'; 
+import PrivacyPolicy from './components/PrivacyPolicy';
+
+// ==========================================
+// 🔴 NEW MAGIC: Universal Header Background
+// Ye har page par ek jaisa aur ekdum smooth fade dega!
+// ==========================================
+const PageHeaderBackground = ({ heightClass = "h-[450px] md:h-[550px]" }) => (
+  <div className={`absolute top-0 left-0 w-full ${heightClass} z-0 pointer-events-none select-none`}>
+    {/* Green Leaf Pattern */}
+    <div 
+      className="absolute inset-0 bg-[url('/greenpattern.jpg')] bg-repeat-x bg-top"
+      style={{ backgroundSize: '35% auto' }} 
+    />
+    {/* Dark Overlay */}
+    <div className="absolute inset-0 bg-[#0f2405]/70 mix-blend-multiply"></div>
+    {/* Kitchen Pattern Overlay */}
+    <div 
+      className="absolute inset-0 opacity-10" 
+      style={{ backgroundImage: `url("${kitchenPatternURL}")`, backgroundSize: '150px' }}
+    ></div>
+    
+    {/* 🔴 THE FIX: bottom-[-2px] ensures NO SHARP LINES ever! Smoothest fade possible */}
+    <div className="absolute bottom-[-2px] left-0 w-full h-32 md:h-56 bg-gradient-to-t from-[#f8fbef] via-[#f8fbef]/90 to-transparent"></div>
+  </div>
+);
 
 // ==========================================
 // INDIVIDUAL PAGES
 // ==========================================
 
-// 🔴 FIXED: Added { cart, setCart } as props
 const HomePage = ({ cart, setCart }) => (
   <>
-    {/* SEO META TAGS FOR HOME */}
     <title>Swad Sudha | Best Pure Veg Tiffin & Home Style Food in Lucknow</title>
     <meta name="description" content="Order fresh, hygienic, and pure veg home-style meals from Swad Sudha in Gomti Nagar, Lucknow. Delicious daily menu starting at just ₹50." />
     
     <div className="w-full max-w-[1440px] mx-auto relative flex flex-col flex-grow">
+      {/* Home Page uses a special split background, so it doesn't use PageHeaderBackground */}
       <div className="hidden lg:block absolute top-0 right-0 bottom-0 w-[50%] bg-[#467b2d] z-0">
         <div 
           className="absolute inset-0" 
@@ -55,25 +80,13 @@ const HomePage = ({ cart, setCart }) => (
   </>
 );
 
-// 🔴 FIXED: Added { cart, setCart } as props
 const AboutPage = ({ cart, setCart }) => (
   <div className="relative w-full flex flex-col min-h-screen">
-    {/* SEO META TAGS FOR ABOUT US */}
     <title>About Us | Swad Sudha - Our Journey & Values</title>
     <meta name="description" content="Learn about Swad Sudha's mission to provide the best home-cooked, pure vegetarian food in Lucknow. Discover our hygiene standards and quality ingredients." />
 
-    <div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] z-0 pointer-events-none overflow-hidden">
-      <div 
-        className="absolute inset-0 bg-[url('/greenpattern.jpg')] bg-repeat-x bg-top"
-        style={{ backgroundSize: '35% auto' }} 
-      />
-      <div className="absolute inset-0 bg-[#0f2405]/70 mix-blend-multiply"></div>
-      <div 
-        className="absolute inset-0 opacity-10" 
-        style={{ backgroundImage: `url("${kitchenPatternURL}")`, backgroundSize: '150px' }}
-      ></div>
-      <div className="absolute bottom-0 left-0 w-full h-32 md:h-48 bg-gradient-to-t from-[#f8fbef] to-[#f8fbef]/0"></div>
-    </div>
+    {/* 🔴 Used the new smooth background */}
+    <PageHeaderBackground />
 
     <div className="w-full max-w-[1440px] mx-auto relative z-50 flex flex-col pt-1">
       <NavBar cart={cart} setCart={setCart} />
@@ -95,18 +108,8 @@ const MenuPage = ({ cart, setCart }) => (
     <title>Weekly Menu | Order Breakfast, Lunch & Dinner - Swad Sudha</title>
     <meta name="description" content="Explore Swad Sudha's 7-day weekly menu. Grab our ₹50 Super Combo Lunch, special Desi Ghee meals, and healthy dinner options in Lucknow." />
 
-    <div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] z-0 pointer-events-none overflow-hidden">
-      <div 
-        className="absolute inset-0 bg-[url('/greenpattern.jpg')] bg-repeat-x bg-top"
-        style={{ backgroundSize: '35% auto' }} 
-      />
-      <div className="absolute inset-0 bg-[#0f2405]/70 mix-blend-multiply"></div>
-      <div 
-        className="absolute inset-0 opacity-10" 
-        style={{ backgroundImage: `url("${kitchenPatternURL}")`, backgroundSize: '150px' }}
-      ></div>
-      <div className="absolute inset-0 bg-gradient-to-t from-[#f8fbef] via-transparent to-transparent"></div>
-    </div>
+    {/* 🔴 Used the new smooth background */}
+    <PageHeaderBackground />
 
     <div className="w-full max-w-[1440px] mx-auto relative z-50 flex flex-col">
       <NavBar cart={cart} setCart={setCart} />
@@ -123,24 +126,13 @@ const MenuPage = ({ cart, setCart }) => (
   </div>
 );
 
-// 🔴 FIXED: Added { cart, setCart } as props
 const ContactPage = ({ cart, setCart }) => (
   <div className="relative w-full flex flex-col min-h-screen">
     <title>Contact Us | Reach Out to Swad Sudha Lucknow</title>
     <meta name="description" content="Have a question or want to place a bulk order? Contact Swad Sudha in Gomti Nagar, Lucknow. Call us at +91 7007-948-170 or send a message." />
 
-    <div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] z-0 pointer-events-none overflow-hidden">
-      <div 
-        className="absolute inset-0 bg-[url('/greenpattern.jpg')] bg-repeat-x bg-top"
-        style={{ backgroundSize: '35% auto' }} 
-      />
-      <div className="absolute inset-0 bg-[#0f2405]/70 mix-blend-multiply"></div>
-      <div 
-        className="absolute inset-0 opacity-10" 
-        style={{ backgroundImage: `url("${kitchenPatternURL}")`, backgroundSize: '150px' }}
-      ></div>
-      <div className="absolute inset-0 bg-gradient-to-t from-[#f8fbef] via-transparent to-transparent"></div>
-    </div>
+    {/* 🔴 Used the new smooth background */}
+    <PageHeaderBackground />
 
     <div className="w-full max-w-[1440px] mx-auto relative z-50 flex flex-col">
      <NavBar cart={cart} setCart={setCart} />
@@ -160,18 +152,8 @@ const SubscriptionPage = ({ cart, setCart }) => (
     <title>Monthly Meal Subscriptions | Best Tiffin Service - Swad Sudha</title>
     <meta name="description" content="Subscribe to Swad Sudha's monthly meal plans. Get hassle-free, pure veg, and hygienic home-style food delivered daily at the best prices in Lucknow." />
 
-    <div className="absolute top-0 left-0 w-full h-[480px] md:h-[550px] z-0 pointer-events-none overflow-hidden">
-      <div 
-        className="absolute inset-0 bg-[url('/greenpattern.jpg')] bg-repeat-x bg-top"
-        style={{ backgroundSize: '35% auto' }} 
-      />
-      <div className="absolute inset-0 bg-[#0f2405]/70 mix-blend-multiply"></div>
-      <div 
-        className="absolute inset-0 opacity-10" 
-        style={{ backgroundImage: `url("${kitchenPatternURL}")`, backgroundSize: '150px' }}
-      ></div>
-      <div className="absolute inset-0 bg-gradient-to-t from-[#f8fbef] via-transparent to-transparent"></div>
-    </div>
+    {/* 🔴 Used the new smooth background */}
+    <PageHeaderBackground />
 
     <div className="w-full max-w-[1440px] mx-auto relative z-50 flex flex-col">
      <NavBar cart={cart} setCart={setCart} />
@@ -187,19 +169,54 @@ const SubscriptionPage = ({ cart, setCart }) => (
   </div>
 );
 
+const FAQPage = ({ cart, setCart }) => (
+  <div className="relative w-full flex flex-col min-h-screen">
+    <title>FAQ | Frequently Asked Questions - Swad Sudha</title>
+    <meta name="description" content="Got questions about our tiffin service in Gomti Nagar, Lucknow? Find answers about pricing, delivery, hygiene, and vegetarian meals at Swad Sudha." />
+
+    {/* 🔴 Used the new smooth background */}
+    <PageHeaderBackground />
+
+    <div className="w-full max-w-[1440px] mx-auto relative z-50 flex flex-col pt-1">
+      <NavBar cart={cart} setCart={setCart} />
+    </div>
+
+    <div className="relative z-10 w-full flex-grow mt-4 md:mt-10">
+      <FAQ />
+    </div>
+    
+    <WhyTrustUs />
+    <AtAGlance />
+  </div>
+);
+
+const PrivacyPolicyPage = ({ cart, setCart }) => (
+  <div className="relative w-full flex flex-col min-h-screen">
+    <title>Privacy Policy | Swad Sudha Tiffin Service</title>
+    <meta name="description" content="Read Swad Sudha's Privacy Policy to know how we protect your personal information, address, and data in Lucknow." />
+
+    {/* Using your smooth universal background */}
+    <PageHeaderBackground />
+
+    <div className="w-full max-w-[1440px] mx-auto relative z-50 flex flex-col pt-1">
+      <NavBar cart={cart} setCart={setCart} />
+    </div>
+
+    <div className="relative z-10 w-full flex-grow mt-4 md:mt-10">
+      <PrivacyPolicy />
+    </div>
+    
+    
+  </div>
+);
+
 const CheckoutPageRoute = ({ cart, setCart }) => (
   <div className="relative w-full flex flex-col min-h-screen">
     <title>Checkout | Complete Your Order - Swad Sudha</title>
     <meta name="robots" content="noindex, nofollow" />
 
-    <div className="absolute top-0 left-0 w-full h-[250px] z-0 pointer-events-none overflow-hidden">
-      <div 
-        className="absolute inset-0 bg-[url('/greenpattern.jpg')] bg-repeat-x bg-top"
-        style={{ backgroundSize: '35% auto' }} 
-      />
-      <div className="absolute inset-0 bg-[#0f2405]/70 mix-blend-multiply"></div>
-      <div className="absolute inset-0 bg-gradient-to-t from-[#f8fbef] via-transparent to-transparent"></div>
-    </div>
+    {/* 🔴 Checkout page needs a shorter background, so passed a custom height! */}
+    <PageHeaderBackground heightClass="h-[250px]" />
 
     <div className="w-full max-w-[1440px] mx-auto relative z-50 flex flex-col">
       <NavBar cart={cart} setCart={setCart} />
@@ -249,13 +266,14 @@ export default function App() {
         `}</style>
 
         <Routes>
-          {/* 🔴 FIXED: Passed cart and setCart to ALL routes */}
           <Route path="/" element={<HomePage cart={cart} setCart={setCart} />} />
           <Route path="/about" element={<AboutPage cart={cart} setCart={setCart} />} />
           <Route path="/menu" element={<MenuPage cart={cart} setCart={setCart} />} />
           <Route path="/contact" element={<ContactPage cart={cart} setCart={setCart} />} />
           <Route path="/subscription" element={<SubscriptionPage cart={cart} setCart={setCart} />} />
+          <Route path="/faq" element={<FAQPage cart={cart} setCart={setCart} />} />
           <Route path="/checkout" element={<CheckoutPageRoute cart={cart} setCart={setCart} />} />
+          <Route path="/privacypolicy" element={<PrivacyPolicyPage cart={cart} setCart={setCart} />} />
         </Routes>
 
         <Footer />

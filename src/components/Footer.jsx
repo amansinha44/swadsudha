@@ -250,7 +250,7 @@ const Footer = () => {
                   <h5 className="footer-title text-white font-bold uppercase tracking-wider mb-6">Our Links</h5>
                   <ul className="space-y-3">
                     <li><a href="/" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">Home</a></li>
-                    <li><a href="/about-us" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">About Us</a></li>
+                    <li><a href="/about" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">About Us</a></li>
                     <li><a href="/menu" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">Our Menu</a></li>
                     <li><a href="/subscription" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">Subscription</a></li>
                     <li><a href="/contact" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">Contact Us</a></li>
@@ -265,9 +265,9 @@ const Footer = () => {
                   <ul className="space-y-3">
                     <li><a href="/faq" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">FAQ</a></li>
                     <li><a href="/checkout" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">Shop</a></li>
-                    <li><a href="/shop-style-2" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">Category Filter</a></li>
-                    <li><a href="/home#testimonial" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">Testimonials</a></li>
-                    <li><a href="/contact-us" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">Contact Us</a></li>
+                    <li><a href="/PrivacyPolicy" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">Privacy Policy</a></li>
+                    <li><a href="/#testimonial" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">Testimonials</a></li>
+                    <li><a href="/Review" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">Review</a></li>
                   </ul>
                 </div>
               </div>
