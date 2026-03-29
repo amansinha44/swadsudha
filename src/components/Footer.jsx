@@ -267,7 +267,11 @@ const Footer = () => {
                     <li><a href="/checkout" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">Shop</a></li>
                     <li><a href="/PrivacyPolicy" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">Privacy Policy</a></li>
                     <li><a href="/#testimonial" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">Testimonials</a></li>
-                    <li><a href="/Review" className="text-[#cccccc] hover:text-[#7cb342] transition-colors">Review</a></li>
+                    <li><a href="https://g.page/r/CZ6L_KiEUxAaECA/review" target="_blank" rel="noopener noreferrer" className="text-[#cccccc] hover:text-[#7cb342] transition-colors"
+  >
+    Review Us
+  </a>
+</li>
                   </ul>
                 </div>
               </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom'; 
-import { ShoppingBag, Menu, X, Home, Info, Utensils, CalendarDays, Phone, Facebook, Instagram, Youtube, Twitter, ChevronRight } from 'lucide-react'; 
+import { ShoppingBag, Menu, X, Facebook, Instagram, Youtube, Twitter, ChevronRight, Utensils } from 'lucide-react'; 
 
 const NavBar = ({ cart = [], setCart }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -61,8 +61,10 @@ const NavBar = ({ cart = [], setCart }) => {
         {/* MENU & BUTTON SECTION */}
         <div className="flex items-center gap-4 lg:gap-6 relative z-[999999]">
           
-          {/* Desktop Menu Links */}
-          <div className={`hidden md:flex items-center gap-8 font-bold text-[14px] px-8 py-2.5 transition-all rounded-full ${
+          {/* =========================================================
+              🔴 DESKTOP MENU LINKS (Added FAQ & Privacy Policy)
+              ========================================================= */}
+          <div className={`hidden md:flex items-center gap-6 xl:gap-8 font-bold text-[14px] px-8 py-2.5 transition-all rounded-full ${
             isScrolled 
               ? 'text-gray-800' 
               : 'text-gray-700 lg:text-white lg:bg-white/10 lg:backdrop-blur-md lg:border lg:border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1)]'
@@ -71,6 +73,9 @@ const NavBar = ({ cart = [], setCart }) => {
             <Link to="/about" className={`transition-colors drop-shadow-sm ${isScrolled ? 'hover:text-[#7cb342]' : 'hover:text-[#7cb342] lg:hover:text-[#a4e363]'}`}>About</Link>
             <Link to="/menu" className={`transition-colors drop-shadow-sm ${isScrolled ? 'hover:text-[#7cb342]' : 'hover:text-[#7cb342] lg:hover:text-[#a4e363]'}`}>Our Menu</Link>
             <Link to="/subscription" className={`transition-colors drop-shadow-sm ${isScrolled ? 'hover:text-[#7cb342]' : 'hover:text-[#7cb342] lg:hover:text-[#a4e363]'}`}>Subscription</Link>
+            {/* New Links Added Here */}
+            <Link to="/faq" className={`transition-colors drop-shadow-sm ${isScrolled ? 'hover:text-[#7cb342]' : 'hover:text-[#7cb342] lg:hover:text-[#a4e363]'}`}>FAQ</Link>
+            <Link to="/privacy-policy" className={`transition-colors drop-shadow-sm ${isScrolled ? 'hover:text-[#7cb342]' : 'hover:text-[#7cb342] lg:hover:text-[#a4e363]'}`}>Privacy</Link>
             <Link to="/contact" className={`transition-colors drop-shadow-sm ${isScrolled ? 'hover:text-[#7cb342]' : 'hover:text-[#7cb342] lg:hover:text-[#a4e363]'}`}>Contact</Link>
           </div>
           
@@ -214,12 +219,11 @@ const NavBar = ({ cart = [], setCart }) => {
         )}
 
         {/* =========================================================
-            🔴 MOBILE SIDEBAR MENU (LEFT DRAWER WITH NEW SWAD SUDHA STYLE)
+            🔴 MOBILE SIDEBAR MENU (Added FAQ & Privacy Policy)
             ========================================================= */}
         {isMobileMenuOpen && (
           <div className="fixed inset-0 z-[999998] md:hidden flex justify-start">
             
-            {/* Dark Overlay with External Close Button (Like Screenshot) */}
             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onClick={() => setIsMobileMenuOpen(false)}></div>
             <button 
               onClick={() => setIsMobileMenuOpen(false)} 
@@ -228,15 +232,12 @@ const NavBar = ({ cart = [], setCart }) => {
               <X size={24} strokeWidth={2.5} />
             </button>
 
-            {/* White Drawer Panel */}
             <div className="relative h-screen w-[280px] bg-white shadow-[20px_0_60px_rgba(0,0,0,0.3)] flex flex-col z-[999999] animate-in slide-in-from-left duration-300 text-left">
               
-              {/* Drawer Header (Logo) */}
               <div className="flex items-center px-6 py-6 border-b border-gray-100">
                 <img src="/swad-sudha-logo.png" alt="SwadSudha Logo" className="h-12 object-contain" />
               </div>
 
-              {/* Menu Links (Styled exactly like the screenshot with Swad Sudha colors) */}
               <div className="flex flex-col overflow-y-auto flex-grow custom-scrollbar">
                 
                 <Link to="/" onClick={handleLinkClick} className="flex items-center justify-between py-4 px-6 border-b border-gray-100 font-bold text-[15px] text-gray-800 hover:text-[#7cb342] transition-colors group">
@@ -267,6 +268,21 @@ const NavBar = ({ cart = [], setCart }) => {
                   </div>
                 </Link>
 
+                {/* 🔴 NEW LINKS IN MOBILE SIDEBAR */}
+                <Link to="/faq" onClick={handleLinkClick} className="flex items-center justify-between py-4 px-6 border-b border-gray-100 font-bold text-[15px] text-gray-800 hover:text-[#7cb342] transition-colors group">
+                  <span>FAQ</span>
+                  <div className="w-8 h-8 rounded-md bg-[#7cb342] flex items-center justify-center shadow-sm group-hover:bg-[#568a35] transition-colors">
+                    <ChevronRight size={18} className="text-white" />
+                  </div>
+                </Link>
+
+                <Link to="/privacy-policy" onClick={handleLinkClick} className="flex items-center justify-between py-4 px-6 border-b border-gray-100 font-bold text-[15px] text-gray-800 hover:text-[#7cb342] transition-colors group">
+                  <span>Privacy Policy</span>
+                  <div className="w-8 h-8 rounded-md bg-[#7cb342] flex items-center justify-center shadow-sm group-hover:bg-[#568a35] transition-colors">
+                    <ChevronRight size={18} className="text-white" />
+                  </div>
+                </Link>
+
                 <Link to="/contact" onClick={handleLinkClick} className="flex items-center justify-between py-4 px-6 border-b border-gray-100 font-bold text-[15px] text-gray-800 hover:text-[#7cb342] transition-colors group">
                   <span>Contact Us</span>
                   <div className="w-8 h-8 rounded-md bg-[#7cb342] flex items-center justify-center shadow-sm group-hover:bg-[#568a35] transition-colors">
@@ -274,7 +290,7 @@ const NavBar = ({ cart = [], setCart }) => {
                   </div>
                 </Link>
 
-                {/* 🔴 Social Icons (Screenshot Style) */}
+                {/* Social Icons */}
                 <div className="mt-6 mb-8 flex items-center justify-center gap-3 px-6">
                   <a href="https://facebook.com" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-md border border-gray-200 flex items-center justify-center text-[#7cb342] hover:text-white hover:bg-[#7cb342] hover:border-[#7cb342] transition-all">
                     <Facebook size={18} strokeWidth={2.5} />
