@@ -74,8 +74,6 @@ const NavBar = ({ cart = [], setCart }) => {
             <Link to="/menu" className={`transition-colors drop-shadow-sm ${isScrolled ? 'hover:text-[#7cb342]' : 'hover:text-[#7cb342] lg:hover:text-[#a4e363]'}`}>Our Menu</Link>
             <Link to="/subscription" className={`transition-colors drop-shadow-sm ${isScrolled ? 'hover:text-[#7cb342]' : 'hover:text-[#7cb342] lg:hover:text-[#a4e363]'}`}>Subscription</Link>
             {/* New Links Added Here */}
-            <Link to="/faq" className={`transition-colors drop-shadow-sm ${isScrolled ? 'hover:text-[#7cb342]' : 'hover:text-[#7cb342] lg:hover:text-[#a4e363]'}`}>FAQ</Link>
-            <Link to="/privacy-policy" className={`transition-colors drop-shadow-sm ${isScrolled ? 'hover:text-[#7cb342]' : 'hover:text-[#7cb342] lg:hover:text-[#a4e363]'}`}>Privacy</Link>
             <Link to="/contact" className={`transition-colors drop-shadow-sm ${isScrolled ? 'hover:text-[#7cb342]' : 'hover:text-[#7cb342] lg:hover:text-[#a4e363]'}`}>Contact</Link>
           </div>
           
