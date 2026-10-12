@@ -84,8 +84,8 @@ const AtAGlance = () => {
             <MessageCircle className="text-[#10b981] group-hover:text-green-900 shrink-0 mt-0.5" size={24} strokeWidth={2} />
             <div>
               <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">WhatsApp</p>
-              <a href="https://wa.me/917007948170" target="_blank" rel="noreferrer" className="text-gray-800 font-bold text-[15px] group-hover:text-[#10b981] transition-colors">
-                Chat: +91 7007-948-170
+              <a href="https://wa.me/917905247879" target="_blank" rel="noreferrer" className="text-gray-800 font-bold text-[15px] group-hover:text-[#10b981] transition-colors">
+                Chat: +91 7905-247-879
               </a>
             </div>
           </div>
