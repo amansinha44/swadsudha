@@ -93,13 +93,13 @@ const ContactUs = () => {
                   </div>
                   <div>
                     <p className="text-xs text-green-200/70 uppercase tracking-widest font-semibold mb-1">Call Us</p>
-                    <a href="tel:+917007948170" className="text-lg font-bold text-white group-hover:text-[#a4e363] transition-colors">
-                      +91 7007-948-170
+                    <a href="tel:+917905247879" className="text-lg font-bold text-white group-hover:text-[#a4e363] transition-colors">
+                      +91 7905-247-879
                     </a>
                   </div>
                 </div>
 
-                {/* Email */}
+                {/* Email */} 
                 <div className="flex items-center gap-5 group cursor-pointer">
                   <div className="w-14 h-14 bg-white/5 backdrop-blur-sm rounded-xl flex items-center justify-center shrink-0 border border-white/10 group-hover:bg-white/10 group-hover:border-[#a4e363]/50 transition-all duration-300">
                     <Mail size={22} className="text-[#a4e363] group-hover:scale-110 transition-transform" />
