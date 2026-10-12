@@ -229,7 +229,7 @@ const Footer = () => {
                   <ul>
                     <li className="flex items-start gap-4 mb-5">
                       <MapPin size={24} strokeWidth={1.5} className="text-[#7cb342] shrink-0 mt-0.5" />
-                      <p className="m-0 leading-relaxed text-[#cccccc] text-[15px]">1/881, Vinay Khand, Colony,<br/>Gomti Nagar, Lucknow</p>
+                      <p className="m-0 leading-relaxed text-[#cccccc] text-[15px]">4/330, Vivek Khand, Colony,<br/>Gomti Nagar, Lucknow</p>
                     </li>
                     <li className="flex items-start gap-4 mb-5">
                       <Phone size={24} strokeWidth={1.5} className="text-[#7cb342] shrink-0 mt-0.5" />
